@@ -6,7 +6,7 @@ using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.IO;
 
-namespace Visualize
+namespace Main
 {
     internal class Program
     {
