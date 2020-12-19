@@ -1,4 +1,8 @@
-﻿using QuikGraph;
+﻿//
+// Main: Method to demonstrate usage of the Visualize.Visualizer library.
+//
+
+using QuikGraph;
 using QuikGraph.Graphviz.Dot;
 using System.IO;
 using Visualize;
@@ -15,7 +19,7 @@ namespace Main
             string filename = "test1";
             string filepath = Path.Combine(dir, filename);
             Visualizer.ExportDot(displayGraph1, filepath);
-            Visualizer.CreateImageFile(displayGraph1, GraphvizImageType.Svg, filepath, ImageLayout.dot);
+            Visualizer.ExportImageFile(displayGraph1, GraphvizImageType.Svg, filepath, ImageLayout.dot);
 
             var displayGraph2 = GetGraph2();
 
@@ -24,7 +28,7 @@ namespace Main
             Visualizer.ExportDot(displayGraph2, filepath);
             Visualizer.VertexShape = GraphvizVertexShape.Box;
             Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
-            Visualizer.CreateImageFile(displayGraph2, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+            Visualizer.ExportImageFile(displayGraph2, GraphvizImageType.Svg, filepath, ImageLayout.circo);
 
             //             var dfs = new DepthFirstSearchAlgorithm<int, Edge<int>>(displayGraph1);
             //             //do the search

@@ -1,4 +1,8 @@
-﻿using QuikGraph;
+﻿//
+// Visualize.Visualizer: Methods to demonstrate usage of the QuikGraph.Graphviz NuGet package.
+//
+
+using QuikGraph;
 using QuikGraph.Graphviz;
 using QuikGraph.Graphviz.Dot;
 using System;
@@ -38,6 +42,10 @@ namespace Visualize
             set { _VertexStyle = value; }
         }
 
+        /// <summary>
+        /// FileDotEngine: Interface to the IDotEngine
+        /// Modification to the default implementation to allow exporting dot and image files
+        /// </summary>
         private sealed class FileDotEngine : IDotEngine
         {
             public string Run(GraphvizImageType imageType, string dot, string outputFilePath, ImageLayout layout)
@@ -59,6 +67,18 @@ namespace Visualize
                 return outputFilePath;
             }
 
+            /// <summary>
+            /// Run: Run the FileDotEngine
+            /// Parameter fileInfo contains the output filepath and optionally the image layout.
+            /// The filepath and image layout are separated by a space ' '.
+            /// For example: "{imageFilepath} {layout}" where
+            /// outputFilepath = "D:\\Samples\\QuikGraph\\QuikSample\\Graphs\\filename"
+            /// layout = ImageLayout.circo
+            /// </summary>
+            /// <param name="imageType"></param>
+            /// <param name="dotContents"></param>
+            /// <param name="fileInfo"></param>
+            /// <returns></returns>
             public string Run(GraphvizImageType imageType, string dotContents, string fileInfo)
             {
                 var filepath = fileInfo.Split(' ');
@@ -73,35 +93,63 @@ namespace Visualize
             }
         }
 
+        /// <summary>
+        /// ExportDot: Export Graphviz Dot file of graph
+        /// </summary>
+        /// <param name="graph"></param>
+        /// <param name="filepath"></param>
         public static void ExportDot(AdjacencyGraph<int, Edge<int>> graph, string filepath)
         {
             var viz = new GraphvizAlgorithm<int, Edge<int>>(graph);
             viz.Generate(new FileDotEngine(), filepath);
         }
 
+        /// <summary>
+        /// ExportDot: Export Graphviz Dot file of graph
+        /// </summary>
+        /// <param name="graph"></param>
+        /// <param name="filepath"></param>
         public static void ExportDot(AdjacencyGraph<string, TaggedEdge<string, string>> graph, string filepath)
         {
             var viz = new GraphvizAlgorithm<string, TaggedEdge<string, string>>(graph);
             viz.Generate(new FileDotEngine(), filepath);
         }
 
-        public static string CreateImageFile(AdjacencyGraph<int, Edge<int>> graph, GraphvizImageType imageType, string imageFilepath, ImageLayout layout)
+        /// <summary>
+        /// ExportImageFile:
+        /// Export image file with GraphvizImageType and ImageLayout to filepath.
+        /// </summary>
+        /// <param name="graph"></param>
+        /// <param name="imageType"></param>
+        /// <param name="filepath"></param>
+        /// <param name="layout"></param>
+        /// <returns></returns>
+        public static string ExportImageFile(AdjacencyGraph<int, Edge<int>> graph, GraphvizImageType imageType, string filepath, ImageLayout layout)
         {
             var graphviz = new GraphvizAlgorithm<int, Edge<int>>(graph) { ImageType = imageType };
 
-            graphviz.FormatVertex += FormatVertexHandler;
+            graphviz.FormatVertex += VertexFormatter;
 
-            string fileInfo = $"{imageFilepath} {layout}";
+            string fileInfo = $"{filepath} {layout}";
             graphviz.Generate(new FileDotEngine(), fileInfo);
-            return imageFilepath;
+            return filepath;
         }
 
-        public static string CreateImageFile(AdjacencyGraph<string, TaggedEdge<string, string>> graph, GraphvizImageType imageType, string imageFilepath, ImageLayout layout)
+        /// <summary>
+        /// ExportImageFile:
+        /// Export image file with GraphvizImageType and ImageLayout to filepath.
+        /// </summary>
+        /// <param name="graph"></param>
+        /// <param name="imageType"></param>
+        /// <param name="filepath"></param>
+        /// <param name="layout"></param>
+        /// <returns></returns>
+        public static string ExportImageFile(AdjacencyGraph<string, TaggedEdge<string, string>> graph, GraphvizImageType imageType, string imageFilepath, ImageLayout layout)
         {
             var graphviz = new GraphvizAlgorithm<string, TaggedEdge<string, string>>(graph) { ImageType = imageType };
 
             graphviz.FormatVertex += FormatVertexHandler;
-            graphviz.FormatEdge += MyEdgeFormatter;
+            graphviz.FormatEdge += EdgeFormatter;
 
             string fileInfo = $"{imageFilepath} {layout}";
             graphviz.Generate(new FileDotEngine(), fileInfo);
@@ -117,7 +165,7 @@ namespace Visualize
             e.VertexFormat.Style = _VertexStyle;
         }
 
-        private static void FormatVertexHandler(object sender, FormatVertexEventArgs<int> e)
+        private static void VertexFormatter(object sender, FormatVertexEventArgs<int> e)
         {
             Contract.Requires(e != null);
 
@@ -126,7 +174,7 @@ namespace Visualize
             e.VertexFormat.Style = _VertexStyle;
         }
 
-        private static void MyEdgeFormatter(object sender, FormatEdgeEventArgs<string, TaggedEdge<string, string>> e)
+        private static void EdgeFormatter(object sender, FormatEdgeEventArgs<string, TaggedEdge<string, string>> e)
         {
             GraphvizEdgeLabel label = new GraphvizEdgeLabel
             {
