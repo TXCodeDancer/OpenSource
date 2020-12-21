@@ -1,0 +1,14 @@
+digraph G {
+0 [shape=circle, style=rounded, label="1"];
+1 [shape=circle, style=rounded, label="2"];
+2 [shape=circle, style=rounded, label="3"];
+3 [shape=circle, style=rounded, label="4"];
+4 [shape=circle, style=rounded, label="5"];
+0 -> 3;
+0 -> 1;
+1 -> 2;
+2 -> 4;
+2 -> 0;
+3 -> 2;
+4 -> 0;
+}
