@@ -11,47 +11,6 @@ using Visualize;
 
 namespace Main
 {
-    public class EdgeModel
-    {
-        public EdgeModel(NodeModel v, long w = 1, string tag = "")
-        {
-            V = v;
-            Tag = tag;
-            Weight = w;
-        }
-
-        public NodeModel V { get; set; }
-        public string Tag { get; set; }
-        public long Weight { get; set; }
-    }
-
-    public class NodeModel
-    {
-        public NodeModel(string input)
-        {
-            var tokens = input.Split(' ');
-            ID = int.Parse(tokens[0]);
-            if (tokens.Length > 0)
-                Name = tokens[1];
-        }
-
-        public NodeModel(int iD, string name = "")
-        {
-            ID = iD;
-            Edges = new List<EdgeModel>();
-            Name = name;
-        }
-
-        public int ID { get; set; }
-        public List<EdgeModel> Edges { get; set; }
-        public string Name { get; set; }
-
-        public void AddDirectedEdge(NodeModel v, int weight, string tag)
-        {
-            Edges.Add(new EdgeModel(v, weight, tag));
-        }
-    }
-
     public class Program
     {
         public static void GraphVisualizerHelper(List<string> nodes, List<List<string>> edges, string filepath)
@@ -93,7 +52,7 @@ namespace Main
             }
         }
 
-        private static void Main(string[] args)
+        private static void Main()
         {
             string filepath = @"ManualInput";
             var nodes = Console.ReadLine().Split(' ').ToList(); // First line is a space delimited list of node names: "1 2 3" or "a b c"
@@ -101,7 +60,7 @@ namespace Main
             string edge;
             while ((edge = Console.ReadLine()) != null && edge != "")
             {
-                edges.Add(edge.Split(' ').ToList());
+                edges.Add(edge.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
             GraphVisualizerHelper(nodes, edges, filepath);
