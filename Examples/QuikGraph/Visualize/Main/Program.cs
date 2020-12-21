@@ -4,13 +4,108 @@
 
 using QuikGraph;
 using QuikGraph.Graphviz.Dot;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using Visualize;
 
 namespace Main
 {
-    internal class Program
+    public class EdgeModel
     {
+        public EdgeModel(NodeModel v, long w = 1, string tag = "")
+        {
+            V = v;
+            Tag = tag;
+            Weight = w;
+        }
+
+        public NodeModel V { get; set; }
+        public string Tag { get; set; }
+        public long Weight { get; set; }
+    }
+
+    public class NodeModel
+    {
+        public NodeModel(string input)
+        {
+            var tokens = input.Split(' ');
+            ID = int.Parse(tokens[0]);
+            if (tokens.Length > 0)
+                Name = tokens[1];
+        }
+
+        public NodeModel(int iD, string name = "")
+        {
+            ID = iD;
+            Edges = new List<EdgeModel>();
+            Name = name;
+        }
+
+        public int ID { get; set; }
+        public List<EdgeModel> Edges { get; set; }
+        public string Name { get; set; }
+
+        public void AddDirectedEdge(NodeModel v, int weight, string tag)
+        {
+            Edges.Add(new EdgeModel(v, weight, tag));
+        }
+    }
+
+    public class Program
+    {
+        public static void GraphVisualizerHelper(List<string> nodes, string nodeType, List<List<string>> edges, string filepath)
+        {
+            Type type;
+            TypeCode typeCode;
+            switch (nodeType)
+            {
+                case "int":
+                    int foo = 0;
+                    type = foo.GetType();
+                    break;
+
+                case "double":
+                    type = typeof(double);
+                    break;
+
+                default:
+                    type = typeof(string);
+                    break;
+            }
+            bool hasTaggedEdges = false;
+            if (edges[0].Count > 2)
+                hasTaggedEdges = true;
+
+            if (hasTaggedEdges)
+            {
+                var g = new AdjacencyGraph<string, TaggedEdge<string, string>>();
+                g.AddVertexRange(nodes);
+                foreach (var e in edges)
+                {
+                    g.AddEdge(new TaggedEdge<string, string>(e[0], e[1], e[2]));
+                }
+                Visualizer.ExportDot(g, filepath);
+                Visualizer.VertexShape = GraphvizVertexShape.Box;
+                Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
+                Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+            }
+            else
+            {
+                //                 var g = new AdjacencyGraph<int, Edge<int>>();
+                //
+                //                 g.AddVertexRange(nodes);
+                //                 foreach (var e in edges)
+                //                 {
+                //                     g.AddEdge(new TaggedEdge<string, string>(e[0], e[1], e[2]));
+                //                 }
+                //                 Visualizer.ExportDot(g, filepath);
+                //                 Visualizer.VertexShape = GraphvizVertexShape.Box;
+                //                 Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
+                //                 Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+            }
+        }
+
         private static void Main(string[] args)
         {
             string dir = @"D:\Samples\QuikGraph\QuikSample\Graphs";
