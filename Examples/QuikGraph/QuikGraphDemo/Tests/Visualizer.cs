@@ -1,3 +1,7 @@
+//
+// Tests: Test method to demonstrate usage of the Visualize.Visualizer library.
+//
+
 using Main;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +10,7 @@ using Xunit;
 
 namespace Tests
 {
-    public class Tests
+    public class Visualizer
     {
         [Theory]
         [MemberData(nameof(GetInputFiles))]
