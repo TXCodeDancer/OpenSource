@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Tests
 {
-    public class Tests
+    public class Visualizer
     {
         [Theory]
         [MemberData(nameof(GetInputFiles))]
