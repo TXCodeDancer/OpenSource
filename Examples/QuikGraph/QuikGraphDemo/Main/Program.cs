@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Visualizers;
-using Traversals;
+using Algorithms;
 using System.Text;
 
 namespace Main

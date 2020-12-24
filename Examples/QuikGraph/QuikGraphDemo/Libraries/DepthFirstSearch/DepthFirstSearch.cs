@@ -4,7 +4,7 @@ using QuikGraph.Algorithms.Search;
 using System;
 using System.Collections.Generic;
 
-namespace Traversals
+namespace Algorithms
 {
     public static class DepthFirstSearch
     {
