@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Tests
 {
-    public class Visualizer
+    public class VisualizerTests
     {
         [Theory]
         [MemberData(nameof(GetInputFiles))]
@@ -44,8 +44,8 @@ namespace Tests
         public static IEnumerable<object[]> GetInputFiles =>
             new List<object[]>
             {
-                new object[] { new string(@"..\..\..\Cases\01") },
-                new object[] { new string(@"..\..\..\Cases\02") },
+                new object[] { new string(@"..\..\..\Cases\Visualizer\01") },
+                new object[] { new string(@"..\..\..\Cases\Visualizer\02") },
             };
     }
 }
