@@ -46,6 +46,7 @@ namespace Tests
             {
                 new object[] { new string(@"..\..\..\Cases\Visualizer\01") },
                 new object[] { new string(@"..\..\..\Cases\Visualizer\02") },
+                new object[] { new string(@"..\..\..\Cases\Visualizer\03") },
             };
     }
 }
