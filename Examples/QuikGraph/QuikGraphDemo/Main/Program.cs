@@ -2,14 +2,13 @@
 // Main: Method to demonstrate usage of the Visualize.Visualizer library.
 //
 
+using Algorithms;
 using QuikGraph;
 using QuikGraph.Graphviz.Dot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Visualizers;
-using Algorithms;
-using System.Text;
 
 namespace Main
 {
@@ -28,7 +27,7 @@ namespace Main
                 Visualizer.VertexShape = GraphvizVertexShape.Box;
                 Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
                 Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
-                DepthFirstSearch.DFS(g);
+                DepthFirstSearch.DFSEdgeRecorder(g);
             }
             else
             {
@@ -36,11 +35,11 @@ namespace Main
                 Visualizer.ExportDot(g, filepath);
                 Visualizer.VertexShape = GraphvizVertexShape.Circle;
                 Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
-                DepthFirstSearch.DFS(g);
+                DepthFirstSearch.DFSEdgeRecorder(g);
             }
         }
 
-        public static List<string> DepthFirstSearchHelper(List<string> nodes, List<List<string>> edges, string filepath)
+        public static List<string> DFSEdgePredecessorRecorderHelper(List<string> nodes, List<List<string>> edges, string inputFile)
         {
             bool hasTaggedEdges = false;
             if (edges[0].Count > 2)
@@ -50,7 +49,41 @@ namespace Main
             if (hasTaggedEdges)
             {
                 AdjacencyGraph<string, TaggedEdge<string, string>> g = CreateTaggedGraph(nodes, edges);
-                var dfs = DepthFirstSearch.DFS(g);
+                var dfs = DepthFirstSearch.DFSEdgePredecessorRecorder(g);
+                for (int i = 0; i < dfs.Count; i++)
+                {
+                    var p = dfs[i];
+                    results.Add($"Edge Path {i}:");
+                    foreach (var e in p)
+                        results.Add(e.ToString());
+                }
+            }
+            else
+            {
+                AdjacencyGraph<int, Edge<int>> g = CreateUnTaggedGraph(nodes, edges);
+                var dfs = DepthFirstSearch.DFSEdgePredecessorRecorder(g);
+                for (int i = 0; i < dfs.Count; i++)
+                {
+                    var p = dfs[i];
+                    results.Add($"Edge Path {i}:");
+                    foreach (var e in p)
+                        results.Add(e.ToString());
+                }
+            }
+            return results;
+        }
+
+        public static List<string> DFSEdgeRecorderHelper(List<string> nodes, List<List<string>> edges, string filepath)
+        {
+            bool hasTaggedEdges = false;
+            if (edges[0].Count > 2)
+                hasTaggedEdges = true;
+
+            List<string> results = new List<string>();
+            if (hasTaggedEdges)
+            {
+                AdjacencyGraph<string, TaggedEdge<string, string>> g = CreateTaggedGraph(nodes, edges);
+                var dfs = DepthFirstSearch.DFSEdgeRecorder(g);
                 foreach (var e in dfs)
                 {
                     results.Add(e.ToString());
@@ -59,7 +92,7 @@ namespace Main
             else
             {
                 AdjacencyGraph<int, Edge<int>> g = CreateUnTaggedGraph(nodes, edges);
-                var dfs = DepthFirstSearch.DFS(g);
+                var dfs = DepthFirstSearch.DFSEdgeRecorder(g);
                 foreach (var e in dfs)
                 {
                     results.Add(e.ToString());
