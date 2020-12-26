@@ -30,7 +30,7 @@ namespace Algorithms
             }
         }
 
-        public static List<Edge<int>> GetPath(UndirectedGraph<int, Edge<int>> g, int v)
+        public static IEnumerable<Edge<int>> GetPath(UndirectedGraph<int, Edge<int>> g, int v)
         {
             var dfs = new UndirectedDepthFirstSearchAlgorithm<int, Edge<int>>(g);
             var recorder = new UndirectedVertexPredecessorRecorderObserver<int, Edge<int>>();
@@ -39,11 +39,11 @@ namespace Algorithms
             {
                 dfs.Compute();
                 recorder.TryGetPath(v, out var path);
-                return (List<Edge<int>>)path;
+                return path;
             }
         }
 
-        public static List<TaggedEdge<string, string>> GetPath(UndirectedGraph<string, TaggedEdge<string, string>> g, string v)
+        public static IEnumerable<TaggedEdge<string, string>> GetPath(UndirectedGraph<string, TaggedEdge<string, string>> g, string v)
         {
             var dfs = new UndirectedDepthFirstSearchAlgorithm<string, TaggedEdge<string, string>>(g);
             var recorder = new UndirectedVertexPredecessorRecorderObserver<string, TaggedEdge<string, string>>();
@@ -51,7 +51,7 @@ namespace Algorithms
             {
                 dfs.Compute();
                 recorder.TryGetPath(v, out var path);
-                return (List<TaggedEdge<string, string>>)path;
+                return path;
             }
         }
     }

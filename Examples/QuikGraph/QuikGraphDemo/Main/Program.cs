@@ -75,7 +75,7 @@ namespace Main
             if (hasTaggedEdges)
             {
                 AdjacencyGraph<string, TaggedEdge<string, string>> g = CreateDirectedTaggedGraph(nodes, edges);
-                var dfs = DFSEdgePredecessor.Get(g);
+                var dfs = DFSEdgePredecessor.GetAllPaths(g);
                 for (int i = 0; i < dfs.Count; i++)
                 {
                     var p = dfs[i];
@@ -87,7 +87,7 @@ namespace Main
             else
             {
                 AdjacencyGraph<int, Edge<int>> g = CreateDirectedGraph(nodes, edges);
-                var dfs = DFSEdgePredecessor.Get(g);
+                var dfs = DFSEdgePredecessor.GetAllPaths(g);
                 for (int i = 0; i < dfs.Count; i++)
                 {
                     var p = dfs[i];
