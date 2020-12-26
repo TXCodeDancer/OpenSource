@@ -37,7 +37,7 @@ namespace Main
             }
         }
 
-        public static List<string> DFSEdgeRecorderHelper(List<string> nodes, List<List<string>> edges, string filepath)
+        public static List<string> DFSEdgeRecorderHelper(List<string> nodes, List<List<string>> edges)
         {
             bool hasTaggedEdges = false;
             if (edges[0].Count > 2)
@@ -65,7 +65,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> DFSEdgePredecessorRecorderHelper(List<string> nodes, List<List<string>> edges, string inputFile)
+        public static List<string> DFSEdgePredecessorRecorderHelper(List<string> nodes, List<List<string>> edges)
         {
             bool hasTaggedEdges = false;
             if (edges[0].Count > 2)
@@ -99,7 +99,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> DFSUndirectedVertexDistanceRecorderHelper(List<string> nodes, List<List<string>> edges, string inputFile)
+        public static List<string> DFSUndirectedVertexDistanceRecorderHelper(List<string> nodes, List<List<string>> edges)
         {
             bool hasTaggedEdges = false;
             if (edges[0].Count > 2)
@@ -110,20 +110,75 @@ namespace Main
             {
                 var g = CreateUndirectedTaggedGraph(nodes, edges);
                 var dfs = DFSUndirectedVertexDistance.Recorder(g);
-                for (int i = 0; i < dfs.Count; i++)
+                foreach (var d in dfs)
                 {
-                    var key = nodes[i];
-                    results.Add($"{key}: {dfs[key]}");
+                    results.Add($"{d.Key}: {d.Value}");
                 }
             }
             else
             {
                 var g = CreateUndirectedGraph(nodes, edges);
                 var dfs = DFSUndirectedVertexDistance.Recorder(g);
-                for (int i = 0; i < dfs.Count; i++)
+                foreach (var d in dfs)
                 {
-                    var key = int.Parse(nodes[i]);
-                    results.Add($"{key}: {dfs[key]}");
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> DFSUndirectedVertexPredecessorHelper(List<string> nodes, List<List<string>> edges)
+        {
+            bool hasTaggedEdges = false;
+            if (edges[0].Count > 2)
+                hasTaggedEdges = true;
+
+            List<string> results = new List<string>();
+            if (hasTaggedEdges)
+            {
+                var g = CreateUndirectedTaggedGraph(nodes, edges);
+                var dfs = DFSUndirectedVertexPredecessor.Get(g);
+
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = CreateUndirectedGraph(nodes, edges);
+                var dfs = DFSUndirectedVertexPredecessor.Get(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> DFSUndirectedVertexPredecessorPathHelper(List<string> nodes, List<List<string>> edges, string v)
+        {
+            bool hasTaggedEdges = false;
+            if (edges[0].Count > 2)
+                hasTaggedEdges = true;
+
+            List<string> results = new List<string>();
+            if (hasTaggedEdges)
+            {
+                var g = CreateUndirectedTaggedGraph(nodes, edges);
+                var dfs = DFSUndirectedVertexPredecessor.GetPath(g, v);
+                foreach (var n in dfs)
+                {
+                    results.Add(n.ToString());
+                }
+            }
+            else
+            {
+                var g = CreateUndirectedGraph(nodes, edges);
+                var dfs = DFSUndirectedVertexPredecessor.GetPath(g, int.Parse(v));
+                foreach (var n in dfs)
+                {
+                    results.Add(n.ToString());
                 }
             }
             return results;
