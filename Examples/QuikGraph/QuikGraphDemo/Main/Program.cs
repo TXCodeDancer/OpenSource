@@ -27,7 +27,6 @@ namespace Main
                 Visualizer.VertexShape = GraphvizVertexShape.Box;
                 Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
                 Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
-                DepthFirstSearch.EdgeRecorder(g);
             }
             else
             {
@@ -35,7 +34,6 @@ namespace Main
                 Visualizer.ExportDot(g, filepath);
                 Visualizer.VertexShape = GraphvizVertexShape.Circle;
                 Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
-                DepthFirstSearch.EdgeRecorder(g);
             }
         }
 
@@ -49,7 +47,7 @@ namespace Main
             if (hasTaggedEdges)
             {
                 AdjacencyGraph<string, TaggedEdge<string, string>> g = CreateDirectedTaggedGraph(nodes, edges);
-                var dfs = DepthFirstSearch.EdgeRecorder(g);
+                var dfs = DFSEdge.Recorder(g);
                 foreach (var e in dfs)
                 {
                     results.Add(e.ToString());
@@ -58,7 +56,7 @@ namespace Main
             else
             {
                 AdjacencyGraph<int, Edge<int>> g = CreateDirectedGraph(nodes, edges);
-                var dfs = DepthFirstSearch.EdgeRecorder(g);
+                var dfs = DFSEdge.Recorder(g);
                 foreach (var e in dfs)
                 {
                     results.Add(e.ToString());
@@ -77,7 +75,7 @@ namespace Main
             if (hasTaggedEdges)
             {
                 AdjacencyGraph<string, TaggedEdge<string, string>> g = CreateDirectedTaggedGraph(nodes, edges);
-                var dfs = DepthFirstSearch.EdgePredecessorRecorder(g);
+                var dfs = DFSEdgePredecessor.Recorder(g);
                 for (int i = 0; i < dfs.Count; i++)
                 {
                     var p = dfs[i];
@@ -89,7 +87,7 @@ namespace Main
             else
             {
                 AdjacencyGraph<int, Edge<int>> g = CreateDirectedGraph(nodes, edges);
-                var dfs = DepthFirstSearch.EdgePredecessorRecorder(g);
+                var dfs = DFSEdgePredecessor.Recorder(g);
                 for (int i = 0; i < dfs.Count; i++)
                 {
                     var p = dfs[i];
@@ -111,7 +109,7 @@ namespace Main
             if (hasTaggedEdges)
             {
                 var g = CreateUndirectedTaggedGraph(nodes, edges);
-                var dfs = DepthFirstSearch.UndirectedVertexDistanceRecorder(g);
+                var dfs = DFSUndirectedVertexDistance.Recorder(g);
                 for (int i = 0; i < dfs.Count; i++)
                 {
                     var key = nodes[i];
@@ -121,7 +119,7 @@ namespace Main
             else
             {
                 var g = CreateUndirectedGraph(nodes, edges);
-                var dfs = DepthFirstSearch.UndirectedVertexDistanceRecorder(g);
+                var dfs = DFSUndirectedVertexDistance.Recorder(g);
                 for (int i = 0; i < dfs.Count; i++)
                 {
                     var key = int.Parse(nodes[i]);
