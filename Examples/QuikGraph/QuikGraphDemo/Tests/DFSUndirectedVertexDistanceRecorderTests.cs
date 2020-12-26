@@ -14,8 +14,12 @@ namespace Tests
         [MemberData(nameof(GetInputFiles))]
         public void Test0(string inputFile)
         {
-            var expectedfile = $"{inputFile}.uvdr_a";
-            var resultsfile = $"{inputFile}.uvdr_r";
+            string directory = Path.GetDirectoryName(inputFile);
+            string file = Path.GetFileNameWithoutExtension(inputFile);
+            var outputFile = @$"{directory}\DFS\UndirectedVertexDistanceRecorder\{file}";
+            var expectedfile = @$"{outputFile}.a";
+            var resultsfile = $"{outputFile}.r";
+
             List<string> inputs = File.ReadAllLines(inputFile).ToList();
             var nodes = inputs[0].Split(' ').ToList(); // First line is a space delimited list of node names: "1 2 3" or "a b c"
 
@@ -42,9 +46,9 @@ namespace Tests
         public static IEnumerable<object[]> GetInputFiles =>
             new List<object[]>
             {
-                new object[] { new string(@"..\..\..\Cases\DFS\01") },
-                new object[] { new string(@"..\..\..\Cases\DFS\02") },
-                new object[] { new string(@"..\..\..\Cases\DFS\03") },
+                new object[] { new string(@"..\..\..\Cases\01") },
+                new object[] { new string(@"..\..\..\Cases\02") },
+                new object[] { new string(@"..\..\..\Cases\03") },
             };
     }
 }
