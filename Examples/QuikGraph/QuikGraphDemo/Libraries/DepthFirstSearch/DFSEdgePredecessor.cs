@@ -7,7 +7,7 @@ namespace Algorithms
 {
     public static class DFSEdgePredecessor
     {
-        public static List<List<Edge<int>>> Recorder(AdjacencyGraph<int, Edge<int>> g)
+        public static List<List<Edge<int>>> Get(AdjacencyGraph<int, Edge<int>> g)
         {
             var dfs = new EdgeDepthFirstSearchAlgorithm<int, Edge<int>>(g);
             var recorder = new EdgePredecessorRecorderObserver<int, Edge<int>>();
@@ -25,7 +25,7 @@ namespace Algorithms
             return results;
         }
 
-        public static List<List<TaggedEdge<string, string>>> Recorder(AdjacencyGraph<string, TaggedEdge<string, string>> g)
+        public static List<List<TaggedEdge<string, string>>> Get(AdjacencyGraph<string, TaggedEdge<string, string>> g)
         {
             var dfs = new EdgeDepthFirstSearchAlgorithm<string, TaggedEdge<string, string>>(g);
             var recorder = new EdgePredecessorRecorderObserver<string, TaggedEdge<string, string>>();
@@ -42,6 +42,4 @@ namespace Algorithms
             return results;
         }
     }
-
-
 }

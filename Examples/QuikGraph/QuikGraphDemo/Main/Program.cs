@@ -47,7 +47,7 @@ namespace Main
             if (hasTaggedEdges)
             {
                 AdjacencyGraph<string, TaggedEdge<string, string>> g = CreateDirectedTaggedGraph(nodes, edges);
-                var dfs = DFSEdge.Recorder(g);
+                var dfs = DFSEdge.Get(g);
                 foreach (var e in dfs)
                 {
                     results.Add(e.ToString());
@@ -56,7 +56,7 @@ namespace Main
             else
             {
                 AdjacencyGraph<int, Edge<int>> g = CreateDirectedGraph(nodes, edges);
-                var dfs = DFSEdge.Recorder(g);
+                var dfs = DFSEdge.Get(g);
                 foreach (var e in dfs)
                 {
                     results.Add(e.ToString());
@@ -75,7 +75,7 @@ namespace Main
             if (hasTaggedEdges)
             {
                 AdjacencyGraph<string, TaggedEdge<string, string>> g = CreateDirectedTaggedGraph(nodes, edges);
-                var dfs = DFSEdgePredecessor.Recorder(g);
+                var dfs = DFSEdgePredecessor.Get(g);
                 for (int i = 0; i < dfs.Count; i++)
                 {
                     var p = dfs[i];
@@ -87,7 +87,7 @@ namespace Main
             else
             {
                 AdjacencyGraph<int, Edge<int>> g = CreateDirectedGraph(nodes, edges);
-                var dfs = DFSEdgePredecessor.Recorder(g);
+                var dfs = DFSEdgePredecessor.Get(g);
                 for (int i = 0; i < dfs.Count; i++)
                 {
                     var p = dfs[i];
@@ -109,7 +109,7 @@ namespace Main
             if (hasTaggedEdges)
             {
                 var g = CreateUndirectedTaggedGraph(nodes, edges);
-                var dfs = DFSUndirectedVertexDistance.Recorder(g);
+                var dfs = DFSUndirectedVertexDistance.Get(g);
                 foreach (var d in dfs)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -118,7 +118,7 @@ namespace Main
             else
             {
                 var g = CreateUndirectedGraph(nodes, edges);
-                var dfs = DFSUndirectedVertexDistance.Recorder(g);
+                var dfs = DFSUndirectedVertexDistance.Get(g);
                 foreach (var d in dfs)
                 {
                     results.Add($"{d.Key}: {d.Value}");
