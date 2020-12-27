@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Algorithms
 {
-    public static class DFSEdge
+    public static class DFSEdgeObs
     {
         public static IEnumerable<Edge<int>> Get(AdjacencyGraph<int, Edge<int>> g)
         {

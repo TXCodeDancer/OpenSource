@@ -47,7 +47,7 @@ namespace Main
             if (hasTaggedEdges)
             {
                 AdjacencyGraph<string, TaggedEdge<string, string>> g = CreateDirectedTaggedGraph(nodes, edges);
-                var dfs = DFSEdge.Get(g);
+                var dfs = DFSEdgeObs.Get(g);
                 foreach (var e in dfs)
                 {
                     results.Add(e.ToString());
@@ -56,7 +56,7 @@ namespace Main
             else
             {
                 AdjacencyGraph<int, Edge<int>> g = CreateDirectedGraph(nodes, edges);
-                var dfs = DFSEdge.Get(g);
+                var dfs = DFSEdgeObs.Get(g);
                 foreach (var e in dfs)
                 {
                     results.Add(e.ToString());
@@ -75,7 +75,7 @@ namespace Main
             if (hasTaggedEdges)
             {
                 AdjacencyGraph<string, TaggedEdge<string, string>> g = CreateDirectedTaggedGraph(nodes, edges);
-                var dfs = DFSEdgePredecessor.GetAllPaths(g);
+                var dfs = DFSEdgePredecessorObs.GetAllPaths(g);
                 for (int i = 0; i < dfs.Count; i++)
                 {
                     var p = dfs[i];
@@ -87,13 +87,41 @@ namespace Main
             else
             {
                 AdjacencyGraph<int, Edge<int>> g = CreateDirectedGraph(nodes, edges);
-                var dfs = DFSEdgePredecessor.GetAllPaths(g);
+                var dfs = DFSEdgePredecessorObs.GetAllPaths(g);
                 for (int i = 0; i < dfs.Count; i++)
                 {
                     var p = dfs[i];
                     results.Add($"Edge Path {i}:");
                     foreach (var e in p)
                         results.Add(e.ToString());
+                }
+            }
+            return results;
+        }
+
+        public static List<string> DFSVertexDistanceRecorderHelper(List<string> nodes, List<List<string>> edges)
+        {
+            bool hasTaggedEdges = false;
+            if (edges[0].Count > 2)
+                hasTaggedEdges = true;
+
+            List<string> results = new List<string>();
+            if (hasTaggedEdges)
+            {
+                var g = CreateDirectedTaggedGraph(nodes, edges);
+                var dfs = DFSVertexDistanceObs.Get(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = CreateDirectedGraph(nodes, edges);
+                var dfs = DFSVertexDistanceObs.Get(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
                 }
             }
             return results;
@@ -109,7 +137,7 @@ namespace Main
             if (hasTaggedEdges)
             {
                 var g = CreateUndirectedTaggedGraph(nodes, edges);
-                var dfs = DFSUndirectedVertexDistance.Get(g);
+                var dfs = DFSUndirectedVertexDistanceObs.Get(g);
                 foreach (var d in dfs)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -118,7 +146,7 @@ namespace Main
             else
             {
                 var g = CreateUndirectedGraph(nodes, edges);
-                var dfs = DFSUndirectedVertexDistance.Get(g);
+                var dfs = DFSUndirectedVertexDistanceObs.Get(g);
                 foreach (var d in dfs)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -137,7 +165,7 @@ namespace Main
             if (hasTaggedEdges)
             {
                 var g = CreateUndirectedTaggedGraph(nodes, edges);
-                var dfs = DFSUndirectedVertexPredecessor.Get(g);
+                var dfs = DFSUndirectedVertexPredecessorObs.Get(g);
 
                 foreach (var d in dfs)
                 {
@@ -147,7 +175,7 @@ namespace Main
             else
             {
                 var g = CreateUndirectedGraph(nodes, edges);
-                var dfs = DFSUndirectedVertexPredecessor.Get(g);
+                var dfs = DFSUndirectedVertexPredecessorObs.Get(g);
                 foreach (var d in dfs)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -166,7 +194,7 @@ namespace Main
             if (hasTaggedEdges)
             {
                 var g = CreateUndirectedTaggedGraph(nodes, edges);
-                var dfs = DFSUndirectedVertexPredecessor.GetPath(g, v);
+                var dfs = DFSUndirectedVertexPredecessorObs.GetPath(g, v);
                 foreach (var n in dfs)
                 {
                     results.Add(n.ToString());
@@ -175,7 +203,7 @@ namespace Main
             else
             {
                 var g = CreateUndirectedGraph(nodes, edges);
-                var dfs = DFSUndirectedVertexPredecessor.GetPath(g, int.Parse(v));
+                var dfs = DFSUndirectedVertexPredecessorObs.GetPath(g, int.Parse(v));
                 foreach (var n in dfs)
                 {
                     results.Add(n.ToString());

@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Tests
 {
-    public class DFSEdgePredecessorTests
+    public class DFSEdgePredecessorObsTests
     {
         [Theory]
         [MemberData(nameof(GetInputFiles))]
