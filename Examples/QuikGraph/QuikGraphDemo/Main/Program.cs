@@ -184,6 +184,35 @@ namespace Main
             return results;
         }
 
+        public static List<string> DFSVertexPredecessorHelper(List<string> nodes, List<List<string>> edges)
+        {
+            bool hasTaggedEdges = false;
+            if (edges[0].Count > 2)
+                hasTaggedEdges = true;
+
+            List<string> results = new List<string>();
+            if (hasTaggedEdges)
+            {
+                var g = CreateDirectedTaggedGraph(nodes, edges);
+                var dfs = DFSVertexPredecessorObs.Get(g);
+
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = CreateDirectedGraph(nodes, edges);
+                var dfs = DFSVertexPredecessorObs.Get(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
         public static List<string> DFSUndirectedVertexPredecessorPathHelper(List<string> nodes, List<List<string>> edges, string v)
         {
             bool hasTaggedEdges = false;
@@ -207,6 +236,40 @@ namespace Main
                 foreach (var n in dfs)
                 {
                     results.Add(n.ToString());
+                }
+            }
+            return results;
+        }
+
+        public static List<string> DFSVertexPredecessorPathHelper(List<string> nodes, List<List<string>> edges, string v)
+        {
+            bool hasTaggedEdges = false;
+            if (edges[0].Count > 2)
+                hasTaggedEdges = true;
+
+            List<string> results = new List<string>();
+            if (hasTaggedEdges)
+            {
+                var g = CreateDirectedTaggedGraph(nodes, edges);
+                var dfs = DFSVertexPredecessorObs.GetAllPaths(g);
+                for (int i = 0; i < dfs.Count; i++)
+                {
+                    var p = dfs[i];
+                    results.Add($"Edge Path {i}:");
+                    foreach (var e in p)
+                        results.Add(e.ToString());
+                }
+            }
+            else
+            {
+                var g = CreateDirectedGraph(nodes, edges);
+                var dfs = DFSVertexPredecessorObs.GetAllPaths(g);
+                for (int i = 0; i < dfs.Count; i++)
+                {
+                    var p = dfs[i];
+                    results.Add($"Edge Path {i}:");
+                    foreach (var e in p)
+                        results.Add(e.ToString());
                 }
             }
             return results;
