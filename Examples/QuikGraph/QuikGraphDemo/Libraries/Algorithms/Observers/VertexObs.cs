@@ -5,28 +5,28 @@ using System.Collections.Generic;
 
 namespace Algorithms
 {
-    public static class DFSEdgeObs
+    public static class VertexObs
     {
-        public static IEnumerable<Edge<int>> Get(AdjacencyGraph<int, Edge<int>> g)
+        public static IEnumerable<int> Get(AdjacencyGraph<int, Edge<int>> g)
         {
             var dfs = new DepthFirstSearchAlgorithm<int, Edge<int>>(g);
-            var recorder = new EdgeRecorderObserver<int, Edge<int>>();
+            var recorder = new VertexRecorderObserver<int>();
 
             using (recorder.Attach(dfs))
             {
                 dfs.Compute();
-                return recorder.Edges;
+                return recorder.Vertices;
             }
         }
 
-        public static IEnumerable<TaggedEdge<string, string>> Get(AdjacencyGraph<string, TaggedEdge<string, string>> g)
+        public static IEnumerable<string> Get(AdjacencyGraph<string, TaggedEdge<string, string>> g)
         {
             var dfs = new DepthFirstSearchAlgorithm<string, TaggedEdge<string, string>>(g);
-            var recorder = new EdgeRecorderObserver<string, TaggedEdge<string, string>>();
+            var recorder = new VertexRecorderObserver<string>();
             using (recorder.Attach(dfs))
             {
                 dfs.Compute();
-                return recorder.Edges;
+                return recorder.Vertices;
             }
         }
     }

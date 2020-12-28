@@ -5,29 +5,28 @@ using System.Collections.Generic;
 
 namespace Algorithms
 {
-    public class DFSVertexDistanceObs
+    public static class EdgeObs
     {
-        public static IDictionary<int, double> Get(AdjacencyGraph<int, Edge<int>> g)
+        public static IEnumerable<Edge<int>> Get(AdjacencyGraph<int, Edge<int>> g)
         {
             var dfs = new DepthFirstSearchAlgorithm<int, Edge<int>>(g);
-            var recorder = new VertexDistanceRecorderObserver<int, Edge<int>>(edgeWeights => 1.0);
+            var recorder = new EdgeRecorderObserver<int, Edge<int>>();
 
             using (recorder.Attach(dfs))
             {
                 dfs.Compute();
-                return recorder.Distances;
+                return recorder.Edges;
             }
         }
 
-        public static IDictionary<string, double> Get(AdjacencyGraph<string, TaggedEdge<string, string>> g)
+        public static IEnumerable<TaggedEdge<string, string>> Get(AdjacencyGraph<string, TaggedEdge<string, string>> g)
         {
             var dfs = new DepthFirstSearchAlgorithm<string, TaggedEdge<string, string>>(g);
-            var recorder = new VertexDistanceRecorderObserver<string, TaggedEdge<string, string>>(edgeWeights => 1.0);
-
+            var recorder = new EdgeRecorderObserver<string, TaggedEdge<string, string>>();
             using (recorder.Attach(dfs))
             {
                 dfs.Compute();
-                return recorder.Distances;
+                return recorder.Edges;
             }
         }
     }

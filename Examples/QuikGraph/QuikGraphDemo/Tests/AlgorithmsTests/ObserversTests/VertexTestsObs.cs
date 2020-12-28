@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Tests
 {
-    public class DFSUndirectedVertexDistanceObsTests
+    public class VertexTestsObs
     {
         [Theory]
         [MemberData(nameof(GetInputFiles))]
@@ -14,7 +14,7 @@ namespace Tests
         {
             string directory = Path.GetDirectoryName(inputFile);
             string file = Path.GetFileNameWithoutExtension(inputFile);
-            var outputFile = @$"{directory}\DFS\UndirectedVertexDistance\{file}";
+            var outputFile = @$"{directory}\Observers\Vertex\{file}";
             var expectedfile = @$"{outputFile}.a";
             var resultsfile = $"{outputFile}.r";
 
@@ -29,7 +29,7 @@ namespace Tests
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            List<string> actual = Program.DFSUndirectedVertexDistanceRecorderHelper(nodes, edges);
+            List<string> actual = Program.DFSVertexRecorderHelper(nodes, edges);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results

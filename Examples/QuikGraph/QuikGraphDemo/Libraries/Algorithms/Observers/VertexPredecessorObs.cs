@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Algorithms
 {
-    public class DFSVertexPredecessorObs
+    public class VertexPredecessorObs
     {
         public static IDictionary<int, Edge<int>> Get(AdjacencyGraph<int, Edge<int>> g)
         {

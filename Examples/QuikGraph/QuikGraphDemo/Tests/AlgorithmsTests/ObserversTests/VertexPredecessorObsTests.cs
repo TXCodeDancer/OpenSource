@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Tests
 {
-    public class DFSVertexPredecessorObsTests
+    public class VertexPredecessorObsTests
     {
         [Theory]
         [MemberData(nameof(GetInputFiles))]
@@ -14,7 +14,7 @@ namespace Tests
         {
             string directory = Path.GetDirectoryName(inputFile);
             string file = Path.GetFileNameWithoutExtension(inputFile);
-            var outputFile = @$"{directory}\DFS\VertexPredecessor\{file}";
+            var outputFile = @$"{directory}\Observers\VertexPredecessor\{file}";
             var expectedfile = @$"{outputFile}.a";
             var resultsfile = $"{outputFile}.r";
 
@@ -47,7 +47,7 @@ namespace Tests
         {
             string directory = Path.GetDirectoryName(inputFile);
             string file = Path.GetFileNameWithoutExtension(inputFile);
-            var outputFile = @$"{directory}\DFS\VertexPredecessor\{file}";
+            var outputFile = @$"{directory}\Observers\VertexPredecessor\{file}";
             var expectedfile = @$"{outputFile}.a_1";
             var resultsfile = $"{outputFile}.r_1";
 

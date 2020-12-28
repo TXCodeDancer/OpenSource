@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Algorithms
 {
-    public class DFSUndirectedVertexPredecessorObs
+    public class UndirectedVertexPredecessorObs
     {
         public static IDictionary<int, Edge<int>> Get(UndirectedGraph<int, Edge<int>> g)
         {

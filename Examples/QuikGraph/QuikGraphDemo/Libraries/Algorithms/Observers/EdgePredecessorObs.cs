@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Algorithms
 {
-    public static class DFSEdgePredecessorObs
+    public static class EdgePredecessorObs
     {
         public static List<ICollection<Edge<int>>> GetAllPaths(AdjacencyGraph<int, Edge<int>> g)
         {
