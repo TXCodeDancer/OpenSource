@@ -37,6 +37,34 @@ namespace Main
             }
         }
 
+        public static List<string> DFSVertexRecorderHelper(List<string> nodes, List<List<string>> edges)
+        {
+            bool hasTaggedEdges = false;
+            if (edges[0].Count > 2)
+                hasTaggedEdges = true;
+
+            List<string> results = new List<string>();
+            if (hasTaggedEdges)
+            {
+                AdjacencyGraph<string, TaggedEdge<string, string>> g = CreateDirectedTaggedGraph(nodes, edges);
+                var dfs = DFSVertexObs.Get(g);
+                foreach (var e in dfs)
+                {
+                    results.Add(e.ToString());
+                }
+            }
+            else
+            {
+                AdjacencyGraph<int, Edge<int>> g = CreateDirectedGraph(nodes, edges);
+                var dfs = DFSVertexObs.Get(g);
+                foreach (var e in dfs)
+                {
+                    results.Add(e.ToString());
+                }
+            }
+            return results;
+        }
+
         public static List<string> DFSEdgeRecorderHelper(List<string> nodes, List<List<string>> edges)
         {
             bool hasTaggedEdges = false;
