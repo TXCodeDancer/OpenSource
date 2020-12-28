@@ -303,6 +303,62 @@ namespace Main
             return results;
         }
 
+        public static List<string> DFSVertexDiscoverTimeStampRecorderHelper(List<string> nodes, List<List<string>> edges)
+        {
+            bool hasTaggedEdges = false;
+            if (edges[0].Count > 2)
+                hasTaggedEdges = true;
+
+            List<string> results = new List<string>();
+            if (hasTaggedEdges)
+            {
+                var g = CreateDirectedTaggedGraph(nodes, edges);
+                var dfs = VertexTimeStampObs.GetDiscoverTimes(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = CreateDirectedGraph(nodes, edges);
+                var dfs = VertexTimeStampObs.GetDiscoverTimes(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> DFSVertexFinishTimeStampRecorderHelper(List<string> nodes, List<List<string>> edges)
+        {
+            bool hasTaggedEdges = false;
+            if (edges[0].Count > 2)
+                hasTaggedEdges = true;
+
+            List<string> results = new List<string>();
+            if (hasTaggedEdges)
+            {
+                var g = CreateDirectedTaggedGraph(nodes, edges);
+                var dfs = VertexTimeStampObs.GetFinishTimes(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = CreateDirectedGraph(nodes, edges);
+                var dfs = VertexTimeStampObs.GetFinishTimes(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
         private static AdjacencyGraph<int, Edge<int>> CreateDirectedGraph(List<string> nodes, List<List<string>> edges)
         {
             var g = new AdjacencyGraph<int, Edge<int>>();
