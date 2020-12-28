@@ -16,8 +16,8 @@ namespace Algorithms
             using (recorder.Attach(dfs))
             {
                 dfs.Compute();
-                var paths = recorder.AllMergedPaths();
-                foreach (var p in paths)
+                var allMergedPaths = recorder.AllMergedPaths();
+                foreach (var p in allMergedPaths)
                 {
                     results.Add(p);
                 }
@@ -33,8 +33,8 @@ namespace Algorithms
             using (recorder.Attach(dfs))
             {
                 dfs.Compute();
-                var paths = recorder.AllMergedPaths();
-                foreach (var p in paths)
+                var allMergedPaths = recorder.AllMergedPaths();
+                foreach (var p in allMergedPaths)
                 {
                     results.Add(p);
                 }
