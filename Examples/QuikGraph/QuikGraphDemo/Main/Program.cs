@@ -34,14 +34,17 @@ namespace Main
             }
         }
 
-        public static List<string> ConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> IncrementalConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (hasTags(edges))
             {
                 var g = CreateUndirectedTaggedGraph(nodes, edges);
-                var dfs = ConnectedComponents.Get(g);
-                foreach (var d in dfs)
+                var ans = IncrementalConnectedComponents.Get(g);
+                var key = ans.Key;
+                results.Add($"Components {key}:");
+                var dict = ans.Value;
+                foreach (var d in dict)
                 {
                     results.Add($"{d.Key}: {d.Value}");
                 }
@@ -49,8 +52,35 @@ namespace Main
             else
             {
                 var g = CreateUndirectedGraph(nodes, edges);
-                var dfs = ConnectedComponents.Get(g);
-                foreach (var d in dfs)
+                var ans = IncrementalConnectedComponents.Get(g);
+                var key = ans.Key;
+                results.Add($"Components {key}:");
+                var dict = ans.Value;
+                foreach (var d in dict)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> ConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (hasTags(edges))
+            {
+                var g = CreateUndirectedTaggedGraph(nodes, edges);
+                var ans = ConnectedComponents.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = CreateUndirectedGraph(nodes, edges);
+                var ans = ConnectedComponents.Get(g);
+                foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
                 }
