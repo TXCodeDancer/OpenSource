@@ -2,7 +2,8 @@
 // Main: Method to demonstrate usage of the Visualize.Visualizer library.
 //
 
-using Algorithms;
+using Algorithms.ConnectedComponents;
+using Algorithms.Observers;
 using QuikGraph;
 using QuikGraph.Graphviz.Dot;
 using System;
@@ -35,7 +36,26 @@ namespace Main
 
         public static List<string> ConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
         {
-            throw new NotImplementedException();
+            List<string> results = new List<string>();
+            if (hasTags(edges))
+            {
+                var g = CreateUndirectedTaggedGraph(nodes, edges);
+                var dfs = ConnectedComponents.Get(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = CreateUndirectedGraph(nodes, edges);
+                var dfs = ConnectedComponents.Get(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
         }
 
         public static List<string> VertexObserverHelper(List<string> nodes, List<List<string>> edges)

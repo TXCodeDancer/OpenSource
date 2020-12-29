@@ -3,7 +3,7 @@ using QuikGraph.Algorithms.Observers;
 using QuikGraph.Algorithms.Search;
 using System.Collections.Generic;
 
-namespace Algorithms
+namespace Algorithms.Observers
 {
     public class UndirectedVertexDistanceObs
     {

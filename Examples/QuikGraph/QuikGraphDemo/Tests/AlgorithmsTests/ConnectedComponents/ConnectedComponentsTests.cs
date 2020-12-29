@@ -14,7 +14,7 @@ namespace Tests
         {
             string directory = Path.GetDirectoryName(inputFile);
             string file = Path.GetFileNameWithoutExtension(inputFile);
-            var outputFile = @$"{directory}\Observers\Edge\{file}";
+            var outputFile = @$"{directory}\ConnectedComponents\ConnectedComponents\{file}";
             var expectedfile = @$"{outputFile}.a";
             var resultsfile = $"{outputFile}.r";
 
