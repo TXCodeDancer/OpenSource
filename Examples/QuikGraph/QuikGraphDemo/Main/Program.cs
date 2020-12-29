@@ -103,25 +103,19 @@ namespace Main
             if (hasTaggedEdges)
             {
                 AdjacencyGraph<string, TaggedEdge<string, string>> g = CreateDirectedTaggedGraph(nodes, edges);
-                var dfs = EdgePredecessorObs.GetAllPaths(g);
-                for (int i = 0; i < dfs.Count; i++)
+                var dfs = EdgePredecessorObs.Get(g);
+                foreach (var d in dfs)
                 {
-                    var p = dfs[i];
-                    results.Add($"Edge Path {i}:");
-                    foreach (var e in p)
-                        results.Add(e.ToString());
+                    results.Add($"{d.Key}: {d.Value}");
                 }
             }
             else
             {
                 AdjacencyGraph<int, Edge<int>> g = CreateDirectedGraph(nodes, edges);
-                var dfs = EdgePredecessorObs.GetAllPaths(g);
-                for (int i = 0; i < dfs.Count; i++)
+                var dfs = EdgePredecessorObs.Get(g);
+                foreach (var d in dfs)
                 {
-                    var p = dfs[i];
-                    results.Add($"Edge Path {i}:");
-                    foreach (var e in p)
-                        results.Add(e.ToString());
+                    results.Add($"{d.Key}: {d.Value}");
                 }
             }
             return results;
