@@ -37,7 +37,7 @@ namespace Main
             }
         }
 
-        public static List<string> DFSVertexRecorderHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> VertexObserverHelper(List<string> nodes, List<List<string>> edges)
         {
             bool hasTaggedEdges = false;
             if (edges[0].Count > 2)
@@ -65,7 +65,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> DFSEdgeRecorderHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> EdgeObserverHelper(List<string> nodes, List<List<string>> edges)
         {
             bool hasTaggedEdges = false;
             if (edges[0].Count > 2)
@@ -93,7 +93,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> DFSEdgePredecessorPathRecorderHelper(List<string> nodes, List<List<string>> edges, string v)
+        public static List<string> EdgePredecessorPathObserverHelper(List<string> nodes, List<List<string>> edges, string v)
         {
             bool hasTaggedEdges = false;
             if (edges[0].Count > 2)
@@ -127,7 +127,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> DFSEdgePredecessorRecorderHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> EdgePredecessorObserverHelper(List<string> nodes, List<List<string>> edges)
         {
             bool hasTaggedEdges = false;
             if (edges[0].Count > 2)
@@ -155,7 +155,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> DFSVertexDistanceRecorderHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> VertexDistanceObserverHelper(List<string> nodes, List<List<string>> edges)
         {
             bool hasTaggedEdges = false;
             if (edges[0].Count > 2)
@@ -183,7 +183,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> DFSUndirectedVertexDistanceRecorderHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> UndirectedVertexDistanceObserverHelper(List<string> nodes, List<List<string>> edges)
         {
             bool hasTaggedEdges = false;
             if (edges[0].Count > 2)
@@ -211,7 +211,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> DFSUndirectedVertexPredecessorHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> UndirectedVertexPredecessorObserverHelper(List<string> nodes, List<List<string>> edges)
         {
             bool hasTaggedEdges = false;
             if (edges[0].Count > 2)
@@ -240,7 +240,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> DFSVertexPredecessorHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> VertexPredecessorObserverHelper(List<string> nodes, List<List<string>> edges)
         {
             bool hasTaggedEdges = false;
             if (edges[0].Count > 2)
@@ -269,7 +269,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> DFSUndirectedVertexPredecessorPathHelper(List<string> nodes, List<List<string>> edges, string v)
+        public static List<string> UndirectedVertexPredecessorPathObserverHelper(List<string> nodes, List<List<string>> edges, string v)
         {
             bool hasTaggedEdges = false;
             if (edges[0].Count > 2)
@@ -297,7 +297,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> DFSVertexPredecessorPathHelper(List<string> nodes, List<List<string>> edges, string v)
+        public static List<string> VertexPredecessorPathObserverHelper(List<string> nodes, List<List<string>> edges, string v)
         {
             bool hasTaggedEdges = false;
             if (edges[0].Count > 2)
@@ -331,7 +331,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> DFSVertexDiscoverTimeStampRecorderHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> VertexDiscoverTimeStampObserverHelper(List<string> nodes, List<List<string>> edges)
         {
             bool hasTaggedEdges = false;
             if (edges[0].Count > 2)
@@ -359,7 +359,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> DFSVertexFinishTimeStampRecorderHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> VertexFinishTimeStampObserverHelper(List<string> nodes, List<List<string>> edges)
         {
             bool hasTaggedEdges = false;
             if (edges[0].Count > 2)

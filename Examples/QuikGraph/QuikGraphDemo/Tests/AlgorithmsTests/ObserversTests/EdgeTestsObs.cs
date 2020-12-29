@@ -29,7 +29,7 @@ namespace Tests
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            List<string> actual = Program.DFSEdgeRecorderHelper(nodes, edges);
+            List<string> actual = Program.EdgeObserverHelper(nodes, edges);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
