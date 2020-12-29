@@ -16,11 +16,7 @@ namespace Main
     {
         public static void GraphVisualizerHelper(List<string> nodes, List<List<string>> edges, string filepath)
         {
-            bool hasTaggedEdges = false;
-            if (edges[0].Count > 2)
-                hasTaggedEdges = true;
-
-            if (hasTaggedEdges)
+            if (hasTags(edges))
             {
                 AdjacencyGraph<string, TaggedEdge<string, string>> g = CreateDirectedTaggedGraph(nodes, edges);
                 Visualizer.ExportDot(g, filepath);
@@ -39,12 +35,8 @@ namespace Main
 
         public static List<string> VertexObserverHelper(List<string> nodes, List<List<string>> edges)
         {
-            bool hasTaggedEdges = false;
-            if (edges[0].Count > 2)
-                hasTaggedEdges = true;
-
             List<string> results = new List<string>();
-            if (hasTaggedEdges)
+            if (hasTags(edges))
             {
                 AdjacencyGraph<string, TaggedEdge<string, string>> g = CreateDirectedTaggedGraph(nodes, edges);
                 var dfs = VertexObs.Get(g);
@@ -67,12 +59,8 @@ namespace Main
 
         public static List<string> EdgeObserverHelper(List<string> nodes, List<List<string>> edges)
         {
-            bool hasTaggedEdges = false;
-            if (edges[0].Count > 2)
-                hasTaggedEdges = true;
-
             List<string> results = new List<string>();
-            if (hasTaggedEdges)
+            if (hasTags(edges))
             {
                 AdjacencyGraph<string, TaggedEdge<string, string>> g = CreateDirectedTaggedGraph(nodes, edges);
                 var dfs = EdgeObs.Get(g);
@@ -95,12 +83,8 @@ namespace Main
 
         public static List<string> EdgePredecessorPathObserverHelper(List<string> nodes, List<List<string>> edges, string v)
         {
-            bool hasTaggedEdges = false;
-            if (edges[0].Count > 2)
-                hasTaggedEdges = true;
-
             List<string> results = new List<string>();
-            if (hasTaggedEdges)
+            if (hasTags(edges))
             {
                 var g = CreateDirectedTaggedGraph(nodes, edges);
                 var dfs = EdgePredecessorObs.GetAllPaths(g);
@@ -129,12 +113,8 @@ namespace Main
 
         public static List<string> EdgePredecessorObserverHelper(List<string> nodes, List<List<string>> edges)
         {
-            bool hasTaggedEdges = false;
-            if (edges[0].Count > 2)
-                hasTaggedEdges = true;
-
             List<string> results = new List<string>();
-            if (hasTaggedEdges)
+            if (hasTags(edges))
             {
                 var g = CreateDirectedTaggedGraph(nodes, edges);
                 var dfs = EdgePredecessorObs.Get(g);
@@ -157,12 +137,8 @@ namespace Main
 
         public static List<string> VertexDistanceObserverHelper(List<string> nodes, List<List<string>> edges)
         {
-            bool hasTaggedEdges = false;
-            if (edges[0].Count > 2)
-                hasTaggedEdges = true;
-
             List<string> results = new List<string>();
-            if (hasTaggedEdges)
+            if (hasTags(edges))
             {
                 var g = CreateDirectedTaggedGraph(nodes, edges);
                 var dfs = VertexDistanceObs.Get(g);
@@ -185,12 +161,8 @@ namespace Main
 
         public static List<string> UndirectedVertexDistanceObserverHelper(List<string> nodes, List<List<string>> edges)
         {
-            bool hasTaggedEdges = false;
-            if (edges[0].Count > 2)
-                hasTaggedEdges = true;
-
             List<string> results = new List<string>();
-            if (hasTaggedEdges)
+            if (hasTags(edges))
             {
                 var g = CreateUndirectedTaggedGraph(nodes, edges);
                 var dfs = UndirectedVertexDistanceObs.Get(g);
@@ -213,12 +185,8 @@ namespace Main
 
         public static List<string> UndirectedVertexPredecessorObserverHelper(List<string> nodes, List<List<string>> edges)
         {
-            bool hasTaggedEdges = false;
-            if (edges[0].Count > 2)
-                hasTaggedEdges = true;
-
             List<string> results = new List<string>();
-            if (hasTaggedEdges)
+            if (hasTags(edges))
             {
                 var g = CreateUndirectedTaggedGraph(nodes, edges);
                 var dfs = UndirectedVertexPredecessorObs.Get(g);
@@ -242,12 +210,8 @@ namespace Main
 
         public static List<string> VertexPredecessorObserverHelper(List<string> nodes, List<List<string>> edges)
         {
-            bool hasTaggedEdges = false;
-            if (edges[0].Count > 2)
-                hasTaggedEdges = true;
-
             List<string> results = new List<string>();
-            if (hasTaggedEdges)
+            if (hasTags(edges))
             {
                 var g = CreateDirectedTaggedGraph(nodes, edges);
                 var dfs = VertexPredecessorObs.Get(g);
@@ -271,12 +235,8 @@ namespace Main
 
         public static List<string> UndirectedVertexPredecessorPathObserverHelper(List<string> nodes, List<List<string>> edges, string v)
         {
-            bool hasTaggedEdges = false;
-            if (edges[0].Count > 2)
-                hasTaggedEdges = true;
-
             List<string> results = new List<string>();
-            if (hasTaggedEdges)
+            if (hasTags(edges))
             {
                 var g = CreateUndirectedTaggedGraph(nodes, edges);
                 var dfs = UndirectedVertexPredecessorObs.GetPath(g, v);
@@ -299,12 +259,8 @@ namespace Main
 
         public static List<string> VertexPredecessorPathObserverHelper(List<string> nodes, List<List<string>> edges, string v)
         {
-            bool hasTaggedEdges = false;
-            if (edges[0].Count > 2)
-                hasTaggedEdges = true;
-
             List<string> results = new List<string>();
-            if (hasTaggedEdges)
+            if (hasTags(edges))
             {
                 var g = CreateDirectedTaggedGraph(nodes, edges);
                 var dfs = VertexPredecessorObs.GetAllPaths(g);
@@ -333,12 +289,8 @@ namespace Main
 
         public static List<string> VertexDiscoverTimeStampObserverHelper(List<string> nodes, List<List<string>> edges)
         {
-            bool hasTaggedEdges = false;
-            if (edges[0].Count > 2)
-                hasTaggedEdges = true;
-
             List<string> results = new List<string>();
-            if (hasTaggedEdges)
+            if (hasTags(edges))
             {
                 var g = CreateDirectedTaggedGraph(nodes, edges);
                 var dfs = VertexTimeStampObs.GetDiscoverTimes(g);
@@ -361,12 +313,8 @@ namespace Main
 
         public static List<string> VertexFinishTimeStampObserverHelper(List<string> nodes, List<List<string>> edges)
         {
-            bool hasTaggedEdges = false;
-            if (edges[0].Count > 2)
-                hasTaggedEdges = true;
-
             List<string> results = new List<string>();
-            if (hasTaggedEdges)
+            if (hasTags(edges))
             {
                 var g = CreateDirectedTaggedGraph(nodes, edges);
                 var dfs = VertexTimeStampObs.GetFinishTimes(g);
@@ -385,6 +333,21 @@ namespace Main
                 }
             }
             return results;
+        }
+
+        ///
+        ///
+        ///
+        ///
+        ///
+        ///
+        ///
+        private static bool hasTags(List<List<string>> edges)
+        {
+            bool hasTaggedEdges = false;
+            if (edges[0].Count > 2)
+                hasTaggedEdges = true;
+            return hasTaggedEdges;
         }
 
         private static AdjacencyGraph<int, Edge<int>> CreateDirectedGraph(List<string> nodes, List<List<string>> edges)
