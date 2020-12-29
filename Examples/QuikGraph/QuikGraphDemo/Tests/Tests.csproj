@@ -24,7 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Cases\" />
+    <Folder Include="Cases\Observers\VertexDiscoverTimeStamp\" />
+    <Folder Include="Cases\Observers\VertexFinishTimeStamp\" />
   </ItemGroup>
 
 </Project>
