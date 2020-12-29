@@ -33,6 +33,11 @@ namespace Main
             }
         }
 
+        public static List<string> ConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
+        {
+            throw new NotImplementedException();
+        }
+
         public static List<string> VertexObserverHelper(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
