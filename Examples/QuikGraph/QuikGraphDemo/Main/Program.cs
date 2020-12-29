@@ -2,7 +2,8 @@
 // Main: Method to demonstrate usage of the Visualize.Visualizer library.
 //
 
-using Algorithms;
+using Algorithms.ConnectedComponents;
+using Algorithms.Observers;
 using QuikGraph;
 using QuikGraph.Graphviz.Dot;
 using System;
@@ -31,6 +32,174 @@ namespace Main
                 Visualizer.VertexShape = GraphvizVertexShape.Circle;
                 Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
             }
+        }
+
+        public static List<string> WeaklyConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (hasTags(edges))
+            {
+                var g = CreateDirectedTaggedGraph(nodes, edges);
+                var ans = WeaklyConnectedComponents.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = CreateDirectedGraph(nodes, edges);
+                var ans = WeaklyConnectedComponents.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> StronglyConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (hasTags(edges))
+            {
+                var g = CreateDirectedTaggedGraph(nodes, edges);
+                var ans = StronglyConnectedComponents.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = CreateDirectedGraph(nodes, edges);
+                var ans = StronglyConnectedComponents.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> StronglyConnectedComponentsGraphHelper(List<string> nodes, List<List<string>> edges, string filepath)
+        {
+            List<string> results = new List<string>();
+            if (hasTags(edges))
+            {
+                var g = CreateDirectedTaggedGraph(nodes, edges);
+                var ans = StronglyConnectedComponents.GetGraphs(g);
+                results.Add($"Graphs: {ans.Length}");
+                for (int i = 0; i < ans.Length; i++)
+                {
+                    var G = ans[i];
+                    Visualizer.ExportDot(G, $"{filepath}_{i}");
+                    Visualizer.VertexShape = GraphvizVertexShape.Box;
+                    Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
+                    Visualizer.ExportImageFile(G, GraphvizImageType.Svg, $"{filepath}_{i}", ImageLayout.circo);
+                }
+            }
+            else
+            {
+                var g = CreateDirectedGraph(nodes, edges);
+                var ans = StronglyConnectedComponents.GetGraphs(g);
+                results.Add($"Graphs: {ans.Length}");
+                for (int i = 0; i < ans.Length; i++)
+                {
+                    var G = ans[i];
+                    Visualizer.ExportDot(G, $"{filepath}_{i}");
+                    Visualizer.VertexShape = GraphvizVertexShape.Circle;
+                    Visualizer.ExportImageFile(G, GraphvizImageType.Svg, $"{filepath}_{i}", ImageLayout.dot);
+                }
+            }
+            return results;
+        }
+
+        public static List<string> WeaklyConnectedComponentsGraphHelper(List<string> nodes, List<List<string>> edges, string outputFile)
+        {
+            List<string> results = new List<string>();
+            if (hasTags(edges))
+            {
+                var g = CreateDirectedTaggedGraph(nodes, edges);
+                var ans = WeaklyConnectedComponents.GetGraphs(g);
+                results.Add($"Graphs: {ans.Length}");
+                for (int i = 0; i < ans.Length; i++)
+                {
+                    var G = ans[i];
+                    Visualizer.ExportDot(G, $"{outputFile}_{i}");
+                    Visualizer.VertexShape = GraphvizVertexShape.Box;
+                    Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
+                    Visualizer.ExportImageFile(G, GraphvizImageType.Svg, $"{outputFile}_{i}", ImageLayout.circo);
+                }
+            }
+            else
+            {
+                var g = CreateDirectedGraph(nodes, edges);
+                var ans = WeaklyConnectedComponents.GetGraphs(g);
+                results.Add($"Graphs: {ans.Length}");
+                for (int i = 0; i < ans.Length; i++)
+                {
+                    var G = ans[i];
+                    Visualizer.ExportDot(G, $"{outputFile}_{i}");
+                    Visualizer.VertexShape = GraphvizVertexShape.Circle;
+                    Visualizer.ExportImageFile(G, GraphvizImageType.Svg, $"{outputFile}_{i}", ImageLayout.dot);
+                }
+            }
+            return results;
+        }
+
+        public static List<string> IncrementalConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (hasTags(edges))
+            {
+                var g = CreateUndirectedTaggedGraph(nodes, edges);
+                var ans = IncrementalConnectedComponents.Get(g);
+                var key = ans.Key;
+                results.Add($"Components {key}:");
+                var dict = ans.Value;
+                foreach (var d in dict)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = CreateUndirectedGraph(nodes, edges);
+                var ans = IncrementalConnectedComponents.Get(g);
+                var key = ans.Key;
+                results.Add($"Components {key}:");
+                var dict = ans.Value;
+                foreach (var d in dict)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> ConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (hasTags(edges))
+            {
+                var g = CreateUndirectedTaggedGraph(nodes, edges);
+                var ans = ConnectedComponents.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = CreateUndirectedGraph(nodes, edges);
+                var ans = ConnectedComponents.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
         }
 
         public static List<string> VertexObserverHelper(List<string> nodes, List<List<string>> edges)
