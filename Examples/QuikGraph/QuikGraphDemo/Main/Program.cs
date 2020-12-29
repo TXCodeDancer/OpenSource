@@ -34,6 +34,63 @@ namespace Main
             }
         }
 
+        public static List<string> StronglyConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (hasTags(edges))
+            {
+                var g = CreateDirectedTaggedGraph(nodes, edges);
+                var ans = StronglyConnectedComponents.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = CreateDirectedGraph(nodes, edges);
+                var ans = StronglyConnectedComponents.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> StronglyConnectedComponentsGraphHelper(List<string> nodes, List<List<string>> edges, string filepath)
+        {
+            List<string> results = new List<string>();
+            if (hasTags(edges))
+            {
+                var g = CreateDirectedTaggedGraph(nodes, edges);
+                var ans = StronglyConnectedComponents.GetGraphs(g);
+                results.Add($"Graphs: {ans.Length}");
+                for (int i = 0; i < ans.Length; i++)
+                {
+                    var G = ans[i];
+                    Visualizer.ExportDot(G, $"{filepath}_{i}");
+                    Visualizer.VertexShape = GraphvizVertexShape.Box;
+                    Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
+                    Visualizer.ExportImageFile(G, GraphvizImageType.Svg, $"{filepath}_{i}", ImageLayout.circo);
+                }
+            }
+            else
+            {
+                var g = CreateDirectedGraph(nodes, edges);
+                var ans = StronglyConnectedComponents.GetGraphs(g);
+                results.Add($"Graphs: {ans.Length}");
+                for (int i = 0; i < ans.Length; i++)
+                {
+                    var G = ans[i];
+                    Visualizer.ExportDot(G, $"{filepath}_{i}");
+                    Visualizer.VertexShape = GraphvizVertexShape.Circle;
+                    Visualizer.ExportImageFile(G, GraphvizImageType.Svg, $"{filepath}_{i}", ImageLayout.dot);
+                }
+            }
+            return results;
+        }
+
         public static List<string> IncrementalConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();

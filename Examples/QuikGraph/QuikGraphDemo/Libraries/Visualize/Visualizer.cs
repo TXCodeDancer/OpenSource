@@ -104,12 +104,24 @@ namespace Visualizers
             viz.Generate(new FileDotEngine(), filepath);
         }
 
+        public static void ExportDot(BidirectionalGraph<int, Edge<int>> graph, string filepath)
+        {
+            var viz = new GraphvizAlgorithm<int, Edge<int>>(graph);
+            viz.Generate(new FileDotEngine(), filepath);
+        }
+
         /// <summary>
         /// ExportDot: Export Graphviz Dot file of graph
         /// </summary>
         /// <param name="graph"></param>
         /// <param name="filepath"></param>
         public static void ExportDot(AdjacencyGraph<string, TaggedEdge<string, string>> graph, string filepath)
+        {
+            var viz = new GraphvizAlgorithm<string, TaggedEdge<string, string>>(graph);
+            viz.Generate(new FileDotEngine(), filepath);
+        }
+
+        public static void ExportDot(BidirectionalGraph<string, TaggedEdge<string, string>> graph, string filepath)
         {
             var viz = new GraphvizAlgorithm<string, TaggedEdge<string, string>>(graph);
             viz.Generate(new FileDotEngine(), filepath);
@@ -125,6 +137,17 @@ namespace Visualizers
         /// <param name="layout"></param>
         /// <returns></returns>
         public static string ExportImageFile(AdjacencyGraph<int, Edge<int>> graph, GraphvizImageType imageType, string filepath, ImageLayout layout)
+        {
+            var graphviz = new GraphvizAlgorithm<int, Edge<int>>(graph) { ImageType = imageType };
+
+            graphviz.FormatVertex += VertexFormatter;
+
+            string fileInfo = $"{filepath} {layout}";
+            graphviz.Generate(new FileDotEngine(), fileInfo);
+            return filepath;
+        }
+
+        public static string ExportImageFile(BidirectionalGraph<int, Edge<int>> graph, GraphvizImageType imageType, string filepath, ImageLayout layout)
         {
             var graphviz = new GraphvizAlgorithm<int, Edge<int>>(graph) { ImageType = imageType };
 
@@ -156,6 +179,19 @@ namespace Visualizers
             return imageFilepath;
         }
 
+        public static string ExportImageFile(BidirectionalGraph<string, TaggedEdge<string, string>> graph, GraphvizImageType imageType, string imageFilepath, ImageLayout layout)
+        {
+            var graphviz = new GraphvizAlgorithm<string, TaggedEdge<string, string>>(graph) { ImageType = imageType };
+
+            graphviz.FormatVertex += FormatVertexHandler;
+            graphviz.FormatEdge += EdgeFormatter;
+
+            string fileInfo = $"{imageFilepath} {layout}";
+            graphviz.Generate(new FileDotEngine(), fileInfo);
+            return imageFilepath;
+        }
+
+        ////////////////////////////////////////////////////////////////
         private static void FormatVertexHandler(object sender, FormatVertexEventArgs<string> e)
         {
             Contract.Requires(e != null);
