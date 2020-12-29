@@ -52,6 +52,7 @@ namespace Algorithms
         {
             var dfs = new DepthFirstSearchAlgorithm<string, TaggedEdge<string, string>>(g);
             var recorder = new VertexPredecessorPathRecorderObserver<string, TaggedEdge<string, string>>();
+            
             List<IEnumerable<TaggedEdge<string, string>>> results = new List<IEnumerable<TaggedEdge<string, string>>>();
             using (recorder.Attach(dfs))
             {

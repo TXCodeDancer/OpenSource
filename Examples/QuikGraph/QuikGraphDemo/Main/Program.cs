@@ -93,6 +93,40 @@ namespace Main
             return results;
         }
 
+        public static List<string> DFSEdgePredecessorPathRecorderHelper(List<string> nodes, List<List<string>> edges, string v)
+        {
+            bool hasTaggedEdges = false;
+            if (edges[0].Count > 2)
+                hasTaggedEdges = true;
+
+            List<string> results = new List<string>();
+            if (hasTaggedEdges)
+            {
+                var g = CreateDirectedTaggedGraph(nodes, edges);
+                var dfs = EdgePredecessorObs.GetAllPaths(g);
+                for (int i = 0; i < dfs.Count; i++)
+                {
+                    var p = dfs[i];
+                    results.Add($"Edge Path {i}:");
+                    foreach (var e in p)
+                        results.Add(e.ToString());
+                }
+            }
+            else
+            {
+                var g = CreateDirectedGraph(nodes, edges);
+                var dfs = EdgePredecessorObs.GetAllPaths(g);
+                for (int i = 0; i < dfs.Count; i++)
+                {
+                    var p = dfs[i];
+                    results.Add($"Edge Path {i}:");
+                    foreach (var e in p)
+                        results.Add(e.ToString());
+                }
+            }
+            return results;
+        }
+
         public static List<string> DFSEdgePredecessorRecorderHelper(List<string> nodes, List<List<string>> edges)
         {
             bool hasTaggedEdges = false;
@@ -102,7 +136,7 @@ namespace Main
             List<string> results = new List<string>();
             if (hasTaggedEdges)
             {
-                AdjacencyGraph<string, TaggedEdge<string, string>> g = CreateDirectedTaggedGraph(nodes, edges);
+                var g = CreateDirectedTaggedGraph(nodes, edges);
                 var dfs = EdgePredecessorObs.Get(g);
                 foreach (var d in dfs)
                 {
