@@ -3,6 +3,7 @@
 //
 
 using Algorithms.ConnectedComponents;
+using Algorithms.MaximumFlow;
 using Algorithms.Observers;
 using QuikGraph;
 using QuikGraph.Graphviz.Dot;
@@ -13,505 +14,9 @@ using Visualizers;
 
 namespace Main
 {
-    public class Program
+    public class Graph
     {
-        public static void GraphVisualizerHelper(List<string> nodes, List<List<string>> edges, string filepath)
-        {
-            if (hasTags(edges))
-            {
-                AdjacencyGraph<string, TaggedEdge<string, string>> g = CreateDirectedTaggedGraph(nodes, edges);
-                Visualizer.ExportDot(g, filepath);
-                Visualizer.VertexShape = GraphvizVertexShape.Box;
-                Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
-                Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
-            }
-            else
-            {
-                AdjacencyGraph<int, Edge<int>> g = CreateDirectedGraph(nodes, edges);
-                Visualizer.ExportDot(g, filepath);
-                Visualizer.VertexShape = GraphvizVertexShape.Circle;
-                Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
-            }
-        }
-
-        public static List<string> WeaklyConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
-        {
-            List<string> results = new List<string>();
-            if (hasTags(edges))
-            {
-                var g = CreateDirectedTaggedGraph(nodes, edges);
-                var ans = WeaklyConnectedComponents.Get(g);
-                foreach (var d in ans)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            else
-            {
-                var g = CreateDirectedGraph(nodes, edges);
-                var ans = WeaklyConnectedComponents.Get(g);
-                foreach (var d in ans)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            return results;
-        }
-
-        public static List<string> StronglyConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
-        {
-            List<string> results = new List<string>();
-            if (hasTags(edges))
-            {
-                var g = CreateDirectedTaggedGraph(nodes, edges);
-                var ans = StronglyConnectedComponents.Get(g);
-                foreach (var d in ans)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            else
-            {
-                var g = CreateDirectedGraph(nodes, edges);
-                var ans = StronglyConnectedComponents.Get(g);
-                foreach (var d in ans)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            return results;
-        }
-
-        public static List<string> StronglyConnectedComponentsGraphHelper(List<string> nodes, List<List<string>> edges, string filepath)
-        {
-            List<string> results = new List<string>();
-            if (hasTags(edges))
-            {
-                var g = CreateDirectedTaggedGraph(nodes, edges);
-                var ans = StronglyConnectedComponents.GetGraphs(g);
-                results.Add($"Graphs: {ans.Length}");
-                for (int i = 0; i < ans.Length; i++)
-                {
-                    var _g = ans[i];
-                    Visualizer.ExportDot(_g, $"{filepath}_{i}");
-                    Visualizer.VertexShape = GraphvizVertexShape.Box;
-                    Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
-                    Visualizer.ExportImageFile(_g, GraphvizImageType.Svg, $"{filepath}_{i}", ImageLayout.circo);
-                }
-            }
-            else
-            {
-                var g = CreateDirectedGraph(nodes, edges);
-                var ans = StronglyConnectedComponents.GetGraphs(g);
-                results.Add($"Graphs: {ans.Length}");
-                for (int i = 0; i < ans.Length; i++)
-                {
-                    var _g = ans[i];
-                    Visualizer.ExportDot(_g, $"{filepath}_{i}");
-                    Visualizer.VertexShape = GraphvizVertexShape.Circle;
-                    Visualizer.ExportImageFile(_g, GraphvizImageType.Svg, $"{filepath}_{i}", ImageLayout.dot);
-                }
-            }
-            return results;
-        }
-
-        public static List<string> WeaklyConnectedComponentsGraphHelper(List<string> nodes, List<List<string>> edges, string outputFile)
-        {
-            List<string> results = new List<string>();
-            if (hasTags(edges))
-            {
-                var g = CreateDirectedTaggedGraph(nodes, edges);
-                var ans = WeaklyConnectedComponents.GetGraphs(g);
-                results.Add($"Graphs: {ans.Length}");
-                for (int i = 0; i < ans.Length; i++)
-                {
-                    var _g = ans[i];
-                    Visualizer.ExportDot(_g, $"{outputFile}_{i}");
-                    Visualizer.VertexShape = GraphvizVertexShape.Box;
-                    Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
-                    Visualizer.ExportImageFile(_g, GraphvizImageType.Svg, $"{outputFile}_{i}", ImageLayout.circo);
-                }
-            }
-            else
-            {
-                var g = CreateDirectedGraph(nodes, edges);
-                var ans = WeaklyConnectedComponents.GetGraphs(g);
-                results.Add($"Graphs: {ans.Length}");
-                for (int i = 0; i < ans.Length; i++)
-                {
-                    var _g = ans[i];
-                    Visualizer.ExportDot(_g, $"{outputFile}_{i}");
-                    Visualizer.VertexShape = GraphvizVertexShape.Circle;
-                    Visualizer.ExportImageFile(_g, GraphvizImageType.Svg, $"{outputFile}_{i}", ImageLayout.dot);
-                }
-            }
-            return results;
-        }
-
-        public static List<string> IncrementalConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
-        {
-            List<string> results = new List<string>();
-            if (hasTags(edges))
-            {
-                var g = CreateUndirectedTaggedGraph(nodes, edges);
-                var ans = IncrementalConnectedComponents.Get(g);
-                var key = ans.Key;
-                results.Add($"Components {key}:");
-                var dict = ans.Value;
-                foreach (var d in dict)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            else
-            {
-                var g = CreateUndirectedGraph(nodes, edges);
-                var ans = IncrementalConnectedComponents.Get(g);
-                var key = ans.Key;
-                results.Add($"Components {key}:");
-                var dict = ans.Value;
-                foreach (var d in dict)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            return results;
-        }
-
-        public static List<string> ConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
-        {
-            List<string> results = new List<string>();
-            if (hasTags(edges))
-            {
-                var g = CreateUndirectedTaggedGraph(nodes, edges);
-                var ans = ConnectedComponents.Get(g);
-                foreach (var d in ans)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            else
-            {
-                var g = CreateUndirectedGraph(nodes, edges);
-                var ans = ConnectedComponents.Get(g);
-                foreach (var d in ans)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            return results;
-        }
-
-        public static List<string> VertexObserverHelper(List<string> nodes, List<List<string>> edges)
-        {
-            List<string> results = new List<string>();
-            if (hasTags(edges))
-            {
-                AdjacencyGraph<string, TaggedEdge<string, string>> g = CreateDirectedTaggedGraph(nodes, edges);
-                var dfs = VertexObs.Get(g);
-                foreach (var e in dfs)
-                {
-                    results.Add(e.ToString());
-                }
-            }
-            else
-            {
-                AdjacencyGraph<int, Edge<int>> g = CreateDirectedGraph(nodes, edges);
-                var dfs = VertexObs.Get(g);
-                foreach (var e in dfs)
-                {
-                    results.Add(e.ToString());
-                }
-            }
-            return results;
-        }
-
-        public static List<string> EdgeObserverHelper(List<string> nodes, List<List<string>> edges)
-        {
-            List<string> results = new List<string>();
-            if (hasTags(edges))
-            {
-                AdjacencyGraph<string, TaggedEdge<string, string>> g = CreateDirectedTaggedGraph(nodes, edges);
-                var dfs = EdgeObs.Get(g);
-                foreach (var e in dfs)
-                {
-                    results.Add(e.ToString());
-                }
-            }
-            else
-            {
-                AdjacencyGraph<int, Edge<int>> g = CreateDirectedGraph(nodes, edges);
-                var dfs = EdgeObs.Get(g);
-                foreach (var e in dfs)
-                {
-                    results.Add(e.ToString());
-                }
-            }
-            return results;
-        }
-
-        public static List<string> EdgePredecessorPathObserverHelper(List<string> nodes, List<List<string>> edges, string v)
-        {
-            List<string> results = new List<string>();
-            if (hasTags(edges))
-            {
-                var g = CreateDirectedTaggedGraph(nodes, edges);
-                var dfs = EdgePredecessorObs.GetAllPaths(g);
-                for (int i = 0; i < dfs.Count; i++)
-                {
-                    var p = dfs[i];
-                    results.Add($"Edge Path {i}:");
-                    foreach (var e in p)
-                        results.Add(e.ToString());
-                }
-            }
-            else
-            {
-                var g = CreateDirectedGraph(nodes, edges);
-                var dfs = EdgePredecessorObs.GetAllPaths(g);
-                for (int i = 0; i < dfs.Count; i++)
-                {
-                    var p = dfs[i];
-                    results.Add($"Edge Path {i}:");
-                    foreach (var e in p)
-                        results.Add(e.ToString());
-                }
-            }
-            return results;
-        }
-
-        public static List<string> EdgePredecessorObserverHelper(List<string> nodes, List<List<string>> edges)
-        {
-            List<string> results = new List<string>();
-            if (hasTags(edges))
-            {
-                var g = CreateDirectedTaggedGraph(nodes, edges);
-                var dfs = EdgePredecessorObs.Get(g);
-                foreach (var d in dfs)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            else
-            {
-                AdjacencyGraph<int, Edge<int>> g = CreateDirectedGraph(nodes, edges);
-                var dfs = EdgePredecessorObs.Get(g);
-                foreach (var d in dfs)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            return results;
-        }
-
-        public static List<string> VertexDistanceObserverHelper(List<string> nodes, List<List<string>> edges)
-        {
-            List<string> results = new List<string>();
-            if (hasTags(edges))
-            {
-                var g = CreateDirectedTaggedGraph(nodes, edges);
-                var dfs = VertexDistanceObs.Get(g);
-                foreach (var d in dfs)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            else
-            {
-                var g = CreateDirectedGraph(nodes, edges);
-                var dfs = VertexDistanceObs.Get(g);
-                foreach (var d in dfs)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            return results;
-        }
-
-        public static List<string> UndirectedVertexDistanceObserverHelper(List<string> nodes, List<List<string>> edges)
-        {
-            List<string> results = new List<string>();
-            if (hasTags(edges))
-            {
-                var g = CreateUndirectedTaggedGraph(nodes, edges);
-                var dfs = UndirectedVertexDistanceObs.Get(g);
-                foreach (var d in dfs)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            else
-            {
-                var g = CreateUndirectedGraph(nodes, edges);
-                var dfs = UndirectedVertexDistanceObs.Get(g);
-                foreach (var d in dfs)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            return results;
-        }
-
-        public static List<string> UndirectedVertexPredecessorObserverHelper(List<string> nodes, List<List<string>> edges)
-        {
-            List<string> results = new List<string>();
-            if (hasTags(edges))
-            {
-                var g = CreateUndirectedTaggedGraph(nodes, edges);
-                var dfs = UndirectedVertexPredecessorObs.Get(g);
-
-                foreach (var d in dfs)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            else
-            {
-                var g = CreateUndirectedGraph(nodes, edges);
-                var dfs = UndirectedVertexPredecessorObs.Get(g);
-                foreach (var d in dfs)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            return results;
-        }
-
-        public static List<string> VertexPredecessorObserverHelper(List<string> nodes, List<List<string>> edges)
-        {
-            List<string> results = new List<string>();
-            if (hasTags(edges))
-            {
-                var g = CreateDirectedTaggedGraph(nodes, edges);
-                var dfs = VertexPredecessorObs.Get(g);
-
-                foreach (var d in dfs)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            else
-            {
-                var g = CreateDirectedGraph(nodes, edges);
-                var dfs = VertexPredecessorObs.Get(g);
-                foreach (var d in dfs)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            return results;
-        }
-
-        public static List<string> UndirectedVertexPredecessorPathObserverHelper(List<string> nodes, List<List<string>> edges, string v)
-        {
-            List<string> results = new List<string>();
-            if (hasTags(edges))
-            {
-                var g = CreateUndirectedTaggedGraph(nodes, edges);
-                var dfs = UndirectedVertexPredecessorObs.GetPath(g, v);
-                foreach (var n in dfs)
-                {
-                    results.Add(n.ToString());
-                }
-            }
-            else
-            {
-                var g = CreateUndirectedGraph(nodes, edges);
-                var dfs = UndirectedVertexPredecessorObs.GetPath(g, int.Parse(v));
-                foreach (var n in dfs)
-                {
-                    results.Add(n.ToString());
-                }
-            }
-            return results;
-        }
-
-        public static List<string> VertexPredecessorPathObserverHelper(List<string> nodes, List<List<string>> edges, string v)
-        {
-            List<string> results = new List<string>();
-            if (hasTags(edges))
-            {
-                var g = CreateDirectedTaggedGraph(nodes, edges);
-                var dfs = VertexPredecessorObs.GetAllPaths(g);
-                for (int i = 0; i < dfs.Count; i++)
-                {
-                    var p = dfs[i];
-                    results.Add($"Edge Path {i}:");
-                    foreach (var e in p)
-                        results.Add(e.ToString());
-                }
-            }
-            else
-            {
-                var g = CreateDirectedGraph(nodes, edges);
-                var dfs = VertexPredecessorObs.GetAllPaths(g);
-                for (int i = 0; i < dfs.Count; i++)
-                {
-                    var p = dfs[i];
-                    results.Add($"Edge Path {i}:");
-                    foreach (var e in p)
-                        results.Add(e.ToString());
-                }
-            }
-            return results;
-        }
-
-        public static List<string> VertexDiscoverTimeStampObserverHelper(List<string> nodes, List<List<string>> edges)
-        {
-            List<string> results = new List<string>();
-            if (hasTags(edges))
-            {
-                var g = CreateDirectedTaggedGraph(nodes, edges);
-                var dfs = VertexTimeStampObs.GetDiscoverTimes(g);
-                foreach (var d in dfs)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            else
-            {
-                var g = CreateDirectedGraph(nodes, edges);
-                var dfs = VertexTimeStampObs.GetDiscoverTimes(g);
-                foreach (var d in dfs)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            return results;
-        }
-
-        public static List<string> VertexFinishTimeStampObserverHelper(List<string> nodes, List<List<string>> edges)
-        {
-            List<string> results = new List<string>();
-            if (hasTags(edges))
-            {
-                var g = CreateDirectedTaggedGraph(nodes, edges);
-                var dfs = VertexTimeStampObs.GetFinishTimes(g);
-                foreach (var d in dfs)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            else
-            {
-                var g = CreateDirectedGraph(nodes, edges);
-                var dfs = VertexTimeStampObs.GetFinishTimes(g);
-                foreach (var d in dfs)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            return results;
-        }
-
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-        private static bool hasTags(List<List<string>> edges)
+        public static bool hasTags(List<List<string>> edges)
         {
             bool hasTaggedEdges = false;
             if (edges[0].Count > 2)
@@ -519,7 +24,7 @@ namespace Main
             return hasTaggedEdges;
         }
 
-        private static AdjacencyGraph<int, Edge<int>> CreateDirectedGraph(List<string> nodes, List<List<string>> edges)
+        public static AdjacencyGraph<int, Edge<int>> CreateDirectedGraph(List<string> nodes, List<List<string>> edges)
         {
             var g = new AdjacencyGraph<int, Edge<int>>();
             List<int> intNodes = new List<int>();
@@ -537,7 +42,7 @@ namespace Main
             return g;
         }
 
-        private static AdjacencyGraph<string, TaggedEdge<string, string>> CreateDirectedTaggedGraph(List<string> nodes, List<List<string>> edges)
+        public static AdjacencyGraph<string, TaggedEdge<string, string>> CreateDirectedTaggedGraph(List<string> nodes, List<List<string>> edges)
         {
             var g = new AdjacencyGraph<string, TaggedEdge<string, string>>();
             g.AddVertexRange(nodes);
@@ -549,7 +54,19 @@ namespace Main
             return g;
         }
 
-        private static UndirectedGraph<int, Edge<int>> CreateUndirectedGraph(List<string> nodes, List<List<string>> edges)
+        public static AdjacencyGraph<string, EquatableTaggedEdge<string, double>> CreateDirectedEquatableTaggedGraph(List<string> nodes, List<List<string>> edges)
+        {
+            var g = new AdjacencyGraph<string, EquatableTaggedEdge<string, double>>();
+            g.AddVertexRange(nodes);
+            foreach (var e in edges)
+            {
+                g.AddEdge(new EquatableTaggedEdge<string, double>(e[0], e[1], double.Parse(e[2])));
+            }
+
+            return g;
+        }
+
+        public static UndirectedGraph<int, Edge<int>> CreateUndirectedGraph(List<string> nodes, List<List<string>> edges)
         {
             var g = new UndirectedGraph<int, Edge<int>>();
             List<int> intNodes = new List<int>();
@@ -567,7 +84,7 @@ namespace Main
             return g;
         }
 
-        private static UndirectedGraph<string, TaggedEdge<string, string>> CreateUndirectedTaggedGraph(List<string> nodes, List<List<string>> edges)
+        public static UndirectedGraph<string, TaggedEdge<string, string>> CreateUndirectedTaggedGraph(List<string> nodes, List<List<string>> edges)
         {
             var g = new UndirectedGraph<string, TaggedEdge<string, string>>();
             g.AddVertexRange(nodes);
@@ -577,6 +94,540 @@ namespace Main
             }
 
             return g;
+        }
+    }
+
+    public class Program
+    {
+        public static void GraphVisualizerHelper(List<string> nodes, List<List<string>> edges, string filepath)
+        {
+            if (Graph.hasTags(edges))
+            {
+                AdjacencyGraph<string, TaggedEdge<string, string>> g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                Visualizer.ExportDot(g, filepath);
+                Visualizer.VertexShape = GraphvizVertexShape.Box;
+                Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
+                Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+            }
+            else
+            {
+                AdjacencyGraph<int, Edge<int>> g = Graph.CreateDirectedGraph(nodes, edges);
+                Visualizer.ExportDot(g, filepath);
+                Visualizer.VertexShape = GraphvizVertexShape.Circle;
+                Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
+            }
+        }
+
+        public static List<string> WeaklyConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var ans = WeaklyConnectedComponents.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var ans = WeaklyConnectedComponents.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> EdmondsKarpMaxFlowHelper(List<string> nodes, List<List<string>> edges, string source, string sink)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges)) // Only valid for tagged edges
+            {
+                var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
+                var ans = EdmondsKarpMaxFlow.Get(g, source, sink);
+                results.Add($"{ans}");
+            }
+            return results;
+        }
+
+        public static List<string> EdmondsKarpMaxFlowPredecessorsHelper(List<string> nodes, List<List<string>> edges, string source, string sink)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges)) // Only valid for tagged edges
+            {
+                var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
+                var ans = EdmondsKarpMaxFlow.GetPredecessors(g, source, sink);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> EdmondsKarpMaxFlowResidualCapacitiesHelper(List<string> nodes, List<List<string>> edges, string source, string sink)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges)) // Only valid for tagged edges
+            {
+                var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
+                var ans = EdmondsKarpMaxFlow.GetResidualCapacities(g, source, sink);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> StronglyConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var ans = StronglyConnectedComponents.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var ans = StronglyConnectedComponents.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> StronglyConnectedComponentsGraphHelper(List<string> nodes, List<List<string>> edges, string filepath)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var ans = StronglyConnectedComponents.GetGraphs(g);
+                results.Add($"Graphs: {ans.Length}");
+                for (int i = 0; i < ans.Length; i++)
+                {
+                    var _g = ans[i];
+                    Visualizer.ExportDot(_g, $"{filepath}_{i}");
+                    Visualizer.VertexShape = GraphvizVertexShape.Box;
+                    Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
+                    Visualizer.ExportImageFile(_g, GraphvizImageType.Svg, $"{filepath}_{i}", ImageLayout.circo);
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var ans = StronglyConnectedComponents.GetGraphs(g);
+                results.Add($"Graphs: {ans.Length}");
+                for (int i = 0; i < ans.Length; i++)
+                {
+                    var _g = ans[i];
+                    Visualizer.ExportDot(_g, $"{filepath}_{i}");
+                    Visualizer.VertexShape = GraphvizVertexShape.Circle;
+                    Visualizer.ExportImageFile(_g, GraphvizImageType.Svg, $"{filepath}_{i}", ImageLayout.dot);
+                }
+            }
+            return results;
+        }
+
+        public static List<string> WeaklyConnectedComponentsGraphHelper(List<string> nodes, List<List<string>> edges, string outputFile)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var ans = WeaklyConnectedComponents.GetGraphs(g);
+                results.Add($"Graphs: {ans.Length}");
+                for (int i = 0; i < ans.Length; i++)
+                {
+                    var _g = ans[i];
+                    Visualizer.ExportDot(_g, $"{outputFile}_{i}");
+                    Visualizer.VertexShape = GraphvizVertexShape.Box;
+                    Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
+                    Visualizer.ExportImageFile(_g, GraphvizImageType.Svg, $"{outputFile}_{i}", ImageLayout.circo);
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var ans = WeaklyConnectedComponents.GetGraphs(g);
+                results.Add($"Graphs: {ans.Length}");
+                for (int i = 0; i < ans.Length; i++)
+                {
+                    var _g = ans[i];
+                    Visualizer.ExportDot(_g, $"{outputFile}_{i}");
+                    Visualizer.VertexShape = GraphvizVertexShape.Circle;
+                    Visualizer.ExportImageFile(_g, GraphvizImageType.Svg, $"{outputFile}_{i}", ImageLayout.dot);
+                }
+            }
+            return results;
+        }
+
+        public static List<string> IncrementalConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
+                var ans = IncrementalConnectedComponents.Get(g);
+                var key = ans.Key;
+                results.Add($"Components {key}:");
+                var dict = ans.Value;
+                foreach (var d in dict)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateUndirectedGraph(nodes, edges);
+                var ans = IncrementalConnectedComponents.Get(g);
+                var key = ans.Key;
+                results.Add($"Components {key}:");
+                var dict = ans.Value;
+                foreach (var d in dict)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> ConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
+                var ans = ConnectedComponents.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateUndirectedGraph(nodes, edges);
+                var ans = ConnectedComponents.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> VertexObserverHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                AdjacencyGraph<string, TaggedEdge<string, string>> g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var dfs = VertexObs.Get(g);
+                foreach (var e in dfs)
+                {
+                    results.Add(e.ToString());
+                }
+            }
+            else
+            {
+                AdjacencyGraph<int, Edge<int>> g = Graph.CreateDirectedGraph(nodes, edges);
+                var dfs = VertexObs.Get(g);
+                foreach (var e in dfs)
+                {
+                    results.Add(e.ToString());
+                }
+            }
+            return results;
+        }
+
+        public static List<string> EdgeObserverHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                AdjacencyGraph<string, TaggedEdge<string, string>> g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var dfs = EdgeObs.Get(g);
+                foreach (var e in dfs)
+                {
+                    results.Add(e.ToString());
+                }
+            }
+            else
+            {
+                AdjacencyGraph<int, Edge<int>> g = Graph.CreateDirectedGraph(nodes, edges);
+                var dfs = EdgeObs.Get(g);
+                foreach (var e in dfs)
+                {
+                    results.Add(e.ToString());
+                }
+            }
+            return results;
+        }
+
+        public static List<string> EdgePredecessorPathObserverHelper(List<string> nodes, List<List<string>> edges, string v)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var dfs = EdgePredecessorObs.GetAllPaths(g);
+                for (int i = 0; i < dfs.Count; i++)
+                {
+                    var p = dfs[i];
+                    results.Add($"Edge Path {i}:");
+                    foreach (var e in p)
+                        results.Add(e.ToString());
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var dfs = EdgePredecessorObs.GetAllPaths(g);
+                for (int i = 0; i < dfs.Count; i++)
+                {
+                    var p = dfs[i];
+                    results.Add($"Edge Path {i}:");
+                    foreach (var e in p)
+                        results.Add(e.ToString());
+                }
+            }
+            return results;
+        }
+
+        public static List<string> EdgePredecessorObserverHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var dfs = EdgePredecessorObs.Get(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                AdjacencyGraph<int, Edge<int>> g = Graph.CreateDirectedGraph(nodes, edges);
+                var dfs = EdgePredecessorObs.Get(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> VertexDistanceObserverHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var dfs = VertexDistanceObs.Get(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var dfs = VertexDistanceObs.Get(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> UndirectedVertexDistanceObserverHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
+                var dfs = UndirectedVertexDistanceObs.Get(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateUndirectedGraph(nodes, edges);
+                var dfs = UndirectedVertexDistanceObs.Get(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> UndirectedVertexPredecessorObserverHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
+                var dfs = UndirectedVertexPredecessorObs.Get(g);
+
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateUndirectedGraph(nodes, edges);
+                var dfs = UndirectedVertexPredecessorObs.Get(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> VertexPredecessorObserverHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var dfs = VertexPredecessorObs.Get(g);
+
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var dfs = VertexPredecessorObs.Get(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> UndirectedVertexPredecessorPathObserverHelper(List<string> nodes, List<List<string>> edges, string v)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
+                var dfs = UndirectedVertexPredecessorObs.GetPath(g, v);
+                foreach (var n in dfs)
+                {
+                    results.Add(n.ToString());
+                }
+            }
+            else
+            {
+                var g = Graph.CreateUndirectedGraph(nodes, edges);
+                var dfs = UndirectedVertexPredecessorObs.GetPath(g, int.Parse(v));
+                foreach (var n in dfs)
+                {
+                    results.Add(n.ToString());
+                }
+            }
+            return results;
+        }
+
+        public static List<string> VertexPredecessorPathObserverHelper(List<string> nodes, List<List<string>> edges, string v)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var dfs = VertexPredecessorObs.GetAllPaths(g);
+                for (int i = 0; i < dfs.Count; i++)
+                {
+                    var p = dfs[i];
+                    results.Add($"Edge Path {i}:");
+                    foreach (var e in p)
+                        results.Add(e.ToString());
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var dfs = VertexPredecessorObs.GetAllPaths(g);
+                for (int i = 0; i < dfs.Count; i++)
+                {
+                    var p = dfs[i];
+                    results.Add($"Edge Path {i}:");
+                    foreach (var e in p)
+                        results.Add(e.ToString());
+                }
+            }
+            return results;
+        }
+
+        public static List<string> VertexDiscoverTimeStampObserverHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var dfs = VertexTimeStampObs.GetDiscoverTimes(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var dfs = VertexTimeStampObs.GetDiscoverTimes(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> VertexFinishTimeStampObserverHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var dfs = VertexTimeStampObs.GetFinishTimes(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var dfs = VertexTimeStampObs.GetFinishTimes(g);
+                foreach (var d in dfs)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
         }
 
         private static void Main()
