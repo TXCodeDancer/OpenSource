@@ -92,11 +92,11 @@ namespace Main
                 results.Add($"Graphs: {ans.Length}");
                 for (int i = 0; i < ans.Length; i++)
                 {
-                    var G = ans[i];
-                    Visualizer.ExportDot(G, $"{filepath}_{i}");
+                    var _g = ans[i];
+                    Visualizer.ExportDot(_g, $"{filepath}_{i}");
                     Visualizer.VertexShape = GraphvizVertexShape.Box;
                     Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
-                    Visualizer.ExportImageFile(G, GraphvizImageType.Svg, $"{filepath}_{i}", ImageLayout.circo);
+                    Visualizer.ExportImageFile(_g, GraphvizImageType.Svg, $"{filepath}_{i}", ImageLayout.circo);
                 }
             }
             else
@@ -106,10 +106,10 @@ namespace Main
                 results.Add($"Graphs: {ans.Length}");
                 for (int i = 0; i < ans.Length; i++)
                 {
-                    var G = ans[i];
-                    Visualizer.ExportDot(G, $"{filepath}_{i}");
+                    var _g = ans[i];
+                    Visualizer.ExportDot(_g, $"{filepath}_{i}");
                     Visualizer.VertexShape = GraphvizVertexShape.Circle;
-                    Visualizer.ExportImageFile(G, GraphvizImageType.Svg, $"{filepath}_{i}", ImageLayout.dot);
+                    Visualizer.ExportImageFile(_g, GraphvizImageType.Svg, $"{filepath}_{i}", ImageLayout.dot);
                 }
             }
             return results;
@@ -125,11 +125,11 @@ namespace Main
                 results.Add($"Graphs: {ans.Length}");
                 for (int i = 0; i < ans.Length; i++)
                 {
-                    var G = ans[i];
-                    Visualizer.ExportDot(G, $"{outputFile}_{i}");
+                    var _g = ans[i];
+                    Visualizer.ExportDot(_g, $"{outputFile}_{i}");
                     Visualizer.VertexShape = GraphvizVertexShape.Box;
                     Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
-                    Visualizer.ExportImageFile(G, GraphvizImageType.Svg, $"{outputFile}_{i}", ImageLayout.circo);
+                    Visualizer.ExportImageFile(_g, GraphvizImageType.Svg, $"{outputFile}_{i}", ImageLayout.circo);
                 }
             }
             else
@@ -139,10 +139,10 @@ namespace Main
                 results.Add($"Graphs: {ans.Length}");
                 for (int i = 0; i < ans.Length; i++)
                 {
-                    var G = ans[i];
-                    Visualizer.ExportDot(G, $"{outputFile}_{i}");
+                    var _g = ans[i];
+                    Visualizer.ExportDot(_g, $"{outputFile}_{i}");
                     Visualizer.VertexShape = GraphvizVertexShape.Circle;
-                    Visualizer.ExportImageFile(G, GraphvizImageType.Svg, $"{outputFile}_{i}", ImageLayout.dot);
+                    Visualizer.ExportImageFile(_g, GraphvizImageType.Svg, $"{outputFile}_{i}", ImageLayout.dot);
                 }
             }
             return results;
