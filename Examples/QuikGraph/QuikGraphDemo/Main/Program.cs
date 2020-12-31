@@ -4,6 +4,7 @@
 
 using Algorithms.ConnectedComponents;
 using Algorithms.MaximumFlow;
+using Algorithms.MinimumSpanningTree;
 using Algorithms.Observers;
 using QuikGraph;
 using QuikGraph.Graphviz.Dot;
@@ -626,6 +627,48 @@ namespace Main
                 {
                     results.Add($"{d.Key}: {d.Value}");
                 }
+            }
+            return results;
+        }
+
+        public static List<string> KruskalMinimumSpanningTreeEdgeHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
+                var ans = KruskalMinimumSpanningTree.GetEdges(g);
+                foreach (var n in ans)
+                {
+                    results.Add(n.ToString());
+                }
+            }
+            else
+            {
+                var g = Graph.CreateUndirectedGraph(nodes, edges);
+                var ans = KruskalMinimumSpanningTree.GetEdges(g);
+                foreach (var n in ans)
+                {
+                    results.Add(n.ToString());
+                }
+            }
+            return results;
+        }
+
+        public static List<string> KruskalMinimumSpanningTreeCostHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
+                var ans = KruskalMinimumSpanningTree.GetCost(g);
+                results.Add(ans.ToString());
+            }
+            else
+            {
+                var g = Graph.CreateUndirectedGraph(nodes, edges);
+                var ans = KruskalMinimumSpanningTree.GetCost(g);
+                results.Add(ans.ToString());
             }
             return results;
         }
