@@ -77,11 +77,12 @@ namespace Tests.AlgorithmsTests.MinimumSpanningTree
         public static IEnumerable<object[]> GetInputFiles =>
             new List<object[]>
             {
-//                 new object[] { new string(@"..\..\..\Cases\01") },
+                new object[] { new string(@"..\..\..\Cases\01") },
                 new object[] { new string(@"..\..\..\Cases\02") },
-//                 new object[] { new string(@"..\..\..\Cases\03") },
-//                 new object[] { new string(@"..\..\..\Cases\06") },
-//                 new object[] { new string(@"..\..\..\Cases\07") },
+                new object[] { new string(@"..\..\..\Cases\03") },
+                new object[] { new string(@"..\..\..\Cases\06") },
+//                new object[] { new string(@"..\..\..\Cases\07") }, //  This test is invalid need to guard against?
+                new object[] { new string(@"..\..\..\Cases\08") },
             };
     }
 }
