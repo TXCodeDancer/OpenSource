@@ -33,7 +33,7 @@ namespace Tests.AlgorithmsTests.MaxFlowTests
 
             var source = nodes[0];
             var sink = nodes[nodes.Count - 1];
-            List<string> actual = Program.EdmondsKarpMaxFlowHelper(nodes, edges, source, sink);
+            List<string> actual = MaximumFlowHelper.EdmondsKarpMaxFlow(nodes, edges, source, sink);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
@@ -68,7 +68,7 @@ namespace Tests.AlgorithmsTests.MaxFlowTests
 
             var source = nodes[0];
             var sink = nodes[nodes.Count - 1];
-            List<string> actual = Program.EdmondsKarpMaxFlowPredecessorsHelper(nodes, edges, source, sink);
+            List<string> actual = MaximumFlowHelper.EdmondsKarpMaxFlowPredecessors(nodes, edges, source, sink);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
@@ -103,7 +103,7 @@ namespace Tests.AlgorithmsTests.MaxFlowTests
 
             var source = nodes[0];
             var sink = nodes[nodes.Count - 1];
-            List<string> actual = Program.EdmondsKarpMaxFlowResidualCapacitiesHelper(nodes, edges, source, sink);
+            List<string> actual = MaximumFlowHelper.EdmondsKarpMaxFlowResidualCapacities(nodes, edges, source, sink);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results

@@ -29,7 +29,7 @@ namespace Tests
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            List<string> actual = Program.VertexPredecessorObserverHelper(nodes, edges);
+            List<string> actual = ObserverHelper.VertexPredecessor(nodes, edges);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
@@ -62,7 +62,7 @@ namespace Tests
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            List<string> actual = Program.VertexPredecessorPathObserverHelper(nodes, edges, nodes.Last());
+            List<string> actual = ObserverHelper.VertexPredecessorPath(nodes, edges, nodes.Last());
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results

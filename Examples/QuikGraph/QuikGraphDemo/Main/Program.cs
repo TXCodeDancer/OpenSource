@@ -96,36 +96,36 @@ namespace Main
 
             return g;
         }
-    }
 
-    public class Program
-    {
-        public static void GraphVisualizerHelper(List<string> nodes, List<List<string>> edges, string filepath)
+        public static void Visualizer(List<string> nodes, List<List<string>> edges, string filepath)
         {
             if (Graph.hasTags(edges))
             {
                 AdjacencyGraph<string, TaggedEdge<string, string>> g = Graph.CreateDirectedTaggedGraph(nodes, edges);
-                Visualizer.ExportDot(g, filepath);
-                Visualizer.VertexShape = GraphvizVertexShape.Box;
-                Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
-                Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+                Visualizers.Visualizer.ExportDot(g, filepath);
+                Visualizers.Visualizer.VertexShape = GraphvizVertexShape.Box;
+                Visualizers.Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
+                Visualizers.Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
             }
             else
             {
                 AdjacencyGraph<int, Edge<int>> g = Graph.CreateDirectedGraph(nodes, edges);
-                Visualizer.ExportDot(g, filepath);
-                Visualizer.VertexShape = GraphvizVertexShape.Circle;
-                Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
+                Visualizers.Visualizer.ExportDot(g, filepath);
+                Visualizers.Visualizer.VertexShape = GraphvizVertexShape.Circle;
+                Visualizers.Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
             }
         }
+    }
 
-        public static List<string> WeaklyConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
+    public class ConnectedComponentsHelper
+    {
+        public static List<string> WeaklyConnectedComponents(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
-                var ans = WeaklyConnectedComponents.Get(g);
+                var ans = Algorithms.ConnectedComponents.WeaklyConnectedComponents.Get(g);
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -134,7 +134,7 @@ namespace Main
             else
             {
                 var g = Graph.CreateDirectedGraph(nodes, edges);
-                var ans = WeaklyConnectedComponents.Get(g);
+                var ans = Algorithms.ConnectedComponents.WeaklyConnectedComponents.Get(g);
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -143,55 +143,13 @@ namespace Main
             return results;
         }
 
-        public static List<string> EdmondsKarpMaxFlowHelper(List<string> nodes, List<List<string>> edges, string source, string sink)
-        {
-            List<string> results = new List<string>();
-            if (Graph.hasTags(edges)) // Only valid for tagged edges
-            {
-                var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
-                var ans = EdmondsKarpMaxFlow.Get(g, source, sink);
-                results.Add($"{ans}");
-            }
-            return results;
-        }
-
-        public static List<string> EdmondsKarpMaxFlowPredecessorsHelper(List<string> nodes, List<List<string>> edges, string source, string sink)
-        {
-            List<string> results = new List<string>();
-            if (Graph.hasTags(edges)) // Only valid for tagged edges
-            {
-                var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
-                var ans = EdmondsKarpMaxFlow.GetPredecessors(g, source, sink);
-                foreach (var d in ans)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            return results;
-        }
-
-        public static List<string> EdmondsKarpMaxFlowResidualCapacitiesHelper(List<string> nodes, List<List<string>> edges, string source, string sink)
-        {
-            List<string> results = new List<string>();
-            if (Graph.hasTags(edges)) // Only valid for tagged edges
-            {
-                var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
-                var ans = EdmondsKarpMaxFlow.GetResidualCapacities(g, source, sink);
-                foreach (var d in ans)
-                {
-                    results.Add($"{d.Key}: {d.Value}");
-                }
-            }
-            return results;
-        }
-
-        public static List<string> StronglyConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> StronglyConnectedComponents(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
-                var ans = StronglyConnectedComponents.Get(g);
+                var ans = Algorithms.ConnectedComponents.StronglyConnectedComponents.Get(g);
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -200,7 +158,7 @@ namespace Main
             else
             {
                 var g = Graph.CreateDirectedGraph(nodes, edges);
-                var ans = StronglyConnectedComponents.Get(g);
+                var ans = Algorithms.ConnectedComponents.StronglyConnectedComponents.Get(g);
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -209,13 +167,13 @@ namespace Main
             return results;
         }
 
-        public static List<string> StronglyConnectedComponentsGraphHelper(List<string> nodes, List<List<string>> edges, string filepath)
+        public static List<string> StronglyConnectedComponentsGraph(List<string> nodes, List<List<string>> edges, string filepath)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
-                var ans = StronglyConnectedComponents.GetGraphs(g);
+                var ans = Algorithms.ConnectedComponents.StronglyConnectedComponents.GetGraphs(g);
                 results.Add($"Graphs: {ans.Length}");
                 for (int i = 0; i < ans.Length; i++)
                 {
@@ -229,7 +187,7 @@ namespace Main
             else
             {
                 var g = Graph.CreateDirectedGraph(nodes, edges);
-                var ans = StronglyConnectedComponents.GetGraphs(g);
+                var ans = Algorithms.ConnectedComponents.StronglyConnectedComponents.GetGraphs(g);
                 results.Add($"Graphs: {ans.Length}");
                 for (int i = 0; i < ans.Length; i++)
                 {
@@ -242,13 +200,13 @@ namespace Main
             return results;
         }
 
-        public static List<string> WeaklyConnectedComponentsGraphHelper(List<string> nodes, List<List<string>> edges, string outputFile)
+        public static List<string> WeaklyConnectedComponentsGraph(List<string> nodes, List<List<string>> edges, string outputFile)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
-                var ans = WeaklyConnectedComponents.GetGraphs(g);
+                var ans = Algorithms.ConnectedComponents.WeaklyConnectedComponents.GetGraphs(g);
                 results.Add($"Graphs: {ans.Length}");
                 for (int i = 0; i < ans.Length; i++)
                 {
@@ -262,7 +220,7 @@ namespace Main
             else
             {
                 var g = Graph.CreateDirectedGraph(nodes, edges);
-                var ans = WeaklyConnectedComponents.GetGraphs(g);
+                var ans = Algorithms.ConnectedComponents.WeaklyConnectedComponents.GetGraphs(g);
                 results.Add($"Graphs: {ans.Length}");
                 for (int i = 0; i < ans.Length; i++)
                 {
@@ -275,13 +233,13 @@ namespace Main
             return results;
         }
 
-        public static List<string> IncrementalConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> IncrementalConnectedComponents(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
-                var ans = IncrementalConnectedComponents.Get(g);
+                var ans = Algorithms.ConnectedComponents.IncrementalConnectedComponents.Get(g);
                 var key = ans.Key;
                 results.Add($"Components {key}:");
                 var dict = ans.Value;
@@ -293,7 +251,7 @@ namespace Main
             else
             {
                 var g = Graph.CreateUndirectedGraph(nodes, edges);
-                var ans = IncrementalConnectedComponents.Get(g);
+                var ans = Algorithms.ConnectedComponents.IncrementalConnectedComponents.Get(g);
                 var key = ans.Key;
                 results.Add($"Components {key}:");
                 var dict = ans.Value;
@@ -305,13 +263,13 @@ namespace Main
             return results;
         }
 
-        public static List<string> ConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> ConnectedComponents(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
-                var ans = ConnectedComponents.Get(g);
+                var ans = Algorithms.ConnectedComponents.ConnectedComponents.Get(g);
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -320,7 +278,37 @@ namespace Main
             else
             {
                 var g = Graph.CreateUndirectedGraph(nodes, edges);
-                var ans = ConnectedComponents.Get(g);
+                var ans = Algorithms.ConnectedComponents.ConnectedComponents.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+    }
+
+    public class MaximumFlowHelper
+    {
+        public static List<string> EdmondsKarpMaxFlow(List<string> nodes, List<List<string>> edges, string source, string sink)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges)) // Only valid for tagged edges
+            {
+                var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
+                var ans = Algorithms.MaximumFlow.EdmondsKarpMaxFlow.Get(g, source, sink);
+                results.Add($"{ans}");
+            }
+            return results;
+        }
+
+        public static List<string> EdmondsKarpMaxFlowPredecessors(List<string> nodes, List<List<string>> edges, string source, string sink)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges)) // Only valid for tagged edges
+            {
+                var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
+                var ans = Algorithms.MaximumFlow.EdmondsKarpMaxFlow.GetPredecessors(g, source, sink);
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -329,7 +317,25 @@ namespace Main
             return results;
         }
 
-        public static List<string> VertexObserverHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> EdmondsKarpMaxFlowResidualCapacities(List<string> nodes, List<List<string>> edges, string source, string sink)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges)) // Only valid for tagged edges
+            {
+                var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
+                var ans = Algorithms.MaximumFlow.EdmondsKarpMaxFlow.GetResidualCapacities(g, source, sink);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+    }
+
+    public class ObserverHelper
+    {
+        public static List<string> Vertex(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
@@ -353,7 +359,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> EdgeObserverHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> Edge(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
@@ -377,7 +383,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> EdgePredecessorPathObserverHelper(List<string> nodes, List<List<string>> edges, string v)
+        public static List<string> EdgePredecessorPath(List<string> nodes, List<List<string>> edges, string v)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
@@ -407,7 +413,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> EdgePredecessorObserverHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> EdgePredecessor(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
@@ -431,7 +437,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> VertexDistanceObserverHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> VertexDistance(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
@@ -455,7 +461,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> UndirectedVertexDistanceObserverHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> UndirectedVertexDistance(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
@@ -479,7 +485,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> UndirectedVertexPredecessorObserverHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> UndirectedVertexPredecessor(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
@@ -504,7 +510,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> VertexPredecessorObserverHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> VertexPredecessor(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
@@ -529,7 +535,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> UndirectedVertexPredecessorPathObserverHelper(List<string> nodes, List<List<string>> edges, string v)
+        public static List<string> UndirectedVertexPredecessorPath(List<string> nodes, List<List<string>> edges, string v)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
@@ -553,7 +559,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> VertexPredecessorPathObserverHelper(List<string> nodes, List<List<string>> edges, string v)
+        public static List<string> VertexPredecessorPath(List<string> nodes, List<List<string>> edges, string v)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
@@ -583,7 +589,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> VertexDiscoverTimeStampObserverHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> VertexDiscoverTimeStamp(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
@@ -607,7 +613,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> VertexFinishTimeStampObserverHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> VertexFinishTimeStamp(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
@@ -630,8 +636,11 @@ namespace Main
             }
             return results;
         }
+    }
 
-        public static List<string> KruskalMinimumSpanningTreeEdgeHelper(List<string> nodes, List<List<string>> edges)
+    public class MinimumSpanningTreeHelper
+    {
+        public static List<string> KruskalEdge(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
@@ -655,7 +664,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> KruskalMinimumSpanningTreeCostHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> KruskalCost(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
@@ -672,7 +681,10 @@ namespace Main
             }
             return results;
         }
+    }
 
+    public class Program
+    {
         private static void Main()
         {
             string filepath = @"ManualInput";
@@ -684,7 +696,7 @@ namespace Main
                 edges.Add(edge.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            GraphVisualizerHelper(nodes, edges, filepath);
+            Graph.Visualizer(nodes, edges, filepath);
         }
     }
 }

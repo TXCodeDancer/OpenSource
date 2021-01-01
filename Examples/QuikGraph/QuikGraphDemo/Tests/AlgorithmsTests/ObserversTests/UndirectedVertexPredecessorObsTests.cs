@@ -29,7 +29,7 @@ namespace Tests
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            List<string> actual = Program.UndirectedVertexPredecessorObserverHelper(nodes, edges);
+            List<string> actual = ObserverHelper.UndirectedVertexPredecessor(nodes, edges);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
@@ -62,7 +62,7 @@ namespace Tests
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            List<string> actual = Program.UndirectedVertexPredecessorPathObserverHelper(nodes, edges, nodes.Last());
+            List<string> actual = ObserverHelper.UndirectedVertexPredecessorPath(nodes, edges, nodes.Last());
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results

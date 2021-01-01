@@ -29,7 +29,7 @@ namespace Tests.AlgorithmsTests.MinimumSpanningTree
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            List<string> actual = Program.KruskalMinimumSpanningTreeEdgeHelper(nodes, edges);
+            List<string> actual = MinimumSpanningTreeHelper.KruskalEdge(nodes, edges);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
@@ -62,7 +62,7 @@ namespace Tests.AlgorithmsTests.MinimumSpanningTree
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            List<string> actual = Program.KruskalMinimumSpanningTreeCostHelper(nodes, edges);
+            List<string> actual = MinimumSpanningTreeHelper.KruskalCost(nodes, edges);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
