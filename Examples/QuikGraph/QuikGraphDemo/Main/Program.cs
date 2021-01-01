@@ -97,6 +97,34 @@ namespace Main
             return g;
         }
 
+        public static UndirectedGraph<string, TaggedEdge<string, string>> CreateUndirectedTaggedGraph(List<string> nodes, IEnumerable<TaggedEdge<string, string>> edges)
+        {
+            var g = new UndirectedGraph<string, TaggedEdge<string, string>>();
+            g.AddVertexRange(nodes);
+            foreach (var e in edges)
+            {
+                g.AddEdge(e);
+            }
+
+            return g;
+        }
+
+        public static UndirectedGraph<int, Edge<int>> CreateUndirectedTaggedGraph(List<string> nodes, IEnumerable<Edge<int>> edges)
+        {
+            var g = new UndirectedGraph<int, Edge<int>>();
+            foreach (var n in nodes)
+            {
+                g.AddVertex(int.Parse(n));
+            }
+
+            foreach (var e in edges)
+            {
+                g.AddEdge(e);
+            }
+
+            return g;
+        }
+
         public static void Visualizer(List<string> nodes, List<List<string>> edges, string filepath)
         {
             if (Graph.hasTags(edges))
@@ -115,6 +143,57 @@ namespace Main
                 Visualizers.Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
             }
         }
+
+        public static void Visualizer(AdjacencyGraph<string, TaggedEdge<string, string>> g, string filepath)
+        {
+            Visualizers.Visualizer.ExportDot(g, filepath);
+            Visualizers.Visualizer.VertexShape = GraphvizVertexShape.Box;
+            Visualizers.Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
+            Visualizers.Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+        }
+
+        public static void Visualizer(AdjacencyGraph<int, Edge<int>> g, string filepath)
+        {
+            Visualizers.Visualizer.ExportDot(g, filepath);
+            Visualizers.Visualizer.VertexShape = GraphvizVertexShape.Circle;
+            Visualizers.Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
+        }
+
+        public static void Visualizer(BidirectionalGraph<string, TaggedEdge<string, string>> g, string filepath)
+        {
+            Visualizers.Visualizer.ExportDot(g, filepath);
+            Visualizers.Visualizer.VertexShape = GraphvizVertexShape.Box;
+            Visualizers.Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
+            Visualizers.Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+        }
+
+        public static void Visualizer(BidirectionalGraph<int, Edge<int>> g, string filepath)
+        {
+            Visualizers.Visualizer.ExportDot(g, filepath);
+            Visualizers.Visualizer.VertexShape = GraphvizVertexShape.Circle;
+            Visualizers.Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
+        }
+
+        public static void Visualizer(UndirectedGraph<string, TaggedEdge<string, string>> g, string filepath)
+        {
+            Visualizers.Visualizer.ExportDot(g, filepath);
+            Visualizers.Visualizer.VertexShape = GraphvizVertexShape.Box;
+            Visualizers.Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
+            Visualizers.Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+        }
+
+        public static void Visualizer(UndirectedGraph<int, Edge<int>> g, string filepath)
+        {
+            Visualizers.Visualizer.ExportDot(g, filepath);
+            Visualizers.Visualizer.VertexShape = GraphvizVertexShape.Circle;
+            Visualizers.Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
+        }
+
+        //         public static void Visualizer<TVertex, TEdge>(AdjacencyGraph<TVertex, TEdge> g, string filepath, ImageLayout layout = ImageLayout.dot) where TEdge : IEdge<TVertex>
+        //         {
+        //             Visualizers.Visualizer.ExportDot(g, filepath);
+        //             Visualizers.Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, layout);
+        //         }
     }
 
     public class ConnectedComponentsHelper
@@ -167,7 +246,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> StronglyConnectedComponentsGraph(List<string> nodes, List<List<string>> edges, string filepath)
+        public static List<string> StronglyConnectedComponentsGraph(List<string> nodes, List<List<string>> edges, string outputFile)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
@@ -177,11 +256,9 @@ namespace Main
                 results.Add($"Graphs: {ans.Length}");
                 for (int i = 0; i < ans.Length; i++)
                 {
-                    var _g = ans[i];
-                    Visualizer.ExportDot(_g, $"{filepath}_{i}");
-                    Visualizer.VertexShape = GraphvizVertexShape.Box;
-                    Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
-                    Visualizer.ExportImageFile(_g, GraphvizImageType.Svg, $"{filepath}_{i}", ImageLayout.circo);
+                    var graph = ans[i];
+                    var path = $"{outputFile}_{i}";
+                    Graph.Visualizer(graph, path);
                 }
             }
             else
@@ -191,10 +268,9 @@ namespace Main
                 results.Add($"Graphs: {ans.Length}");
                 for (int i = 0; i < ans.Length; i++)
                 {
-                    var _g = ans[i];
-                    Visualizer.ExportDot(_g, $"{filepath}_{i}");
-                    Visualizer.VertexShape = GraphvizVertexShape.Circle;
-                    Visualizer.ExportImageFile(_g, GraphvizImageType.Svg, $"{filepath}_{i}", ImageLayout.dot);
+                    var graph = ans[i];
+                    var path = $"{outputFile}_{i}";
+                    Graph.Visualizer(graph, path);
                 }
             }
             return results;
@@ -210,11 +286,9 @@ namespace Main
                 results.Add($"Graphs: {ans.Length}");
                 for (int i = 0; i < ans.Length; i++)
                 {
-                    var _g = ans[i];
-                    Visualizer.ExportDot(_g, $"{outputFile}_{i}");
-                    Visualizer.VertexShape = GraphvizVertexShape.Box;
-                    Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
-                    Visualizer.ExportImageFile(_g, GraphvizImageType.Svg, $"{outputFile}_{i}", ImageLayout.circo);
+                    var graph = ans[i];
+                    var path = $"{outputFile}_{i}";
+                    Graph.Visualizer(graph, path);
                 }
             }
             else
@@ -224,10 +298,9 @@ namespace Main
                 results.Add($"Graphs: {ans.Length}");
                 for (int i = 0; i < ans.Length; i++)
                 {
-                    var _g = ans[i];
-                    Visualizer.ExportDot(_g, $"{outputFile}_{i}");
-                    Visualizer.VertexShape = GraphvizVertexShape.Circle;
-                    Visualizer.ExportImageFile(_g, GraphvizImageType.Svg, $"{outputFile}_{i}", ImageLayout.dot);
+                    var graph = ans[i];
+                    var path = $"{outputFile}_{i}";
+                    Graph.Visualizer(graph, path);
                 }
             }
             return results;
@@ -640,13 +713,15 @@ namespace Main
 
     public class MinimumSpanningTreeHelper
     {
-        public static List<string> KruskalEdge(List<string> nodes, List<List<string>> edges)
+        public static List<string> KruskalEdge(List<string> nodes, List<List<string>> edges, string filepath)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
                 var ans = KruskalMinimumSpanningTree.GetEdges(g);
+                var mst = Graph.CreateUndirectedTaggedGraph(nodes, ans);
+                Graph.Visualizer(mst, filepath);
                 foreach (var n in ans)
                 {
                     results.Add(n.ToString());
@@ -656,6 +731,8 @@ namespace Main
             {
                 var g = Graph.CreateUndirectedGraph(nodes, edges);
                 var ans = KruskalMinimumSpanningTree.GetEdges(g);
+                var mst = Graph.CreateUndirectedTaggedGraph(nodes, ans);
+                Graph.Visualizer(mst, filepath);
                 foreach (var n in ans)
                 {
                     results.Add(n.ToString());
