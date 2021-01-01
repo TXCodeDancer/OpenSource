@@ -759,6 +759,52 @@ namespace Main
             }
             return results;
         }
+
+        public static List<string> PrimEdge(List<string> nodes, List<List<string>> edges, string filepath)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
+                var ans = PrimMinimumSpanningTree.GetEdges(g);
+                var mst = Graph.CreateUndirectedTaggedGraph(nodes, ans);
+                Graph.Visualizer(mst, filepath);
+                foreach (var n in ans)
+                {
+                    results.Add(n.ToString());
+                }
+            }
+            else
+            {
+                var g = Graph.CreateUndirectedGraph(nodes, edges);
+                var ans = PrimMinimumSpanningTree.GetEdges(g);
+                var mst = Graph.CreateUndirectedTaggedGraph(nodes, ans);
+                Graph.Visualizer(mst, filepath);
+                foreach (var n in ans)
+                {
+                    results.Add(n.ToString());
+                }
+            }
+            return results;
+        }
+
+        public static List<string> PrimCost(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
+                var ans = PrimMinimumSpanningTree.GetCost(g);
+                results.Add(ans.ToString());
+            }
+            else
+            {
+                var g = Graph.CreateUndirectedGraph(nodes, edges);
+                var ans = PrimMinimumSpanningTree.GetCost(g);
+                results.Add(ans.ToString());
+            }
+            return results;
+        }
     }
 
     public class Program
