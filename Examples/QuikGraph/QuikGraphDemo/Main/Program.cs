@@ -4,6 +4,7 @@
 
 using Algorithms.ConnectedComponents;
 using Algorithms.MaximumFlow;
+
 using Algorithms.MinimumSpanningTree;
 using Algorithms.Observers;
 using QuikGraph;
@@ -198,13 +199,13 @@ namespace Main
 
     public class ConnectedComponentsHelper
     {
-        public static List<string> WeaklyConnectedComponents(List<string> nodes, List<List<string>> edges)
+        public static List<string> WeaklyConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
-                var ans = Algorithms.ConnectedComponents.WeaklyConnectedComponents.Get(g);
+                var ans = WeaklyConnectedComponents.Get(g);
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -213,7 +214,7 @@ namespace Main
             else
             {
                 var g = Graph.CreateDirectedGraph(nodes, edges);
-                var ans = Algorithms.ConnectedComponents.WeaklyConnectedComponents.Get(g);
+                var ans = WeaklyConnectedComponents.Get(g);
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -222,13 +223,13 @@ namespace Main
             return results;
         }
 
-        public static List<string> StronglyConnectedComponents(List<string> nodes, List<List<string>> edges)
+        public static List<string> StronglyConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
-                var ans = Algorithms.ConnectedComponents.StronglyConnectedComponents.Get(g);
+                var ans = StronglyConnectedComponents.Get(g);
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -237,7 +238,7 @@ namespace Main
             else
             {
                 var g = Graph.CreateDirectedGraph(nodes, edges);
-                var ans = Algorithms.ConnectedComponents.StronglyConnectedComponents.Get(g);
+                var ans = StronglyConnectedComponents.Get(g);
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -252,7 +253,7 @@ namespace Main
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
-                var ans = Algorithms.ConnectedComponents.StronglyConnectedComponents.GetGraphs(g);
+                var ans = StronglyConnectedComponents.GetGraphs(g);
                 results.Add($"Graphs: {ans.Length}");
                 for (int i = 0; i < ans.Length; i++)
                 {
@@ -264,7 +265,7 @@ namespace Main
             else
             {
                 var g = Graph.CreateDirectedGraph(nodes, edges);
-                var ans = Algorithms.ConnectedComponents.StronglyConnectedComponents.GetGraphs(g);
+                var ans = StronglyConnectedComponents.GetGraphs(g);
                 results.Add($"Graphs: {ans.Length}");
                 for (int i = 0; i < ans.Length; i++)
                 {
@@ -282,7 +283,7 @@ namespace Main
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
-                var ans = Algorithms.ConnectedComponents.WeaklyConnectedComponents.GetGraphs(g);
+                var ans = WeaklyConnectedComponents.GetGraphs(g);
                 results.Add($"Graphs: {ans.Length}");
                 for (int i = 0; i < ans.Length; i++)
                 {
@@ -294,7 +295,7 @@ namespace Main
             else
             {
                 var g = Graph.CreateDirectedGraph(nodes, edges);
-                var ans = Algorithms.ConnectedComponents.WeaklyConnectedComponents.GetGraphs(g);
+                var ans = WeaklyConnectedComponents.GetGraphs(g);
                 results.Add($"Graphs: {ans.Length}");
                 for (int i = 0; i < ans.Length; i++)
                 {
@@ -306,13 +307,13 @@ namespace Main
             return results;
         }
 
-        public static List<string> IncrementalConnectedComponents(List<string> nodes, List<List<string>> edges)
+        public static List<string> IncrementalConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
-                var ans = Algorithms.ConnectedComponents.IncrementalConnectedComponents.Get(g);
+                var ans = IncrementalConnectedComponents.Get(g);
                 var key = ans.Key;
                 results.Add($"Components {key}:");
                 var dict = ans.Value;
@@ -324,7 +325,7 @@ namespace Main
             else
             {
                 var g = Graph.CreateUndirectedGraph(nodes, edges);
-                var ans = Algorithms.ConnectedComponents.IncrementalConnectedComponents.Get(g);
+                var ans = IncrementalConnectedComponents.Get(g);
                 var key = ans.Key;
                 results.Add($"Components {key}:");
                 var dict = ans.Value;
@@ -336,13 +337,13 @@ namespace Main
             return results;
         }
 
-        public static List<string> ConnectedComponents(List<string> nodes, List<List<string>> edges)
+        public static List<string> GenericConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
-                var ans = Algorithms.ConnectedComponents.ConnectedComponents.Get(g);
+                var ans = GenericConnectedComponents.Get(g);
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -351,7 +352,7 @@ namespace Main
             else
             {
                 var g = Graph.CreateUndirectedGraph(nodes, edges);
-                var ans = Algorithms.ConnectedComponents.ConnectedComponents.Get(g);
+                var ans = GenericConnectedComponents.Get(g);
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");

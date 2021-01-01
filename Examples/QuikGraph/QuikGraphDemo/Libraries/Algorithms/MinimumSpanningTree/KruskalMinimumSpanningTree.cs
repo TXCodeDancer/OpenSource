@@ -10,7 +10,7 @@ namespace Algorithms.MinimumSpanningTree
     {
         public static IEnumerable<Edge<int>> GetEdges(UndirectedGraph<int, Edge<int>> g)
         {
-            var algorithm = new KruskalMinimumSpanningTreeAlgorithm<int, Edge<int>>(g, e => 1.0);
+            var algorithm = new KruskalMinimumSpanningTreeAlgorithm<int, Edge<int>>(g, edgeWeights => 1.0);
             var recorder = new EdgeRecorderObserver<int, Edge<int>>();
 
             using (recorder.Attach(algorithm))
@@ -22,7 +22,7 @@ namespace Algorithms.MinimumSpanningTree
 
         public static IEnumerable<TaggedEdge<string, string>> GetEdges(UndirectedGraph<string, TaggedEdge<string, string>> g)
         {
-            var algorithm = new KruskalMinimumSpanningTreeAlgorithm<string, TaggedEdge<string, string>>(g, e => double.Parse(e.Tag));
+            var algorithm = new KruskalMinimumSpanningTreeAlgorithm<string, TaggedEdge<string, string>>(g, edgeWeights => double.Parse(edgeWeights.Tag));
             var recorder = new EdgeRecorderObserver<string, TaggedEdge<string, string>>();
 
             using (recorder.Attach(algorithm))
@@ -34,7 +34,7 @@ namespace Algorithms.MinimumSpanningTree
 
         public static double GetCost(UndirectedGraph<int, Edge<int>> g)
         {
-            var algorithm = new KruskalMinimumSpanningTreeAlgorithm<int, Edge<int>>(g, e => 1.0);
+            var algorithm = new KruskalMinimumSpanningTreeAlgorithm<int, Edge<int>>(g, edgeWeights => 1.0);
             var recorder = new EdgeRecorderObserver<int, Edge<int>>();
 
             var distances = new Dictionary<Edge<int>, double>();
@@ -52,7 +52,7 @@ namespace Algorithms.MinimumSpanningTree
 
         public static double GetCost(UndirectedGraph<string, TaggedEdge<string, string>> g)
         {
-            var algorithm = new KruskalMinimumSpanningTreeAlgorithm<string, TaggedEdge<string, string>>(g, e => double.Parse(e.Tag));
+            var algorithm = new KruskalMinimumSpanningTreeAlgorithm<string, TaggedEdge<string, string>>(g, edgeWeights => double.Parse(edgeWeights.Tag));
             var recorder = new EdgeRecorderObserver<string, TaggedEdge<string, string>>();
 
             var distances = new Dictionary<TaggedEdge<string, string>, double>();
