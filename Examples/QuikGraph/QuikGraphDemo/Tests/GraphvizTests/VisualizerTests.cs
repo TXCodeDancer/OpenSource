@@ -33,7 +33,7 @@ namespace Tests
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            Program.GraphVisualizerHelper(nodes, edges, outputFile);
+            Graph.Visualizer(nodes, edges, outputFile);
 
             // Verify results of dot file
             List<string> expected = File.ReadAllLines(expectedfile).ToList();
@@ -55,6 +55,7 @@ namespace Tests
                 new object[] { new string(@"..\..\..\Cases\05") },
                 new object[] { new string(@"..\..\..\Cases\06") },
                 new object[] { new string(@"..\..\..\Cases\07") },
+                new object[] { new string(@"..\..\..\Cases\08") },
             };
     }
 }

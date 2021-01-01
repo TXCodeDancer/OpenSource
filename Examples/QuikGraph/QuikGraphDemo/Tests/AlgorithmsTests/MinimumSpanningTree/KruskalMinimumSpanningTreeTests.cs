@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using Xunit;
 
-namespace Tests
+namespace Tests.AlgorithmsTests.MinimumSpanningTree
 {
-    public class UndirectedVertexPredecessorObsTests
+    public class KruskalMinimumSpanningTreeTests
     {
         [Theory]
         [MemberData(nameof(GetInputFiles))]
@@ -14,7 +14,7 @@ namespace Tests
         {
             string directory = Path.GetDirectoryName(inputFile);
             string file = Path.GetFileNameWithoutExtension(inputFile);
-            var outputFile = @$"{directory}\Observers\UndirectedVertexPredecessor\{file}";
+            var outputFile = @$"{directory}\MinimumSpanningTree\KruskalEdge\{file}";
             var expectedfile = @$"{outputFile}.a";
             var resultsfile = $"{outputFile}.r";
 
@@ -29,7 +29,7 @@ namespace Tests
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            List<string> actual = ObserverHelper.UndirectedVertexPredecessor(nodes, edges);
+            List<string> actual = MinimumSpanningTreeHelper.KruskalEdge(nodes, edges, outputFile);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
@@ -47,9 +47,9 @@ namespace Tests
         {
             string directory = Path.GetDirectoryName(inputFile);
             string file = Path.GetFileNameWithoutExtension(inputFile);
-            var outputFile = @$"{directory}\Observers\UndirectedVertexPredecessor\{file}";
-            var expectedfile = @$"{outputFile}.a_1";
-            var resultsfile = $"{outputFile}.r_1";
+            var outputFile = @$"{directory}\MinimumSpanningTree\KruskalCost\{file}";
+            var expectedfile = @$"{outputFile}.a";
+            var resultsfile = $"{outputFile}.r";
 
             List<string> inputs = File.ReadAllLines(inputFile).ToList();
             var nodes = inputs[0].Split(' ').ToList(); // First line is a space delimited list of node names: "1 2 3" or "a b c"
@@ -62,7 +62,7 @@ namespace Tests
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            List<string> actual = ObserverHelper.UndirectedVertexPredecessorPath(nodes, edges, nodes.Last());
+            List<string> actual = MinimumSpanningTreeHelper.KruskalCost(nodes, edges);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
@@ -80,7 +80,9 @@ namespace Tests
                 new object[] { new string(@"..\..\..\Cases\01") },
                 new object[] { new string(@"..\..\..\Cases\02") },
                 new object[] { new string(@"..\..\..\Cases\03") },
-                new object[] { new string(@"..\..\..\Cases\04") },
+                new object[] { new string(@"..\..\..\Cases\06") },
+//                new object[] { new string(@"..\..\..\Cases\07") }, //  This test is invalid need to guard against?
+                new object[] { new string(@"..\..\..\Cases\08") },
             };
     }
 }

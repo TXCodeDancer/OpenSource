@@ -29,7 +29,7 @@ namespace Tests
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            List<string> actual = Program.WeaklyConnectedComponentsHelper(nodes, edges);
+            List<string> actual = ConnectedComponentsHelper.WeaklyConnectedComponentsHelper(nodes, edges);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
@@ -62,7 +62,7 @@ namespace Tests
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            List<string> actual = Program.WeaklyConnectedComponentsGraphHelper(nodes, edges, outputFile);
+            List<string> actual = ConnectedComponentsHelper.WeaklyConnectedComponentsGraph(nodes, edges, outputFile);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
