@@ -25,7 +25,7 @@ namespace Visualizers
         osage
     }
 
-    public static class Visualizer
+    public static class Visualize
     {
         private static GraphvizVertexShape _VertexShape = GraphvizVertexShape.Ellipse;
         private static GraphvizVertexStyle _VertexStyle = GraphvizVertexStyle.Rounded;

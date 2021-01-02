@@ -4,9 +4,9 @@
 
 using Algorithms.ConnectedComponents;
 using Algorithms.MaximumFlow;
-
 using Algorithms.MinimumSpanningTree;
 using Algorithms.Observers;
+using Algorithms.Search;
 using QuikGraph;
 using QuikGraph.Graphviz.Dot;
 using System;
@@ -126,69 +126,114 @@ namespace Main
             return g;
         }
 
+        public static BidirectionalGraph<int, Edge<int>> CreateBidirectionalGraph(List<string> nodes, List<List<string>> edges)
+        {
+            var g = new BidirectionalGraph<int, Edge<int>>();
+            List<int> intNodes = new List<int>();
+            foreach (var v in nodes)
+            {
+                intNodes.Add(int.Parse(v));
+            }
+
+            g.AddVertexRange(intNodes);
+            foreach (var e in edges)
+            {
+                g.AddEdge(new Edge<int>(int.Parse(e[0]), int.Parse(e[1])));
+            }
+
+            return g;
+        }
+
+        public static BidirectionalGraph<string, TaggedEdge<string, string>> CreateBidirectionalTaggedGraph(List<string> nodes, List<List<string>> edges)
+        {
+            var g = new BidirectionalGraph<string, TaggedEdge<string, string>>();
+            g.AddVertexRange(nodes);
+            foreach (var e in edges)
+            {
+                g.AddEdge(new TaggedEdge<string, string>(e[0], e[1], e[2]));
+            }
+
+            return g;
+        }
+
         public static void Visualizer(List<string> nodes, List<List<string>> edges, string filepath)
         {
             if (Graph.hasTags(edges))
             {
                 AdjacencyGraph<string, TaggedEdge<string, string>> g = Graph.CreateDirectedTaggedGraph(nodes, edges);
-                Visualizers.Visualizer.ExportDot(g, filepath);
-                Visualizers.Visualizer.VertexShape = GraphvizVertexShape.Box;
-                Visualizers.Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
-                Visualizers.Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+                Visualize.ExportDot(g, filepath);
+                Visualize.VertexShape = GraphvizVertexShape.Box;
+                Visualize.VertexStyle = GraphvizVertexStyle.Rounded;
+                Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
             }
             else
             {
                 AdjacencyGraph<int, Edge<int>> g = Graph.CreateDirectedGraph(nodes, edges);
-                Visualizers.Visualizer.ExportDot(g, filepath);
-                Visualizers.Visualizer.VertexShape = GraphvizVertexShape.Circle;
-                Visualizers.Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
+                Visualize.ExportDot(g, filepath);
+                Visualize.VertexShape = GraphvizVertexShape.Circle;
+                Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
             }
         }
 
         public static void Visualizer(AdjacencyGraph<string, TaggedEdge<string, string>> g, string filepath)
         {
-            Visualizers.Visualizer.ExportDot(g, filepath);
-            Visualizers.Visualizer.VertexShape = GraphvizVertexShape.Box;
-            Visualizers.Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
-            Visualizers.Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+            Visualize.ExportDot(g, filepath);
+            Visualize.VertexShape = GraphvizVertexShape.Box;
+            Visualize.VertexStyle = GraphvizVertexStyle.Rounded;
+            Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
         }
 
         public static void Visualizer(AdjacencyGraph<int, Edge<int>> g, string filepath)
         {
-            Visualizers.Visualizer.ExportDot(g, filepath);
-            Visualizers.Visualizer.VertexShape = GraphvizVertexShape.Circle;
-            Visualizers.Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
+            Visualize.ExportDot(g, filepath);
+            Visualize.VertexShape = GraphvizVertexShape.Circle;
+            Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
         }
 
         public static void Visualizer(BidirectionalGraph<string, TaggedEdge<string, string>> g, string filepath)
         {
-            Visualizers.Visualizer.ExportDot(g, filepath);
-            Visualizers.Visualizer.VertexShape = GraphvizVertexShape.Box;
-            Visualizers.Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
-            Visualizers.Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+            Visualize.ExportDot(g, filepath);
+            Visualize.VertexShape = GraphvizVertexShape.Box;
+            Visualize.VertexStyle = GraphvizVertexStyle.Rounded;
+            Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
         }
 
         public static void Visualizer(BidirectionalGraph<int, Edge<int>> g, string filepath)
         {
-            Visualizers.Visualizer.ExportDot(g, filepath);
-            Visualizers.Visualizer.VertexShape = GraphvizVertexShape.Circle;
-            Visualizers.Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
+            Visualize.ExportDot(g, filepath);
+            Visualize.VertexShape = GraphvizVertexShape.Circle;
+            Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
         }
 
         public static void Visualizer(UndirectedGraph<string, TaggedEdge<string, string>> g, string filepath)
         {
-            Visualizers.Visualizer.ExportDot(g, filepath);
-            Visualizers.Visualizer.VertexShape = GraphvizVertexShape.Box;
-            Visualizers.Visualizer.VertexStyle = GraphvizVertexStyle.Rounded;
-            Visualizers.Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+            Visualize.ExportDot(g, filepath);
+            Visualize.VertexShape = GraphvizVertexShape.Box;
+            Visualize.VertexStyle = GraphvizVertexStyle.Rounded;
+            Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
         }
 
         public static void Visualizer(UndirectedGraph<int, Edge<int>> g, string filepath)
         {
-            Visualizers.Visualizer.ExportDot(g, filepath);
-            Visualizers.Visualizer.VertexShape = GraphvizVertexShape.Circle;
-            Visualizers.Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
+            Visualize.ExportDot(g, filepath);
+            Visualize.VertexShape = GraphvizVertexShape.Circle;
+            Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
         }
+
+        //         public static void Visualizer(IBidirectionalIncidenceGraph<string, TaggedEdge<string, string>> g, string filepath)
+        //         {
+        //             Visualize.ExportDot(g, filepath);
+        //             Visualize.VertexShape = GraphvizVertexShape.Box;
+        //             Visualize.VertexStyle = GraphvizVertexStyle.Rounded;
+        //             Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+        //         }
+        //
+        //         public static void Visualizer(IBidirectionalIncidenceGraph<int, Edge<int>> g, string filepath)
+        //         {
+        //             Visualize.ExportDot(g, filepath);
+        //             Visualize.VertexShape = GraphvizVertexShape.Circle;
+        //             Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
+        //         }
 
         //         public static void Visualizer<TVertex, TEdge>(AdjacencyGraph<TVertex, TEdge> g, string filepath, ImageLayout layout = ImageLayout.dot) where TEdge : IEdge<TVertex>
         //         {
@@ -364,13 +409,13 @@ namespace Main
 
     public class MaximumFlowHelper
     {
-        public static List<string> EdmondsKarpMaxFlow(List<string> nodes, List<List<string>> edges, string source, string sink)
+        public static List<string> EdmondsKarpMaxFlowHelper(List<string> nodes, List<List<string>> edges, string source, string sink)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges)) // Only valid for tagged edges
             {
                 var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
-                var ans = Algorithms.MaximumFlow.EdmondsKarpMaxFlow.Get(g, source, sink);
+                var ans = EdmondsKarpMaxFlow.Get(g, source, sink);
                 results.Add($"{ans}");
             }
             return results;
@@ -382,7 +427,7 @@ namespace Main
             if (Graph.hasTags(edges)) // Only valid for tagged edges
             {
                 var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
-                var ans = Algorithms.MaximumFlow.EdmondsKarpMaxFlow.GetPredecessors(g, source, sink);
+                var ans = EdmondsKarpMaxFlow.GetPredecessors(g, source, sink);
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -397,7 +442,7 @@ namespace Main
             if (Graph.hasTags(edges)) // Only valid for tagged edges
             {
                 var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
-                var ans = Algorithms.MaximumFlow.EdmondsKarpMaxFlow.GetResidualCapacities(g, source, sink);
+                var ans = EdmondsKarpMaxFlow.GetResidualCapacities(g, source, sink);
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -802,6 +847,33 @@ namespace Main
                 var g = Graph.CreateUndirectedGraph(nodes, edges);
                 var ans = PrimMinimumSpanningTree.GetCost(g);
                 results.Add(ans.ToString());
+            }
+            return results;
+        }
+    }
+
+    public class SearchHelper
+    {
+        public static List<string> BestFirstFrontierSearchPath(List<string> nodes, List<List<string>> edges, string filepath, string root, string target)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateBidirectionalTaggedGraph(nodes, edges);
+                var ans = BestFirstFrontierSearch.GetPath(g, root, target);
+                foreach (var x in ans)
+                {
+                    results.Add(x.ToString());
+                }
+            }
+            else
+            {
+                var g = Graph.CreateBidirectionalGraph(nodes, edges);
+                var ans = BestFirstFrontierSearch.GetPath(g, int.Parse(root), int.Parse(target));
+                foreach (var x in ans)
+                {
+                    results.Add(x.ToString());
+                }
             }
             return results;
         }

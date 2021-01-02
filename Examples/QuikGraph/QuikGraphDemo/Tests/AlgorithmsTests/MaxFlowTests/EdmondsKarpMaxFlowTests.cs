@@ -33,7 +33,7 @@ namespace Tests.AlgorithmsTests.MaxFlowTests
 
             var source = nodes[0];
             var sink = nodes[nodes.Count - 1];
-            List<string> actual = MaximumFlowHelper.EdmondsKarpMaxFlow(nodes, edges, source, sink);
+            List<string> actual = MaximumFlowHelper.EdmondsKarpMaxFlowHelper(nodes, edges, source, sink);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
