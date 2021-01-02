@@ -854,13 +854,39 @@ namespace Main
 
     public class SearchHelper
     {
-        public static List<string> BestFirstFrontierSearchPath(List<string> nodes, List<List<string>> edges, string filepath, string root, string target)
+        public static List<string> BestFirstFrontierSearchSeekTarget(List<string> nodes, List<List<string>> edges, string outputFile, string root, string target)
+        {
+            List<string> results = new List<string>();
+            bool ans = false;
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateBidirectionalTaggedGraph(nodes, edges);
+                ans = BestFirstFrontierSearch.FoundTarget(g, root, target);
+            }
+            else
+            {
+                var g = Graph.CreateBidirectionalGraph(nodes, edges);
+                ans = BestFirstFrontierSearch.FoundTarget(g, int.Parse(root), int.Parse(target));
+            }
+
+            if (ans)
+            {
+                results.Add($"Found {target} from {root}");
+            }
+            else
+            {
+                results.Add($"Can't find {target} from {root}");
+            }
+            return results;
+        }
+
+        public static List<string> BestFirstFrontierSearchVertexPredecessor(List<string> nodes, List<List<string>> edges, string outputFile, string root, string target)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateBidirectionalTaggedGraph(nodes, edges);
-                var ans = BestFirstFrontierSearch.GetPath(g, root, target);
+                var ans = BestFirstFrontierSearch.GetVertexPredecessor(g, root, target);
                 foreach (var x in ans)
                 {
                     results.Add(x.ToString());
@@ -869,7 +895,7 @@ namespace Main
             else
             {
                 var g = Graph.CreateBidirectionalGraph(nodes, edges);
-                var ans = BestFirstFrontierSearch.GetPath(g, int.Parse(root), int.Parse(target));
+                var ans = BestFirstFrontierSearch.GetVertexPredecessor(g, int.Parse(root), int.Parse(target));
                 foreach (var x in ans)
                 {
                     results.Add(x.ToString());
