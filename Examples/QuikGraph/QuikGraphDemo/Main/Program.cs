@@ -903,6 +903,30 @@ namespace Main
             }
             return results;
         }
+
+        public static List<string> BidirectionalDepthFirstSearchVertexPredecessor(List<string> nodes, List<List<string>> edges, string outputFile, string root)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateBidirectionalTaggedGraph(nodes, edges);
+                var ans = BidirectionalDepthFirstSearch.GetVertexPredecessor(g, root);
+                foreach (var x in ans)
+                {
+                    results.Add(x.ToString());
+                }
+            }
+            else
+            {
+                var g = Graph.CreateBidirectionalGraph(nodes, edges);
+                var ans = BidirectionalDepthFirstSearch.GetVertexPredecessor(g, int.Parse(root));
+                foreach (var x in ans)
+                {
+                    results.Add(x.ToString());
+                }
+            }
+            return results;
+        }
     }
 
     public class Program
