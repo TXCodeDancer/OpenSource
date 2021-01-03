@@ -22,7 +22,7 @@ namespace Algorithms.Observers
         public static IDictionary<string, double> Get(AdjacencyGraph<string, TaggedEdge<string, string>> g)
         {
             var dfs = new DepthFirstSearchAlgorithm<string, TaggedEdge<string, string>>(g);
-            var recorder = new VertexDistanceRecorderObserver<string, TaggedEdge<string, string>>(edgeWeights => 1.0);
+            var recorder = new VertexDistanceRecorderObserver<string, TaggedEdge<string, string>>(edgeWeights => double.Parse(edgeWeights.Tag));
 
             using (recorder.Attach(dfs))
             {

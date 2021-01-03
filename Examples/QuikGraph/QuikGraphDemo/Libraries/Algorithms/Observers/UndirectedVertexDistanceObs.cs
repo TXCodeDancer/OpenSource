@@ -22,7 +22,7 @@ namespace Algorithms.Observers
         public static IDictionary<string, double> Get(UndirectedGraph<string, TaggedEdge<string, string>> g)
         {
             var dfs = new UndirectedDepthFirstSearchAlgorithm<string, TaggedEdge<string, string>>(g);
-            var recorder = new UndirectedVertexDistanceRecorderObserver<string, TaggedEdge<string, string>>(edgeWeights => 1.0);
+            var recorder = new UndirectedVertexDistanceRecorderObserver<string, TaggedEdge<string, string>>(edgeWeights => double.Parse(edgeWeights.Tag));
 
             using (recorder.Attach(dfs))
             {
