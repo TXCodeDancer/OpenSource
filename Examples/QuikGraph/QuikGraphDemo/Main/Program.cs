@@ -854,7 +854,7 @@ namespace Main
 
     public class SearchHelper
     {
-        public static List<string> BestFirstFrontierSearchSeekTarget(List<string> nodes, List<List<string>> edges, string outputFile, string root, string target)
+        public static List<string> BestFirstFrontierSearchSeekTarget(List<string> nodes, List<List<string>> edges, string root, string target)
         {
             List<string> results = new List<string>();
             bool ans = false;
@@ -880,7 +880,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> BestFirstFrontierSearchVertexPredecessor(List<string> nodes, List<List<string>> edges, string outputFile, string root, string target)
+        public static List<string> BestFirstFrontierSearchVertexPredecessor(List<string> nodes, List<List<string>> edges, string root, string target)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
@@ -904,13 +904,13 @@ namespace Main
             return results;
         }
 
-        public static List<string> BidirectionalDepthFirstSearchVertexPredecessor(List<string> nodes, List<List<string>> edges, string outputFile, string root)
+        public static List<string> BidirectionalDepthFirstSearchVertexPredecessor(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateBidirectionalTaggedGraph(nodes, edges);
-                var ans = BidirectionalDepthFirstSearch.GetVertexPredecessor(g, root);
+                var ans = BidirectionalDepthFirstSearch.GetVertexPredecessor(g);
                 foreach (var x in ans)
                 {
                     results.Add(x.ToString());
@@ -919,7 +919,7 @@ namespace Main
             else
             {
                 var g = Graph.CreateBidirectionalGraph(nodes, edges);
-                var ans = BidirectionalDepthFirstSearch.GetVertexPredecessor(g, int.Parse(root));
+                var ans = BidirectionalDepthFirstSearch.GetVertexPredecessor(g);
                 foreach (var x in ans)
                 {
                     results.Add(x.ToString());

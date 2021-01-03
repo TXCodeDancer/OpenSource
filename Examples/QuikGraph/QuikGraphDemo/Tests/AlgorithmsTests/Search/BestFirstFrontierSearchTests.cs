@@ -29,7 +29,7 @@ namespace Tests.AlgorithmsTests.Search
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            var actual = SearchHelper.BestFirstFrontierSearchVertexPredecessor(nodes, edges, outputFile, nodes[0], nodes[nodes.Count - 1]);
+            var actual = SearchHelper.BestFirstFrontierSearchVertexPredecessor(nodes, edges, nodes[0], nodes[nodes.Count - 1]);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
@@ -62,7 +62,7 @@ namespace Tests.AlgorithmsTests.Search
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            var actual = SearchHelper.BestFirstFrontierSearchSeekTarget(nodes, edges, outputFile, nodes[0], nodes[nodes.Count - 1]);
+            var actual = SearchHelper.BestFirstFrontierSearchSeekTarget(nodes, edges, nodes[0], nodes[nodes.Count - 1]);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
