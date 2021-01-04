@@ -20,27 +20,5 @@ namespace Algorithms.Search
 
             return recorder.VerticesPredecessors;
         }
-
-        //         public static IDictionary<int, Edge<int>> GetVertexPredecessor(IBidirectionalGraph<int, Edge<int>> g)
-        //         {
-        //             var algorithm = new BidirectionalDepthFirstSearchAlgorithm<int, Edge<int>>(g);
-        //
-        //             var recorder = new VertexPredecessorRecorderObserver<int, Edge<int>>();
-        //             using (recorder.Attach(algorithm))
-        //                 algorithm.Compute();
-        //
-        //             return recorder.VerticesPredecessors;
-        //         }
-        //
-        //         public static IDictionary<string, TaggedEdge<string, string>> GetVertexPredecessor(IBidirectionalGraph<string, TaggedEdge<string, string>> g)
-        //         {
-        //             var algorithm = new BidirectionalDepthFirstSearchAlgorithm<string, TaggedEdge<string, string>>(g);
-        //
-        //             var recorder = new VertexPredecessorRecorderObserver<string, TaggedEdge<string, string>>();
-        //             using (recorder.Attach(algorithm))
-        //                 algorithm.Compute();
-        //
-        //             return recorder.VerticesPredecessors;
-        //         }
     }
 }
