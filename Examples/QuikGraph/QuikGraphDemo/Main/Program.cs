@@ -508,7 +508,7 @@ namespace Main
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
-                var dfs = EdgePredecessorObs.GetAllPaths(g);
+                var dfs = EdgePredecessorObs.GetPaths(g);
                 for (int i = 0; i < dfs.Count; i++)
                 {
                     var p = dfs[i];
@@ -520,7 +520,7 @@ namespace Main
             else
             {
                 var g = Graph.CreateDirectedGraph(nodes, edges);
-                var dfs = EdgePredecessorObs.GetAllPaths(g);
+                var dfs = EdgePredecessorObs.GetPaths(g);
                 for (int i = 0; i < dfs.Count; i++)
                 {
                     var p = dfs[i];
@@ -684,7 +684,7 @@ namespace Main
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
-                var dfs = VertexPredecessorObs.GetAllPaths(g);
+                var dfs = VertexPredecessorObs.GetPaths(g);
                 for (int i = 0; i < dfs.Count; i++)
                 {
                     var p = dfs[i];
@@ -696,7 +696,7 @@ namespace Main
             else
             {
                 var g = Graph.CreateDirectedGraph(nodes, edges);
-                var dfs = VertexPredecessorObs.GetAllPaths(g);
+                var dfs = VertexPredecessorObs.GetPaths(g);
                 for (int i = 0; i < dfs.Count; i++)
                 {
                     var p = dfs[i];
@@ -903,7 +903,6 @@ namespace Main
             }
             return results;
         }
-
     }
 
     public class Program

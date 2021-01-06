@@ -47,9 +47,9 @@ namespace Tests
         {
             string directory = Path.GetDirectoryName(inputFile);
             string file = Path.GetFileNameWithoutExtension(inputFile);
-            var outputFile = @$"{directory}\Observers\EdgePredecessor\{file}";
-            var expectedfile = @$"{outputFile}.a_1";
-            var resultsfile = $"{outputFile}.r_1";
+            var outputFile = @$"{directory}\Observers\EdgePredecessor\Paths\{file}";
+            var expectedfile = @$"{outputFile}.a";
+            var resultsfile = $"{outputFile}.r";
 
             List<string> inputs = File.ReadAllLines(inputFile).ToList();
             var nodes = inputs[0].Split(' ').ToList(); // First line is a space delimited list of node names: "1 2 3" or "a b c"

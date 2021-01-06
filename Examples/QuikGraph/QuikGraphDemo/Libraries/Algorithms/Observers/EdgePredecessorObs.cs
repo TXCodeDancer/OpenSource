@@ -30,7 +30,7 @@ namespace Algorithms.Observers
             }
         }
 
-        public static List<IEnumerable<Edge<int>>> GetAllPaths(AdjacencyGraph<int, Edge<int>> g)
+        public static List<IEnumerable<Edge<int>>> GetPaths(AdjacencyGraph<int, Edge<int>> g)
         {
             var dfs = new EdgeDepthFirstSearchAlgorithm<int, Edge<int>>(g);
             var recorder = new EdgePredecessorRecorderObserver<int, Edge<int>>();
@@ -48,7 +48,7 @@ namespace Algorithms.Observers
             return results;
         }
 
-        public static List<IEnumerable<TaggedEdge<string, string>>> GetAllPaths(AdjacencyGraph<string, TaggedEdge<string, string>> g)
+        public static List<IEnumerable<TaggedEdge<string, string>>> GetPaths(AdjacencyGraph<string, TaggedEdge<string, string>> g)
         {
             var dfs = new EdgeDepthFirstSearchAlgorithm<string, TaggedEdge<string, string>>(g);
             var recorder = new EdgePredecessorRecorderObserver<string, TaggedEdge<string, string>>();

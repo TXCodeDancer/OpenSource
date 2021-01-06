@@ -30,7 +30,7 @@ namespace Algorithms.Observers
             }
         }
 
-        public static List<IEnumerable<Edge<int>>> GetAllPaths(AdjacencyGraph<int, Edge<int>> g)
+        public static List<IEnumerable<Edge<int>>> GetPaths(AdjacencyGraph<int, Edge<int>> g)
         {
             var dfs = new DepthFirstSearchAlgorithm<int, Edge<int>>(g);
             var recorder = new VertexPredecessorPathRecorderObserver<int, Edge<int>>();
@@ -48,11 +48,11 @@ namespace Algorithms.Observers
             return results;
         }
 
-        public static IList<IEnumerable<TaggedEdge<string, string>>> GetAllPaths(AdjacencyGraph<string, TaggedEdge<string, string>> g)
+        public static IList<IEnumerable<TaggedEdge<string, string>>> GetPaths(AdjacencyGraph<string, TaggedEdge<string, string>> g)
         {
             var dfs = new DepthFirstSearchAlgorithm<string, TaggedEdge<string, string>>(g);
             var recorder = new VertexPredecessorPathRecorderObserver<string, TaggedEdge<string, string>>();
-            
+
             List<IEnumerable<TaggedEdge<string, string>>> results = new List<IEnumerable<TaggedEdge<string, string>>>();
             using (recorder.Attach(dfs))
             {
