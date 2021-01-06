@@ -688,7 +688,7 @@ namespace Main
                 for (int i = 0; i < dfs.Count; i++)
                 {
                     var p = dfs[i];
-                    results.Add($"Edge Path {i}:");
+                    results.Add($"Vertex Path {i}:");
                     foreach (var e in p)
                         results.Add(e.ToString());
                 }
@@ -700,7 +700,7 @@ namespace Main
                 for (int i = 0; i < dfs.Count; i++)
                 {
                     var p = dfs[i];
-                    results.Add($"Edge Path {i}:");
+                    results.Add($"Vertex Path {i}:");
                     foreach (var e in p)
                         results.Add(e.ToString());
                 }
@@ -923,6 +923,60 @@ namespace Main
                 foreach (var x in ans)
                 {
                     results.Add(x.ToString());
+                }
+            }
+            return results;
+        }
+
+        public static List<string> BreadthFirstSearchVertexPredecessor(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var ans = BreadthFirstSearch.GetVertexPredecessor(g);
+                foreach (var x in ans)
+                {
+                    results.Add(x.ToString());
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var ans = BreadthFirstSearch.GetVertexPredecessor(g);
+                foreach (var x in ans)
+                {
+                    results.Add(x.ToString());
+                }
+            }
+            return results;
+        }
+
+        public static List<string> BreadthFirstSearchVertexPaths(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var ans = BreadthFirstSearch.GetVertexPaths(g);
+                for (int i = 0; i < ans.Count; i++)
+                {
+                    var p = ans[i];
+                    results.Add($"Vertex Path {i}:");
+                    foreach (var e in p)
+                        results.Add(e.ToString());
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var ans = BreadthFirstSearch.GetVertexPaths(g);
+                for (int i = 0; i < ans.Count; i++)
+                {
+                    var p = ans[i];
+                    results.Add($"Vertex Path {i}:");
+                    foreach (var e in p)
+                        results.Add(e.ToString());
                 }
             }
             return results;

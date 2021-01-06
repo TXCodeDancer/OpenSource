@@ -1,10 +1,7 @@
 ﻿using QuikGraph;
-using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.Observers;
 using QuikGraph.Algorithms.Search;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Algorithms.Search
 {
