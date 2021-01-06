@@ -7,6 +7,7 @@ using Algorithms.MaximumFlow;
 using Algorithms.MinimumSpanningTree;
 using Algorithms.Observers;
 using Algorithms.Search;
+using Algorithms.ShortestPath;
 using QuikGraph;
 using QuikGraph.Graphviz.Dot;
 using System;
@@ -899,6 +900,33 @@ namespace Main
                 foreach (var x in ans)
                 {
                     results.Add(x.ToString());
+                }
+            }
+            return results;
+        }
+    }
+
+    public class ShortestPathHelper
+    {
+        public static List<string> AStarShortestPath(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var ans = Algorithms.ShortestPath.AStarShortestPath.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var ans = Algorithms.ShortestPath.AStarShortestPath.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
                 }
             }
             return results;
