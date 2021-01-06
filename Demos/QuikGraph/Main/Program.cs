@@ -162,7 +162,6 @@ namespace Main
             if (Graph.hasTags(edges))
             {
                 AdjacencyGraph<string, TaggedEdge<string, string>> g = Graph.CreateDirectedTaggedGraph(nodes, edges);
-                Visualize.ExportDot(g, filepath);
                 Visualize.VertexShape = GraphvizVertexShape.Box;
                 Visualize.VertexStyle = GraphvizVertexStyle.Rounded;
                 Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
@@ -170,7 +169,6 @@ namespace Main
             else
             {
                 AdjacencyGraph<int, Edge<int>> g = Graph.CreateDirectedGraph(nodes, edges);
-                Visualize.ExportDot(g, filepath);
                 Visualize.VertexShape = GraphvizVertexShape.Circle;
                 Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
             }
@@ -178,7 +176,6 @@ namespace Main
 
         public static void Visualizer(AdjacencyGraph<string, TaggedEdge<string, string>> g, string filepath)
         {
-            Visualize.ExportDot(g, filepath);
             Visualize.VertexShape = GraphvizVertexShape.Box;
             Visualize.VertexStyle = GraphvizVertexStyle.Rounded;
             Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
@@ -186,14 +183,12 @@ namespace Main
 
         public static void Visualizer(AdjacencyGraph<int, Edge<int>> g, string filepath)
         {
-            Visualize.ExportDot(g, filepath);
             Visualize.VertexShape = GraphvizVertexShape.Circle;
             Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
         }
 
         public static void Visualizer(BidirectionalGraph<string, TaggedEdge<string, string>> g, string filepath)
         {
-            Visualize.ExportDot(g, filepath);
             Visualize.VertexShape = GraphvizVertexShape.Box;
             Visualize.VertexStyle = GraphvizVertexStyle.Rounded;
             Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
@@ -201,14 +196,12 @@ namespace Main
 
         public static void Visualizer(BidirectionalGraph<int, Edge<int>> g, string filepath)
         {
-            Visualize.ExportDot(g, filepath);
             Visualize.VertexShape = GraphvizVertexShape.Circle;
             Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
         }
 
         public static void Visualizer(UndirectedGraph<string, TaggedEdge<string, string>> g, string filepath)
         {
-            Visualize.ExportDot(g, filepath);
             Visualize.VertexShape = GraphvizVertexShape.Box;
             Visualize.VertexStyle = GraphvizVertexStyle.Rounded;
             Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
@@ -216,7 +209,6 @@ namespace Main
 
         public static void Visualizer(UndirectedGraph<int, Edge<int>> g, string filepath)
         {
-            Visualize.ExportDot(g, filepath);
             Visualize.VertexShape = GraphvizVertexShape.Circle;
             Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
         }
@@ -908,13 +900,39 @@ namespace Main
 
     public class ShortestPathHelper
     {
-        public static List<string> AStarShortestPathHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> AStarShortestPathHelper(List<string> nodes, List<List<string>> edges, string root)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
-                var ans = AStarShortestPath.Get(g);
+                var ans = AStarShortestPath.Get(g, root);
+                foreach (var d in ans)
+                {
+                    var value = (d.Value < double.MaxValue) ? d.Value : double.PositiveInfinity;
+                    results.Add($"{d.Key}: {value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var ans = AStarShortestPath.Get(g, int.Parse(root));
+                foreach (var d in ans)
+                {
+                    var value = (d.Value < int.MaxValue) ? d.Value : double.PositiveInfinity;
+                    results.Add($"{d.Key}: {value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> BellmanFordShortestPathHelper(List<string> nodes, List<List<string>> edges, string root)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var ans = BellmanFordShortestPath.Get(g, root);
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -923,7 +941,7 @@ namespace Main
             else
             {
                 var g = Graph.CreateDirectedGraph(nodes, edges);
-                var ans = AStarShortestPath.Get(g);
+                var ans = BellmanFordShortestPath.Get(g, int.Parse(root));
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -932,13 +950,13 @@ namespace Main
             return results;
         }
 
-        public static List<string> BellmanFordShortestPathHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> DirectedAcyclicGraphShortestPathHelper(List<string> nodes, List<List<string>> edges, string root)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
-                var ans = BellmanFordShortestPath.Get(g);
+                var ans = BellmanFordShortestPath.Get(g, root);
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -947,7 +965,7 @@ namespace Main
             else
             {
                 var g = Graph.CreateDirectedGraph(nodes, edges);
-                var ans = BellmanFordShortestPath.Get(g);
+                var ans = BellmanFordShortestPath.Get(g, int.Parse(root));
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");

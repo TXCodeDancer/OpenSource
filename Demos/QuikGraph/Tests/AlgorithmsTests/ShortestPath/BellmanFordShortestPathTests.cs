@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Tests.AlgorithmsTests.ShortestPath
 {
-    public class AStarShortestPathTests
+    public class BellmanFordShortestPathTests
     {
         [Theory]
         [MemberData(nameof(GetInputFiles))]
@@ -14,7 +14,7 @@ namespace Tests.AlgorithmsTests.ShortestPath
         {
             string directory = Path.GetDirectoryName(inputFile);
             string file = Path.GetFileNameWithoutExtension(inputFile);
-            var outputFile = @$"{directory}\ShortestPath\AStar\{file}";
+            var outputFile = @$"{directory}\ShortestPath\BellmanFord\{file}";
             var expectedfile = @$"{outputFile}.a";
             var resultsfile = $"{outputFile}.r";
 
@@ -30,7 +30,7 @@ namespace Tests.AlgorithmsTests.ShortestPath
             }
 
             var root = nodes[0];
-            List<string> actual = ShortestPathHelper.AStarShortestPathHelper(nodes, edges, root);
+            List<string> actual = ShortestPathHelper.BellmanFordShortestPathHelper(nodes, edges, root);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results

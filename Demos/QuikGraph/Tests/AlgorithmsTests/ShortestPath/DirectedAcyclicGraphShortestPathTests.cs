@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Tests.AlgorithmsTests.ShortestPath
 {
-    public class BellmanFordShortestPath
+    public class DirectedAcyclicGraphShortestPathTests
     {
         [Theory]
         [MemberData(nameof(GetInputFiles))]
@@ -14,7 +14,7 @@ namespace Tests.AlgorithmsTests.ShortestPath
         {
             string directory = Path.GetDirectoryName(inputFile);
             string file = Path.GetFileNameWithoutExtension(inputFile);
-            var outputFile = @$"{directory}\ShortestPath\BellmanFord\{file}";
+            var outputFile = @$"{directory}\ShortestPath\DirectedAcyclicGraph\{file}";
             var expectedfile = @$"{outputFile}.a";
             var resultsfile = $"{outputFile}.r";
 
@@ -29,7 +29,8 @@ namespace Tests.AlgorithmsTests.ShortestPath
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            List<string> actual = ShortestPathHelper.BellmanFordShortestPathHelper(nodes, edges);
+            var root = nodes[0];
+            List<string> actual = ShortestPathHelper.DirectedAcyclicGraphShortestPathHelper(nodes, edges, root);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
