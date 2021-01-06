@@ -162,55 +162,51 @@ namespace Main
             if (Graph.hasTags(edges))
             {
                 AdjacencyGraph<string, TaggedEdge<string, string>> g = Graph.CreateDirectedTaggedGraph(nodes, edges);
-                Visualize.VertexShape = GraphvizVertexShape.Box;
-                Visualize.VertexStyle = GraphvizVertexStyle.Rounded;
-                Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+                var image = new Visualize(GraphvizVertexShape.Box, GraphvizVertexStyle.Rounded);
+                image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
             }
             else
             {
                 AdjacencyGraph<int, Edge<int>> g = Graph.CreateDirectedGraph(nodes, edges);
-                Visualize.VertexShape = GraphvizVertexShape.Circle;
-                Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
+                var image = new Visualize(GraphvizVertexShape.Circle);
+                image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
             }
         }
 
         public static void Visualizer(AdjacencyGraph<string, TaggedEdge<string, string>> g, string filepath)
         {
-            Visualize.VertexShape = GraphvizVertexShape.Box;
-            Visualize.VertexStyle = GraphvizVertexStyle.Rounded;
-            Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+            var image = new Visualize(GraphvizVertexShape.Box, GraphvizVertexStyle.Rounded);
+            image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
         }
 
         public static void Visualizer(AdjacencyGraph<int, Edge<int>> g, string filepath)
         {
-            Visualize.VertexShape = GraphvizVertexShape.Circle;
-            Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
+            var image = new Visualize(GraphvizVertexShape.Circle);
+            image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
         }
 
         public static void Visualizer(BidirectionalGraph<string, TaggedEdge<string, string>> g, string filepath)
         {
-            Visualize.VertexShape = GraphvizVertexShape.Box;
-            Visualize.VertexStyle = GraphvizVertexStyle.Rounded;
-            Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+            var image = new Visualize(GraphvizVertexShape.Box, GraphvizVertexStyle.Rounded);
+            image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
         }
 
         public static void Visualizer(BidirectionalGraph<int, Edge<int>> g, string filepath)
         {
-            Visualize.VertexShape = GraphvizVertexShape.Circle;
-            Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
+            var image = new Visualize(GraphvizVertexShape.Circle);
+            image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
         }
 
         public static void Visualizer(UndirectedGraph<string, TaggedEdge<string, string>> g, string filepath)
         {
-            Visualize.VertexShape = GraphvizVertexShape.Box;
-            Visualize.VertexStyle = GraphvizVertexStyle.Rounded;
-            Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+            var image = new Visualize(GraphvizVertexShape.Box, GraphvizVertexStyle.Rounded);
+            image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
         }
 
         public static void Visualizer(UndirectedGraph<int, Edge<int>> g, string filepath)
         {
-            Visualize.VertexShape = GraphvizVertexShape.Circle;
-            Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
+            var image = new Visualize(GraphvizVertexShape.Circle);
+            image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
         }
 
         //         public static void Visualizer(IBidirectionalIncidenceGraph<string, TaggedEdge<string, string>> g, string filepath)

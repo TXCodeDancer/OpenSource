@@ -25,22 +25,28 @@ namespace Visualizers
         osage
     }
 
-    public static class Visualize
+    public class Visualize
     {
         private static GraphvizVertexShape _VertexShape = GraphvizVertexShape.Ellipse;
         private static GraphvizVertexStyle _VertexStyle = GraphvizVertexStyle.Rounded;
 
-        public static GraphvizVertexShape VertexShape
+        public Visualize(GraphvizVertexShape vertexShape = GraphvizVertexShape.Ellipse, GraphvizVertexStyle vertexStyle = GraphvizVertexStyle.Rounded)
         {
-            get { return _VertexShape; }
-            set { _VertexShape = value; }
+            _VertexShape = vertexShape;
+            _VertexStyle = vertexStyle;
         }
 
-        public static GraphvizVertexStyle VertexStyle
-        {
-            get { return _VertexStyle; }
-            set { _VertexStyle = value; }
-        }
+        //         public static GraphvizVertexShape VertexShape
+        //         {
+        //             get { return _VertexShape; }
+        //             set { _VertexShape = value; }
+        //         }
+        //
+        //         public static GraphvizVertexStyle VertexStyle
+        //         {
+        //             get { return _VertexStyle; }
+        //             set { _VertexStyle = value; }
+        //         }
 
         /// <summary>
         /// FileDotEngine: Interface to the IDotEngine
@@ -98,19 +104,19 @@ namespace Visualizers
         /// </summary>
         /// <param name="graph"></param>
         /// <param name="filepath"></param>
-        public static void ExportDot(AdjacencyGraph<int, Edge<int>> graph, string filepath)
+        public void ExportDot(AdjacencyGraph<int, Edge<int>> graph, string filepath)
         {
             var viz = new GraphvizAlgorithm<int, Edge<int>>(graph);
             viz.Generate(new FileDotEngine(), filepath);
         }
 
-        public static void ExportDot(BidirectionalGraph<int, Edge<int>> graph, string filepath)
+        public void ExportDot(BidirectionalGraph<int, Edge<int>> graph, string filepath)
         {
             var viz = new GraphvizAlgorithm<int, Edge<int>>(graph);
             viz.Generate(new FileDotEngine(), filepath);
         }
 
-        public static void ExportDot(UndirectedGraph<int, Edge<int>> graph, string filepath)
+        public void ExportDot(UndirectedGraph<int, Edge<int>> graph, string filepath)
         {
             var viz = new GraphvizAlgorithm<int, Edge<int>>(graph);
             viz.Generate(new FileDotEngine(), filepath);
@@ -121,19 +127,19 @@ namespace Visualizers
         /// </summary>
         /// <param name="graph"></param>
         /// <param name="filepath"></param>
-        public static void ExportDot(AdjacencyGraph<string, TaggedEdge<string, string>> graph, string filepath)
+        public void ExportDot(AdjacencyGraph<string, TaggedEdge<string, string>> graph, string filepath)
         {
             var viz = new GraphvizAlgorithm<string, TaggedEdge<string, string>>(graph);
             viz.Generate(new FileDotEngine(), filepath);
         }
 
-        public static void ExportDot(BidirectionalGraph<string, TaggedEdge<string, string>> graph, string filepath)
+        public void ExportDot(BidirectionalGraph<string, TaggedEdge<string, string>> graph, string filepath)
         {
             var viz = new GraphvizAlgorithm<string, TaggedEdge<string, string>>(graph);
             viz.Generate(new FileDotEngine(), filepath);
         }
 
-        public static void ExportDot(UndirectedGraph<string, TaggedEdge<string, string>> graph, string filepath)
+        public void ExportDot(UndirectedGraph<string, TaggedEdge<string, string>> graph, string filepath)
         {
             var viz = new GraphvizAlgorithm<string, TaggedEdge<string, string>>(graph);
             viz.Generate(new FileDotEngine(), filepath);
@@ -148,7 +154,7 @@ namespace Visualizers
         /// <param name="filepath"></param>
         /// <param name="layout"></param>
         /// <returns></returns>
-        public static string ExportImageFile(AdjacencyGraph<int, Edge<int>> graph, GraphvizImageType imageType, string filepath, ImageLayout layout)
+        public string ExportImageFile(AdjacencyGraph<int, Edge<int>> graph, GraphvizImageType imageType, string filepath, ImageLayout layout)
         {
             var graphviz = new GraphvizAlgorithm<int, Edge<int>>(graph) { ImageType = imageType };
 
@@ -159,7 +165,7 @@ namespace Visualizers
             return filepath;
         }
 
-        public static string ExportImageFile(BidirectionalGraph<int, Edge<int>> graph, GraphvizImageType imageType, string filepath, ImageLayout layout)
+        public string ExportImageFile(BidirectionalGraph<int, Edge<int>> graph, GraphvizImageType imageType, string filepath, ImageLayout layout)
         {
             var graphviz = new GraphvizAlgorithm<int, Edge<int>>(graph) { ImageType = imageType };
 
@@ -170,7 +176,7 @@ namespace Visualizers
             return filepath;
         }
 
-        public static string ExportImageFile(UndirectedGraph<int, Edge<int>> graph, GraphvizImageType imageType, string filepath, ImageLayout layout)
+        public string ExportImageFile(UndirectedGraph<int, Edge<int>> graph, GraphvizImageType imageType, string filepath, ImageLayout layout)
         {
             var graphviz = new GraphvizAlgorithm<int, Edge<int>>(graph) { ImageType = imageType };
 
@@ -190,7 +196,7 @@ namespace Visualizers
         /// <param name="filepath"></param>
         /// <param name="layout"></param>
         /// <returns></returns>
-        public static string ExportImageFile(AdjacencyGraph<string, TaggedEdge<string, string>> graph, GraphvizImageType imageType, string imageFilepath, ImageLayout layout)
+        public string ExportImageFile(AdjacencyGraph<string, TaggedEdge<string, string>> graph, GraphvizImageType imageType, string imageFilepath, ImageLayout layout)
         {
             var graphviz = new GraphvizAlgorithm<string, TaggedEdge<string, string>>(graph) { ImageType = imageType };
 
@@ -202,7 +208,7 @@ namespace Visualizers
             return imageFilepath;
         }
 
-        public static string ExportImageFile(BidirectionalGraph<string, TaggedEdge<string, string>> graph, GraphvizImageType imageType, string imageFilepath, ImageLayout layout)
+        public string ExportImageFile(BidirectionalGraph<string, TaggedEdge<string, string>> graph, GraphvizImageType imageType, string imageFilepath, ImageLayout layout)
         {
             var graphviz = new GraphvizAlgorithm<string, TaggedEdge<string, string>>(graph) { ImageType = imageType };
 
@@ -214,7 +220,7 @@ namespace Visualizers
             return imageFilepath;
         }
 
-        public static string ExportImageFile(UndirectedGraph<string, TaggedEdge<string, string>> graph, GraphvizImageType imageType, string imageFilepath, ImageLayout layout)
+        public string ExportImageFile(UndirectedGraph<string, TaggedEdge<string, string>> graph, GraphvizImageType imageType, string imageFilepath, ImageLayout layout)
         {
             var graphviz = new GraphvizAlgorithm<string, TaggedEdge<string, string>>(graph) { ImageType = imageType };
 
@@ -227,7 +233,7 @@ namespace Visualizers
         }
 
         ////////////////////////////////////////////////////////////////
-        private static void FormatVertexHandler(object sender, FormatVertexEventArgs<string> e)
+        private void FormatVertexHandler(object sender, FormatVertexEventArgs<string> e)
         {
             Contract.Requires(e != null);
 
@@ -236,7 +242,7 @@ namespace Visualizers
             e.VertexFormat.Style = _VertexStyle;
         }
 
-        private static void VertexFormatter(object sender, FormatVertexEventArgs<int> e)
+        private void VertexFormatter(object sender, FormatVertexEventArgs<int> e)
         {
             Contract.Requires(e != null);
 
@@ -245,7 +251,7 @@ namespace Visualizers
             e.VertexFormat.Style = _VertexStyle;
         }
 
-        private static void EdgeFormatter(object sender, FormatEdgeEventArgs<string, TaggedEdge<string, string>> e)
+        private void EdgeFormatter(object sender, FormatEdgeEventArgs<string, TaggedEdge<string, string>> e)
         {
             GraphvizEdgeLabel label = new GraphvizEdgeLabel
             {
