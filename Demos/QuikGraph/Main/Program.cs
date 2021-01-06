@@ -908,13 +908,13 @@ namespace Main
 
     public class ShortestPathHelper
     {
-        public static List<string> AStarShortestPath(List<string> nodes, List<List<string>> edges)
+        public static List<string> AStarShortestPathHelper(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
-                var ans = Algorithms.ShortestPath.AStarShortestPath.Get(g);
+                var ans = AStarShortestPath.Get(g);
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -923,7 +923,31 @@ namespace Main
             else
             {
                 var g = Graph.CreateDirectedGraph(nodes, edges);
-                var ans = Algorithms.ShortestPath.AStarShortestPath.Get(g);
+                var ans = AStarShortestPath.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> BellmanFordShortestPathHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var ans = BellmanFordShortestPath.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var ans = BellmanFordShortestPath.Get(g);
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");

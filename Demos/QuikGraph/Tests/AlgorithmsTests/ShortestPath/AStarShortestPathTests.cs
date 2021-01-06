@@ -1,9 +1,7 @@
 ﻿using Main;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace Tests.AlgorithmsTests.ShortestPath
@@ -31,7 +29,7 @@ namespace Tests.AlgorithmsTests.ShortestPath
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            List<string> actual = ShortestPathHelper.AStarShortestPath(nodes, edges);
+            List<string> actual = ShortestPathHelper.AStarShortestPathHelper(nodes, edges);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
