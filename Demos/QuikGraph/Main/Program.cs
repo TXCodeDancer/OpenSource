@@ -931,19 +931,55 @@ namespace Main
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
-                var ans = BellmanFordShortestPath.Get(g, root);
+                var (isDiag, ans) = DirectedAcyclicGraphShortestPath.Get(g, root);
+                if (isDiag)
+                {
+                    foreach (var d in ans)
+                    {
+                        results.Add($"{d.Key}: {d.Value}");
+                    }
+                }
+                else
+                    results.Add("This is not a Directed Acyclic Graph.");
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var (isDiag, ans) = DirectedAcyclicGraphShortestPath.Get(g, int.Parse(root));
+                if (isDiag)
+                {
+                    foreach (var d in ans)
+                    {
+                        results.Add($"{d.Key}: {d.Value}");
+                    }
+                }
+                else
+                    results.Add("This is not a Directed Acyclic Graph.");
+            }
+            return results;
+        }
+
+        public static List<string> DijkstraAcyclicGraphShortestPathHelper(List<string> nodes, List<List<string>> edges, string root)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var ans = DijkstraShortestPath.Get(g, root);
                 foreach (var d in ans)
                 {
-                    results.Add($"{d.Key}: {d.Value}");
+                    var value = (d.Value < int.MaxValue) ? d.Value : double.PositiveInfinity;
+                    results.Add($"{d.Key}: {value}");
                 }
             }
             else
             {
                 var g = Graph.CreateDirectedGraph(nodes, edges);
-                var ans = BellmanFordShortestPath.Get(g, int.Parse(root));
+                var ans = DijkstraShortestPath.Get(g, int.Parse(root));
                 foreach (var d in ans)
                 {
-                    results.Add($"{d.Key}: {d.Value}");
+                    var value = (d.Value < int.MaxValue) ? d.Value : double.PositiveInfinity;
+                    results.Add($"{d.Key}: {value}");
                 }
             }
             return results;
