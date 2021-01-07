@@ -17,7 +17,6 @@ namespace Algorithms.MaximumFlow
             var algorithm = new EdmondsKarpMaximumFlowAlgorithm<string, EquatableTaggedEdge<string, double>>(graph, edge => edge.Tag, edgeFactory, reverseEdgesAlgorithm);
 
             algorithm.Compute(source, sink);
-            var foo = algorithm.VisitedGraph;
             return algorithm.MaxFlow;
         }
 

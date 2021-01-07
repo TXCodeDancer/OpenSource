@@ -7,6 +7,7 @@ using Algorithms.MaximumFlow;
 using Algorithms.MinimumSpanningTree;
 using Algorithms.Observers;
 using Algorithms.Search;
+using Algorithms.ShortestPath;
 using QuikGraph;
 using QuikGraph.Graphviz.Dot;
 using System;
@@ -63,6 +64,25 @@ namespace Main
             foreach (var e in edges)
             {
                 g.AddEdge(new EquatableTaggedEdge<string, double>(e[0], e[1], double.Parse(e[2])));
+            }
+
+            return g;
+        }
+
+        public static AdjacencyGraph<int, EquatableTaggedEdge<int, double>> CreateDirectedEquatableUntaggedGraph(List<string> nodes, List<List<string>> edges)
+        {
+            var g = new AdjacencyGraph<int, EquatableTaggedEdge<int, double>>();
+
+            List<int> intNodes = new List<int>();
+            foreach (var v in nodes)
+            {
+                intNodes.Add(int.Parse(v));
+            }
+
+            g.AddVertexRange(intNodes);
+            foreach (var e in edges)
+            {
+                g.AddEdge(new EquatableTaggedEdge<int, double>(int.Parse(e[0]), int.Parse(e[1]), 1.0));
             }
 
             return g;
@@ -161,85 +181,52 @@ namespace Main
             if (Graph.hasTags(edges))
             {
                 AdjacencyGraph<string, TaggedEdge<string, string>> g = Graph.CreateDirectedTaggedGraph(nodes, edges);
-                Visualize.ExportDot(g, filepath);
-                Visualize.VertexShape = GraphvizVertexShape.Box;
-                Visualize.VertexStyle = GraphvizVertexStyle.Rounded;
-                Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+                var image = new Visualize(GraphvizVertexShape.Box, GraphvizVertexStyle.Rounded);
+                image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
             }
             else
             {
                 AdjacencyGraph<int, Edge<int>> g = Graph.CreateDirectedGraph(nodes, edges);
-                Visualize.ExportDot(g, filepath);
-                Visualize.VertexShape = GraphvizVertexShape.Circle;
-                Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
+                var image = new Visualize(GraphvizVertexShape.Circle);
+                image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
             }
         }
 
         public static void Visualizer(AdjacencyGraph<string, TaggedEdge<string, string>> g, string filepath)
         {
-            Visualize.ExportDot(g, filepath);
-            Visualize.VertexShape = GraphvizVertexShape.Box;
-            Visualize.VertexStyle = GraphvizVertexStyle.Rounded;
-            Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+            var image = new Visualize(GraphvizVertexShape.Box, GraphvizVertexStyle.Rounded);
+            image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
         }
 
         public static void Visualizer(AdjacencyGraph<int, Edge<int>> g, string filepath)
         {
-            Visualize.ExportDot(g, filepath);
-            Visualize.VertexShape = GraphvizVertexShape.Circle;
-            Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
+            var image = new Visualize(GraphvizVertexShape.Circle);
+            image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
         }
 
         public static void Visualizer(BidirectionalGraph<string, TaggedEdge<string, string>> g, string filepath)
         {
-            Visualize.ExportDot(g, filepath);
-            Visualize.VertexShape = GraphvizVertexShape.Box;
-            Visualize.VertexStyle = GraphvizVertexStyle.Rounded;
-            Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+            var image = new Visualize(GraphvizVertexShape.Box, GraphvizVertexStyle.Rounded);
+            image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
         }
 
         public static void Visualizer(BidirectionalGraph<int, Edge<int>> g, string filepath)
         {
-            Visualize.ExportDot(g, filepath);
-            Visualize.VertexShape = GraphvizVertexShape.Circle;
-            Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
+            var image = new Visualize(GraphvizVertexShape.Circle);
+            image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
         }
 
         public static void Visualizer(UndirectedGraph<string, TaggedEdge<string, string>> g, string filepath)
         {
-            Visualize.ExportDot(g, filepath);
-            Visualize.VertexShape = GraphvizVertexShape.Box;
-            Visualize.VertexStyle = GraphvizVertexStyle.Rounded;
-            Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+            var image = new Visualize(GraphvizVertexShape.Box, GraphvizVertexStyle.Rounded);
+            image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
         }
 
         public static void Visualizer(UndirectedGraph<int, Edge<int>> g, string filepath)
         {
-            Visualize.ExportDot(g, filepath);
-            Visualize.VertexShape = GraphvizVertexShape.Circle;
-            Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
+            var image = new Visualize(GraphvizVertexShape.Circle);
+            image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
         }
-
-        //         public static void Visualizer(IBidirectionalIncidenceGraph<string, TaggedEdge<string, string>> g, string filepath)
-        //         {
-        //             Visualize.ExportDot(g, filepath);
-        //             Visualize.VertexShape = GraphvizVertexShape.Box;
-        //             Visualize.VertexStyle = GraphvizVertexStyle.Rounded;
-        //             Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
-        //         }
-        //
-        //         public static void Visualizer(IBidirectionalIncidenceGraph<int, Edge<int>> g, string filepath)
-        //         {
-        //             Visualize.ExportDot(g, filepath);
-        //             Visualize.VertexShape = GraphvizVertexShape.Circle;
-        //             Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
-        //         }
-
-        //         public static void Visualizer<TVertex, TEdge>(AdjacencyGraph<TVertex, TEdge> g, string filepath, ImageLayout layout = ImageLayout.dot) where TEdge : IEdge<TVertex>
-        //         {
-        //             Visualizers.Visualizer.ExportDot(g, filepath);
-        //             Visualizers.Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, layout);
-        //         }
     }
 
     public class ConnectedComponentsHelper
@@ -899,6 +886,214 @@ namespace Main
                 foreach (var x in ans)
                 {
                     results.Add(x.ToString());
+                }
+            }
+            return results;
+        }
+    }
+
+    public class ShortestPathHelper
+    {
+        public static List<string> AStarShortestPathHelper(List<string> nodes, List<List<string>> edges, string root)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var ans = AStarShortestPath.Get(g, root);
+                foreach (var d in ans)
+                {
+                    var value = (d.Value < double.MaxValue) ? d.Value : double.PositiveInfinity;
+                    results.Add($"{d.Key}: {value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var ans = AStarShortestPath.Get(g, int.Parse(root));
+                foreach (var d in ans)
+                {
+                    var value = (d.Value < int.MaxValue) ? d.Value : double.PositiveInfinity;
+                    results.Add($"{d.Key}: {value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> BellmanFordShortestPathHelper(List<string> nodes, List<List<string>> edges, string root)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var ans = BellmanFordShortestPath.Get(g, root);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var ans = BellmanFordShortestPath.Get(g, int.Parse(root));
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> DirectedAcyclicGraphShortestPathHelper(List<string> nodes, List<List<string>> edges, string root)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var (isDiag, ans) = DirectedAcyclicGraphShortestPath.Get(g, root);
+                if (isDiag)
+                {
+                    foreach (var d in ans)
+                    {
+                        results.Add($"{d.Key}: {d.Value}");
+                    }
+                }
+                else
+                    results.Add("This is not a Directed Acyclic Graph.");
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var (isDiag, ans) = DirectedAcyclicGraphShortestPath.Get(g, int.Parse(root));
+                if (isDiag)
+                {
+                    foreach (var d in ans)
+                    {
+                        results.Add($"{d.Key}: {d.Value}");
+                    }
+                }
+                else
+                    results.Add("This is not a Directed Acyclic Graph.");
+            }
+            return results;
+        }
+
+        public static List<string> DijkstraShortestPathHelper(List<string> nodes, List<List<string>> edges, string root)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var ans = DijkstraShortestPath.Get(g, root);
+                foreach (var d in ans)
+                {
+                    var value = (d.Value < int.MaxValue) ? d.Value : double.PositiveInfinity;
+                    results.Add($"{d.Key}: {value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var ans = DijkstraShortestPath.Get(g, int.Parse(root));
+                foreach (var d in ans)
+                {
+                    var value = (d.Value < int.MaxValue) ? d.Value : double.PositiveInfinity;
+                    results.Add($"{d.Key}: {value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> UndirectedDijkstraShortestPathHelper(List<string> nodes, List<List<string>> edges, string root)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
+                var ans = UndirectedDijkstraShortestPath.Get(g, root);
+                foreach (var d in ans)
+                {
+                    var value = (d.Value < int.MaxValue) ? d.Value : double.PositiveInfinity;
+                    results.Add($"{d.Key}: {value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateUndirectedGraph(nodes, edges);
+                var ans = UndirectedDijkstraShortestPath.Get(g, int.Parse(root));
+                foreach (var d in ans)
+                {
+                    var value = (d.Value < int.MaxValue) ? d.Value : double.PositiveInfinity;
+                    results.Add($"{d.Key}: {value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> FloydWarshallShortestPathHelper(List<string> nodes, List<List<string>> edges, string root)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var ans = FloydWarshallShortestPath.Get(g, root);
+                foreach (var d in ans)
+                {
+                    var value = (d.Value != -1) ? d.Value : double.PositiveInfinity;
+                    results.Add($"{d.Key}: {value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var ans = FloydWarshallShortestPath.Get(g, int.Parse(root));
+                foreach (var d in ans)
+                {
+                    var value = (d.Value != -1) ? d.Value : double.PositiveInfinity;
+                    results.Add($"{d.Key}: {value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> YenShortestPathHelper(List<string> nodes, List<List<string>> edges, string root, string target)
+        {
+            List<string> results = new List<string>();
+            int i = 0;
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
+                var (ans, message) = YenShortestPath.Get(g, root, target);
+                if (ans != null)
+                {
+                    foreach (var a in ans)
+                    {
+                        results.Add($"Path {i++}:");
+                        foreach (var e in a)
+                            results.Add($"{e}");
+                    }
+                }
+                else
+                {
+                    results.Add($"{message} ({root} -> {target})");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedEquatableUntaggedGraph(nodes, edges);
+                var (ans, message) = YenShortestPath.Get(g, int.Parse(root), int.Parse(target));
+                if (ans != null)
+                {
+                    foreach (var a in ans)
+                    {
+                        results.Add($"Path {i++}:");
+                        foreach (var e in a)
+                            results.Add($"{e}");
+                    }
+                }
+                else
+                {
+                    results.Add($"{message} ({root} -> {target})");
                 }
             }
             return results;

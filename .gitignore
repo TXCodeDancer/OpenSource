@@ -6,6 +6,7 @@
 # Output files
 *.dot
 *.svg
+*.r
 
 # User-specific files
 *.rsuser
