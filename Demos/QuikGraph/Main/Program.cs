@@ -959,7 +959,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> DijkstraAcyclicGraphShortestPathHelper(List<string> nodes, List<List<string>> edges, string root)
+        public static List<string> DijkstraShortestPathHelper(List<string> nodes, List<List<string>> edges, string root)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
@@ -976,6 +976,32 @@ namespace Main
             {
                 var g = Graph.CreateDirectedGraph(nodes, edges);
                 var ans = DijkstraShortestPath.Get(g, int.Parse(root));
+                foreach (var d in ans)
+                {
+                    var value = (d.Value < int.MaxValue) ? d.Value : double.PositiveInfinity;
+                    results.Add($"{d.Key}: {value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> UndirectedDijkstraShortestPathHelper(List<string> nodes, List<List<string>> edges, string root)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
+                var ans = UndirectedDijkstraShortestPath.Get(g, root);
+                foreach (var d in ans)
+                {
+                    var value = (d.Value < int.MaxValue) ? d.Value : double.PositiveInfinity;
+                    results.Add($"{d.Key}: {value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateUndirectedGraph(nodes, edges);
+                var ans = UndirectedDijkstraShortestPath.Get(g, int.Parse(root));
                 foreach (var d in ans)
                 {
                     var value = (d.Value < int.MaxValue) ? d.Value : double.PositiveInfinity;

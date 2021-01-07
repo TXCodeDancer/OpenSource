@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Tests.AlgorithmsTests.ShortestPath
 {
-    public class DijkstraShortestPathTests
+    public class UndirectedDijkstraShortestPathTests
     {
         [Theory]
         [MemberData(nameof(GetInputFiles))]
@@ -16,7 +16,7 @@ namespace Tests.AlgorithmsTests.ShortestPath
         {
             string directory = Path.GetDirectoryName(inputFile);
             string file = Path.GetFileNameWithoutExtension(inputFile);
-            var outputFile = @$"{directory}\ShortestPath\Dijkstra\{file}";
+            var outputFile = @$"{directory}\ShortestPath\UndirectedDijkstra\{file}";
             var expectedfile = @$"{outputFile}.a";
             var resultsfile = $"{outputFile}.r";
 
@@ -32,7 +32,7 @@ namespace Tests.AlgorithmsTests.ShortestPath
             }
 
             var root = nodes[0];
-            List<string> actual = ShortestPathHelper.DijkstraShortestPathHelper(nodes, edges, root);
+            List<string> actual = ShortestPathHelper.UndirectedDijkstraShortestPathHelper(nodes, edges, root);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
