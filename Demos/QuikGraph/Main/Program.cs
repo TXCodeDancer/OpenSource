@@ -69,6 +69,25 @@ namespace Main
             return g;
         }
 
+        public static AdjacencyGraph<int, EquatableTaggedEdge<int, double>> CreateDirectedEquatableUntaggedGraph(List<string> nodes, List<List<string>> edges)
+        {
+            var g = new AdjacencyGraph<int, EquatableTaggedEdge<int, double>>();
+
+            List<int> intNodes = new List<int>();
+            foreach (var v in nodes)
+            {
+                intNodes.Add(int.Parse(v));
+            }
+
+            g.AddVertexRange(intNodes);
+            foreach (var e in edges)
+            {
+                g.AddEdge(new EquatableTaggedEdge<int, double>(int.Parse(e[0]), int.Parse(e[1]), 1.0));
+            }
+
+            return g;
+        }
+
         public static UndirectedGraph<int, Edge<int>> CreateUndirectedGraph(List<string> nodes, List<List<string>> edges)
         {
             var g = new UndirectedGraph<int, Edge<int>>();
@@ -1032,6 +1051,49 @@ namespace Main
                 {
                     var value = (d.Value != -1) ? d.Value : double.PositiveInfinity;
                     results.Add($"{d.Key}: {value}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> YenShortestPathHelper(List<string> nodes, List<List<string>> edges, string root, string target)
+        {
+            List<string> results = new List<string>();
+            int i = 0;
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
+                var (ans, message) = YenShortestPath.Get(g, root, target);
+                if (ans != null)
+                {
+                    foreach (var a in ans)
+                    {
+                        results.Add($"Path {i++}:");
+                        foreach (var e in a)
+                            results.Add($"{e}");
+                    }
+                }
+                else
+                {
+                    results.Add($"{message} ({root} -> {target})");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedEquatableUntaggedGraph(nodes, edges);
+                var (ans, message) = YenShortestPath.Get(g, int.Parse(root), int.Parse(target));
+                if (ans != null)
+                {
+                    foreach (var a in ans)
+                    {
+                        results.Add($"Path {i++}:");
+                        foreach (var e in a)
+                            results.Add($"{e}");
+                    }
+                }
+                else
+                {
+                    results.Add($"{message} ({root} -> {target})");
                 }
             }
             return results;
