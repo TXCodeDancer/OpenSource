@@ -1059,19 +1059,19 @@ namespace Main
         public static List<string> YenShortestPathHelper(List<string> nodes, List<List<string>> edges, string root, string target)
         {
             List<string> results = new List<string>();
-            int i = 0;
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
                 var (ans, message) = YenShortestPath.Get(g, root, target);
-                if (ans != null)
+                if (message == null)
                 {
-                    foreach (var a in ans)
+                    double sum = 0;
+                    foreach (var e in ans)
                     {
-                        results.Add($"Path {i++}:");
-                        foreach (var e in a)
-                            results.Add($"{e}");
+                        sum += e.Tag;
+                        results.Add($"{e}");
                     }
+                    results.Add($"Shortest distance ({root} -> {target}) = {sum}");
                 }
                 else
                 {
@@ -1082,13 +1082,67 @@ namespace Main
             {
                 var g = Graph.CreateDirectedEquatableUntaggedGraph(nodes, edges);
                 var (ans, message) = YenShortestPath.Get(g, int.Parse(root), int.Parse(target));
+                if (message == null)
+                {
+                    double sum = 0;
+                    foreach (var e in ans)
+                    {
+                        sum += e.Tag;
+                        results.Add($"{e}");
+                    }
+                    results.Add($"Shortest distance ({root} -> {target}) = {sum}");
+                }
+                else
+                {
+                    results.Add($"{message} ({root} -> {target})");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> YenAllPathsHelper(List<string> nodes, List<List<string>> edges, string root, string target)
+        {
+            List<string> results = new List<string>();
+            int i = 0;
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
+                var (ans, message) = YenShortestPath.GetAll(g, root, target);
                 if (ans != null)
                 {
                     foreach (var a in ans)
                     {
+                        double sum = 0;
                         results.Add($"Path {i++}:");
                         foreach (var e in a)
+                        {
+                            sum += e.Tag;
                             results.Add($"{e}");
+                        }
+                        results.Add($"Distance ({root} -> {target}) = {sum}");
+                    }
+                }
+                else
+                {
+                    results.Add($"{message} ({root} -> {target})");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedEquatableUntaggedGraph(nodes, edges);
+                var (ans, message) = YenShortestPath.GetAll(g, int.Parse(root), int.Parse(target));
+                if (ans != null)
+                {
+                    foreach (var a in ans)
+                    {
+                        double sum = 0;
+                        results.Add($"Path {i++}:");
+                        foreach (var e in a)
+                        {
+                            sum += e.Tag;
+                            results.Add($"{e}");
+                        }
+                        results.Add($"Distance ({root} -> {target}) = {sum}");
                     }
                 }
                 else

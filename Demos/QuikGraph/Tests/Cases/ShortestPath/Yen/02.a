@@ -1,8 +1,4 @@
-Path 0:
 a -> d (1)
 d -> c (2)
 c -> e (3)
-Path 1:
-a -> b (5)
-b -> c (6)
-c -> e (3)
+Shortest distance (a -> e) = 6
