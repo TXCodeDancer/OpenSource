@@ -27,26 +27,14 @@ namespace Visualizers
 
     public class Visualize
     {
-        private static GraphvizVertexShape _VertexShape = GraphvizVertexShape.Ellipse;
-        private static GraphvizVertexStyle _VertexStyle = GraphvizVertexStyle.Rounded;
+        private GraphvizVertexShape _VertexShape = GraphvizVertexShape.Ellipse;
+        private GraphvizVertexStyle _VertexStyle = GraphvizVertexStyle.Rounded;
 
         public Visualize(GraphvizVertexShape vertexShape = GraphvizVertexShape.Ellipse, GraphvizVertexStyle vertexStyle = GraphvizVertexStyle.Rounded)
         {
             _VertexShape = vertexShape;
             _VertexStyle = vertexStyle;
         }
-
-        //         public static GraphvizVertexShape VertexShape
-        //         {
-        //             get { return _VertexShape; }
-        //             set { _VertexShape = value; }
-        //         }
-        //
-        //         public static GraphvizVertexStyle VertexStyle
-        //         {
-        //             get { return _VertexStyle; }
-        //             set { _VertexStyle = value; }
-        //         }
 
         /// <summary>
         /// FileDotEngine: Interface to the IDotEngine

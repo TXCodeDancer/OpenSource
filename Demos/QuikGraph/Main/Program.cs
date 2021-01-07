@@ -208,27 +208,6 @@ namespace Main
             var image = new Visualize(GraphvizVertexShape.Circle);
             image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
         }
-
-        //         public static void Visualizer(IBidirectionalIncidenceGraph<string, TaggedEdge<string, string>> g, string filepath)
-        //         {
-        //             Visualize.ExportDot(g, filepath);
-        //             Visualize.VertexShape = GraphvizVertexShape.Box;
-        //             Visualize.VertexStyle = GraphvizVertexStyle.Rounded;
-        //             Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
-        //         }
-        //
-        //         public static void Visualizer(IBidirectionalIncidenceGraph<int, Edge<int>> g, string filepath)
-        //         {
-        //             Visualize.ExportDot(g, filepath);
-        //             Visualize.VertexShape = GraphvizVertexShape.Circle;
-        //             Visualize.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.dot);
-        //         }
-
-        //         public static void Visualizer<TVertex, TEdge>(AdjacencyGraph<TVertex, TEdge> g, string filepath, ImageLayout layout = ImageLayout.dot) where TEdge : IEdge<TVertex>
-        //         {
-        //             Visualizers.Visualizer.ExportDot(g, filepath);
-        //             Visualizers.Visualizer.ExportImageFile(g, GraphvizImageType.Svg, filepath, layout);
-        //         }
     }
 
     public class ConnectedComponentsHelper
