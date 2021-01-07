@@ -14,7 +14,6 @@ namespace Algorithms.ShortestPath
             var algorithm = new BellmanFordShortestPathAlgorithm<int, Edge<int>>(graph, Weights);
 
             algorithm.Compute(root);
-            var foo = algorithm.VisitedGraph;
             return algorithm.Distances;
         }
 
@@ -25,7 +24,6 @@ namespace Algorithms.ShortestPath
             var algorithm = new BellmanFordShortestPathAlgorithm<string, TaggedEdge<string, string>>(graph, Weights);
 
             algorithm.Compute(root);
-            var foo = algorithm.VisitedGraph;
             return algorithm.Distances;
         }
     }

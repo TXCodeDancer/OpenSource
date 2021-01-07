@@ -984,6 +984,32 @@ namespace Main
             }
             return results;
         }
+
+        public static List<string> FloydWarshallShortestPathHelper(List<string> nodes, List<List<string>> edges, string root)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var ans = FloydWarshallShortestPath.Get(g, root);
+                foreach (var d in ans)
+                {
+                    var value = (d.Value != -1) ? d.Value : double.PositiveInfinity;
+                    results.Add($"{d.Key}: {value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var ans = FloydWarshallShortestPath.Get(g, int.Parse(root));
+                foreach (var d in ans)
+                {
+                    var value = (d.Value != -1) ? d.Value : double.PositiveInfinity;
+                    results.Add($"{d.Key}: {value}");
+                }
+            }
+            return results;
+        }
     }
 
     public class Program

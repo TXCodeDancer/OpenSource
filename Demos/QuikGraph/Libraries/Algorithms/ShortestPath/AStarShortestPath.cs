@@ -15,7 +15,6 @@ namespace Algorithms.ShortestPath
             var algorithm = new AStarShortestPathAlgorithm<int, Edge<int>>(graph, Weights, Heuristic);
 
             algorithm.Compute(root);
-            var foo = algorithm.VisitedGraph;
             return algorithm.Distances;
         }
 
@@ -27,7 +26,6 @@ namespace Algorithms.ShortestPath
             var algorithm = new AStarShortestPathAlgorithm<string, TaggedEdge<string, string>>(graph, Weights, Heuristic);
 
             algorithm.Compute(root);
-            var foo = algorithm.VisitedGraph;
             return algorithm.Distances;
         }
     }
