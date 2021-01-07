@@ -1,5 +1,6 @@
+Path 0:
 1 -> 2 (1)
 2 -> 5 (1)
 5 -> 7 (1)
 7 -> 8 (1)
-Shortest distance (1 -> 8) = 4
+Distance (1 -> 8) = 4
