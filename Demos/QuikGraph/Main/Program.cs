@@ -8,6 +8,7 @@ using Algorithms.MinimumSpanningTree;
 using Algorithms.Observers;
 using Algorithms.Search;
 using Algorithms.ShortestPath;
+using Algorithms.TopologicalSort;
 using QuikGraph;
 using QuikGraph.Graphviz.Dot;
 using System;
@@ -1148,6 +1149,43 @@ namespace Main
                 else
                 {
                     results.Add($"{message} ({root} -> {target})");
+                }
+            }
+            return results;
+        }
+    }
+
+    public class TopologicalSortHelper
+    {
+        public static List<string> SourceFirstBidirectionalTopologicalSortHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateBidirectionalTaggedGraph(nodes, edges);
+                var (ans, message) = SourceFirstBidirectionalTopologicalSort.Get(g);
+                if (ans != null)
+                {
+                    foreach (var v in ans)
+                        results.Add($"{v}");
+                }
+                else
+                {
+                    results.Add($"{message}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateBidirectionalGraph(nodes, edges);
+                var (ans, message) = SourceFirstBidirectionalTopologicalSort.Get(g);
+                if (ans != null)
+                {
+                    foreach (var v in ans)
+                        results.Add($"{v}");
+                }
+                else
+                {
+                    results.Add($"{message}");
                 }
             }
             return results;
