@@ -3,11 +3,11 @@ using QuikGraph.Algorithms.TopologicalSort;
 
 namespace Algorithms.TopologicalSort
 {
-    public static class SourceFirstBidirectionalTopologicalSort
+    public static class UndirectedFirstTopologicalSort
     {
-        public static (int[], string) Get(BidirectionalGraph<int, Edge<int>> graph)
+        public static (int[], string) Get(UndirectedGraph<int, Edge<int>> graph)
         {
-            var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph);
+            var algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, Edge<int>>(graph);
 
             try
             {
@@ -20,9 +20,9 @@ namespace Algorithms.TopologicalSort
             }
         }
 
-        public static (string[], string) Get(BidirectionalGraph<string, TaggedEdge<string, string>> graph)
+        public static (string[], string) Get(UndirectedGraph<string, TaggedEdge<string, string>> graph)
         {
-            var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<string, TaggedEdge<string, string>>(graph);
+            var algorithm = new UndirectedFirstTopologicalSortAlgorithm<string, TaggedEdge<string, string>>(graph);
 
             try
             {

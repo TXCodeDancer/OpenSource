@@ -57,6 +57,7 @@ namespace Tests
                 new object[] { new string(@"..\..\..\Cases\07") },
                 new object[] { new string(@"..\..\..\Cases\08") },
                 new object[] { new string(@"..\..\..\Cases\09") },
+                new object[] { new string(@"..\..\..\Cases\10") },
             };
     }
 }

@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Tests.AlgorithmsTests.TopologicalSort
 {
-    public class TopologicalSortTests
+    public class UndirectedFirstTopologicalSortTests
     {
         [Theory]
         [MemberData(nameof(GetInputFiles))]
@@ -14,7 +14,7 @@ namespace Tests.AlgorithmsTests.TopologicalSort
         {
             string directory = Path.GetDirectoryName(inputFile);
             string file = Path.GetFileNameWithoutExtension(inputFile);
-            var outputFile = @$"{directory}\TopologicalSort\TopologicalSort\{file}";
+            var outputFile = @$"{directory}\TopologicalSort\UndirectedFirstTopologicalSort\{file}";
             var expectedfile = @$"{outputFile}.a";
             var resultsfile = $"{outputFile}.r";
 
@@ -29,7 +29,7 @@ namespace Tests.AlgorithmsTests.TopologicalSort
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            List<string> actual = TopologicalSortHelpers.TopologicalSortHelper(nodes, edges);
+            List<string> actual = TopologicalSortHelpers.UndirectedFirstTopologicalSortHelper(nodes, edges);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
@@ -53,6 +53,7 @@ namespace Tests.AlgorithmsTests.TopologicalSort
                 new object[] { new string(@"..\..\..\Cases\07") },
                 new object[] { new string(@"..\..\..\Cases\08") },
                 new object[] { new string(@"..\..\..\Cases\09") },
+                new object[] { new string(@"..\..\..\Cases\10") },
             };
     }
 }
