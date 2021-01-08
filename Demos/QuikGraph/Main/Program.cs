@@ -1155,7 +1155,7 @@ namespace Main
         }
     }
 
-    public class TopologicalSortHelper
+    public class TopologicalSortHelpers
     {
         public static List<string> SourceFirstBidirectionalTopologicalSortHelper(List<string> nodes, List<List<string>> edges)
         {
@@ -1212,6 +1212,40 @@ namespace Main
             {
                 var g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var (ans, message) = SourceFirstTopologicalSort.Get(g);
+                if (ans != null)
+                {
+                    foreach (var v in ans)
+                        results.Add($"{v}");
+                }
+                else
+                {
+                    results.Add($"{message}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> TopologicalSortHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
+                var (ans, message) = TopologicalSort.Get(g);
+                if (ans != null)
+                {
+                    foreach (var v in ans)
+                        results.Add($"{v}");
+                }
+                else
+                {
+                    results.Add($"{message}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
+                var (ans, message) = TopologicalSort.Get(g);
                 if (ans != null)
                 {
                     foreach (var v in ans)
