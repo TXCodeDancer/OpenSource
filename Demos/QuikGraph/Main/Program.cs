@@ -8,6 +8,7 @@ using Algorithms.MinimumSpanningTree;
 using Algorithms.Observers;
 using Algorithms.Search;
 using Algorithms.ShortestPath;
+using Algorithms.TopologicalSort;
 using QuikGraph;
 using QuikGraph.Graphviz.Dot;
 using System;
@@ -27,7 +28,7 @@ namespace Main
             return hasTaggedEdges;
         }
 
-        public static AdjacencyGraph<int, Edge<int>> CreateDirectedGraph(List<string> nodes, List<List<string>> edges)
+        public static AdjacencyGraph<int, Edge<int>> CreateAdjacencyGraph(List<string> nodes, List<List<string>> edges)
         {
             var g = new AdjacencyGraph<int, Edge<int>>();
             List<int> intNodes = new List<int>();
@@ -45,7 +46,7 @@ namespace Main
             return g;
         }
 
-        public static AdjacencyGraph<string, TaggedEdge<string, string>> CreateDirectedTaggedGraph(List<string> nodes, List<List<string>> edges)
+        public static AdjacencyGraph<string, TaggedEdge<string, string>> CreateTaggedAdjacencyGraph(List<string> nodes, List<List<string>> edges)
         {
             var g = new AdjacencyGraph<string, TaggedEdge<string, string>>();
             g.AddVertexRange(nodes);
@@ -57,7 +58,7 @@ namespace Main
             return g;
         }
 
-        public static AdjacencyGraph<string, EquatableTaggedEdge<string, double>> CreateDirectedEquatableTaggedGraph(List<string> nodes, List<List<string>> edges)
+        public static AdjacencyGraph<string, EquatableTaggedEdge<string, double>> CreateEquatableTaggedAdjacencyGraph(List<string> nodes, List<List<string>> edges)
         {
             var g = new AdjacencyGraph<string, EquatableTaggedEdge<string, double>>();
             g.AddVertexRange(nodes);
@@ -69,7 +70,7 @@ namespace Main
             return g;
         }
 
-        public static AdjacencyGraph<int, EquatableTaggedEdge<int, double>> CreateDirectedEquatableUntaggedGraph(List<string> nodes, List<List<string>> edges)
+        public static AdjacencyGraph<int, EquatableTaggedEdge<int, double>> CreateEquatableUnTaggedAdjacencyGraph(List<string> nodes, List<List<string>> edges)
         {
             var g = new AdjacencyGraph<int, EquatableTaggedEdge<int, double>>();
 
@@ -180,13 +181,13 @@ namespace Main
         {
             if (Graph.hasTags(edges))
             {
-                AdjacencyGraph<string, TaggedEdge<string, string>> g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                AdjacencyGraph<string, TaggedEdge<string, string>> g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
                 var image = new Visualize(GraphvizVertexShape.Box, GraphvizVertexStyle.Rounded);
                 image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
             }
             else
             {
-                AdjacencyGraph<int, Edge<int>> g = Graph.CreateDirectedGraph(nodes, edges);
+                AdjacencyGraph<int, Edge<int>> g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var image = new Visualize(GraphvizVertexShape.Circle);
                 image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
             }
@@ -236,7 +237,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
-                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
                 var ans = WeaklyConnectedComponents.Get(g);
                 foreach (var d in ans)
                 {
@@ -245,7 +246,7 @@ namespace Main
             }
             else
             {
-                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var ans = WeaklyConnectedComponents.Get(g);
                 foreach (var d in ans)
                 {
@@ -260,7 +261,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
-                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
                 var ans = StronglyConnectedComponents.Get(g);
                 foreach (var d in ans)
                 {
@@ -269,7 +270,7 @@ namespace Main
             }
             else
             {
-                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var ans = StronglyConnectedComponents.Get(g);
                 foreach (var d in ans)
                 {
@@ -284,7 +285,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
-                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
                 var ans = StronglyConnectedComponents.GetGraphs(g);
                 results.Add($"Graphs: {ans.Length}");
                 for (int i = 0; i < ans.Length; i++)
@@ -296,7 +297,7 @@ namespace Main
             }
             else
             {
-                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var ans = StronglyConnectedComponents.GetGraphs(g);
                 results.Add($"Graphs: {ans.Length}");
                 for (int i = 0; i < ans.Length; i++)
@@ -314,7 +315,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
-                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
                 var ans = WeaklyConnectedComponents.GetGraphs(g);
                 results.Add($"Graphs: {ans.Length}");
                 for (int i = 0; i < ans.Length; i++)
@@ -326,7 +327,7 @@ namespace Main
             }
             else
             {
-                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var ans = WeaklyConnectedComponents.GetGraphs(g);
                 results.Add($"Graphs: {ans.Length}");
                 for (int i = 0; i < ans.Length; i++)
@@ -401,7 +402,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges)) // Only valid for tagged edges
             {
-                var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
+                var g = Graph.CreateEquatableTaggedAdjacencyGraph(nodes, edges);
                 var ans = EdmondsKarpMaxFlow.Get(g, source, sink);
                 results.Add($"{ans}");
             }
@@ -413,7 +414,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges)) // Only valid for tagged edges
             {
-                var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
+                var g = Graph.CreateEquatableTaggedAdjacencyGraph(nodes, edges);
                 var ans = EdmondsKarpMaxFlow.GetPredecessors(g, source, sink);
                 foreach (var d in ans)
                 {
@@ -428,7 +429,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges)) // Only valid for tagged edges
             {
-                var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
+                var g = Graph.CreateEquatableTaggedAdjacencyGraph(nodes, edges);
                 var ans = EdmondsKarpMaxFlow.GetResidualCapacities(g, source, sink);
                 foreach (var d in ans)
                 {
@@ -446,7 +447,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
-                AdjacencyGraph<string, TaggedEdge<string, string>> g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                AdjacencyGraph<string, TaggedEdge<string, string>> g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
                 var dfs = VertexObs.Get(g);
                 foreach (var e in dfs)
                 {
@@ -455,7 +456,7 @@ namespace Main
             }
             else
             {
-                AdjacencyGraph<int, Edge<int>> g = Graph.CreateDirectedGraph(nodes, edges);
+                AdjacencyGraph<int, Edge<int>> g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var dfs = VertexObs.Get(g);
                 foreach (var e in dfs)
                 {
@@ -470,7 +471,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
-                AdjacencyGraph<string, TaggedEdge<string, string>> g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                AdjacencyGraph<string, TaggedEdge<string, string>> g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
                 var dfs = EdgeObs.Get(g);
                 foreach (var e in dfs)
                 {
@@ -479,7 +480,7 @@ namespace Main
             }
             else
             {
-                AdjacencyGraph<int, Edge<int>> g = Graph.CreateDirectedGraph(nodes, edges);
+                AdjacencyGraph<int, Edge<int>> g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var dfs = EdgeObs.Get(g);
                 foreach (var e in dfs)
                 {
@@ -494,7 +495,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
-                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
                 var dfs = EdgePredecessorObs.GetPaths(g);
                 for (int i = 0; i < dfs.Count; i++)
                 {
@@ -506,7 +507,7 @@ namespace Main
             }
             else
             {
-                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var dfs = EdgePredecessorObs.GetPaths(g);
                 for (int i = 0; i < dfs.Count; i++)
                 {
@@ -524,7 +525,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
-                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
                 var dfs = EdgePredecessorObs.Get(g);
                 foreach (var d in dfs)
                 {
@@ -533,7 +534,7 @@ namespace Main
             }
             else
             {
-                AdjacencyGraph<int, Edge<int>> g = Graph.CreateDirectedGraph(nodes, edges);
+                AdjacencyGraph<int, Edge<int>> g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var dfs = EdgePredecessorObs.Get(g);
                 foreach (var d in dfs)
                 {
@@ -548,7 +549,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
-                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
                 var dfs = VertexDistanceObs.Get(g);
                 foreach (var d in dfs)
                 {
@@ -557,7 +558,7 @@ namespace Main
             }
             else
             {
-                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var dfs = VertexDistanceObs.Get(g);
                 foreach (var d in dfs)
                 {
@@ -621,7 +622,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
-                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
                 var dfs = VertexPredecessorObs.Get(g);
 
                 foreach (var d in dfs)
@@ -631,7 +632,7 @@ namespace Main
             }
             else
             {
-                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var dfs = VertexPredecessorObs.Get(g);
                 foreach (var d in dfs)
                 {
@@ -670,7 +671,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
-                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
                 var dfs = VertexPredecessorObs.GetPaths(g);
                 for (int i = 0; i < dfs.Count; i++)
                 {
@@ -682,7 +683,7 @@ namespace Main
             }
             else
             {
-                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var dfs = VertexPredecessorObs.GetPaths(g);
                 for (int i = 0; i < dfs.Count; i++)
                 {
@@ -700,7 +701,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
-                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
                 var dfs = VertexTimeStampObs.GetDiscoverTimes(g);
                 foreach (var d in dfs)
                 {
@@ -709,7 +710,7 @@ namespace Main
             }
             else
             {
-                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var dfs = VertexTimeStampObs.GetDiscoverTimes(g);
                 foreach (var d in dfs)
                 {
@@ -724,7 +725,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
-                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
                 var dfs = VertexTimeStampObs.GetFinishTimes(g);
                 foreach (var d in dfs)
                 {
@@ -733,7 +734,7 @@ namespace Main
             }
             else
             {
-                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var dfs = VertexTimeStampObs.GetFinishTimes(g);
                 foreach (var d in dfs)
                 {
@@ -899,7 +900,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
-                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
                 var ans = AStarShortestPath.Get(g, root);
                 foreach (var d in ans)
                 {
@@ -909,7 +910,7 @@ namespace Main
             }
             else
             {
-                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var ans = AStarShortestPath.Get(g, int.Parse(root));
                 foreach (var d in ans)
                 {
@@ -925,7 +926,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
-                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
                 var ans = BellmanFordShortestPath.Get(g, root);
                 foreach (var d in ans)
                 {
@@ -934,7 +935,7 @@ namespace Main
             }
             else
             {
-                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var ans = BellmanFordShortestPath.Get(g, int.Parse(root));
                 foreach (var d in ans)
                 {
@@ -949,7 +950,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
-                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
                 var (isDiag, ans) = DirectedAcyclicGraphShortestPath.Get(g, root);
                 if (isDiag)
                 {
@@ -963,7 +964,7 @@ namespace Main
             }
             else
             {
-                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var (isDiag, ans) = DirectedAcyclicGraphShortestPath.Get(g, int.Parse(root));
                 if (isDiag)
                 {
@@ -983,7 +984,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
-                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
                 var ans = DijkstraShortestPath.Get(g, root);
                 foreach (var d in ans)
                 {
@@ -993,7 +994,7 @@ namespace Main
             }
             else
             {
-                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var ans = DijkstraShortestPath.Get(g, int.Parse(root));
                 foreach (var d in ans)
                 {
@@ -1035,7 +1036,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
-                var g = Graph.CreateDirectedTaggedGraph(nodes, edges);
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
                 var ans = FloydWarshallShortestPath.Get(g, root);
                 foreach (var d in ans)
                 {
@@ -1045,7 +1046,7 @@ namespace Main
             }
             else
             {
-                var g = Graph.CreateDirectedGraph(nodes, edges);
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var ans = FloydWarshallShortestPath.Get(g, int.Parse(root));
                 foreach (var d in ans)
                 {
@@ -1061,7 +1062,7 @@ namespace Main
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
-                var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
+                var g = Graph.CreateEquatableTaggedAdjacencyGraph(nodes, edges);
                 var (ans, message) = YenShortestPath.Get(g, root, target);
                 if (message == null)
                 {
@@ -1080,7 +1081,7 @@ namespace Main
             }
             else
             {
-                var g = Graph.CreateDirectedEquatableUntaggedGraph(nodes, edges);
+                var g = Graph.CreateEquatableUnTaggedAdjacencyGraph(nodes, edges);
                 var (ans, message) = YenShortestPath.Get(g, int.Parse(root), int.Parse(target));
                 if (message == null)
                 {
@@ -1106,7 +1107,7 @@ namespace Main
             int i = 0;
             if (Graph.hasTags(edges))
             {
-                var g = Graph.CreateDirectedEquatableTaggedGraph(nodes, edges);
+                var g = Graph.CreateEquatableTaggedAdjacencyGraph(nodes, edges);
                 var (ans, message) = YenShortestPath.GetAll(g, root, target);
                 if (ans != null)
                 {
@@ -1129,7 +1130,7 @@ namespace Main
             }
             else
             {
-                var g = Graph.CreateDirectedEquatableUntaggedGraph(nodes, edges);
+                var g = Graph.CreateEquatableUnTaggedAdjacencyGraph(nodes, edges);
                 var (ans, message) = YenShortestPath.GetAll(g, int.Parse(root), int.Parse(target));
                 if (ans != null)
                 {
@@ -1148,6 +1149,179 @@ namespace Main
                 else
                 {
                     results.Add($"{message} ({root} -> {target})");
+                }
+            }
+            return results;
+        }
+    }
+
+    public class TopologicalSortHelpers
+    {
+        public static List<string> SourceFirstBidirectionalTopologicalSortHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateBidirectionalTaggedGraph(nodes, edges);
+                var (ans, message) = SourceFirstBidirectionalTopologicalSort.Get(g);
+                if (ans != null)
+                {
+                    foreach (var v in ans)
+                        results.Add($"{v}");
+                }
+                else
+                {
+                    results.Add($"{message}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateBidirectionalGraph(nodes, edges);
+                var (ans, message) = SourceFirstBidirectionalTopologicalSort.Get(g);
+                if (ans != null)
+                {
+                    foreach (var v in ans)
+                        results.Add($"{v}");
+                }
+                else
+                {
+                    results.Add($"{message}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> SourceFirstTopologicalSortHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
+                var (ans, message) = SourceFirstTopologicalSort.Get(g);
+                if (ans != null)
+                {
+                    foreach (var v in ans)
+                        results.Add($"{v}");
+                }
+                else
+                {
+                    results.Add($"{message}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
+                var (ans, message) = SourceFirstTopologicalSort.Get(g);
+                if (ans != null)
+                {
+                    foreach (var v in ans)
+                        results.Add($"{v}");
+                }
+                else
+                {
+                    results.Add($"{message}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> TopologicalSortHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
+                var (ans, message) = TopologicalSort.Get(g);
+                if (ans != null)
+                {
+                    foreach (var v in ans)
+                        results.Add($"{v}");
+                }
+                else
+                {
+                    results.Add($"{message}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
+                var (ans, message) = TopologicalSort.Get(g);
+                if (ans != null)
+                {
+                    foreach (var v in ans)
+                        results.Add($"{v}");
+                }
+                else
+                {
+                    results.Add($"{message}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> UndirectedFirstTopologicalSortHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
+                var (ans, message) = UndirectedFirstTopologicalSort.Get(g);
+                if (ans != null)
+                {
+                    foreach (var v in ans)
+                        results.Add($"{v}");
+                }
+                else
+                {
+                    results.Add($"{message}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateUndirectedGraph(nodes, edges);
+                var (ans, message) = UndirectedFirstTopologicalSort.Get(g);
+                if (ans != null)
+                {
+                    foreach (var v in ans)
+                        results.Add($"{v}");
+                }
+                else
+                {
+                    results.Add($"{message}");
+                }
+            }
+            return results;
+        }
+
+        public static List<string> UndirectedTopologicalSortHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
+                var (ans, message) = UndirectedTopologicalSort.Get(g);
+                if (ans != null)
+                {
+                    foreach (var v in ans)
+                        results.Add($"{v}");
+                }
+                else
+                {
+                    results.Add($"{message}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateUndirectedGraph(nodes, edges);
+                var (ans, message) = UndirectedTopologicalSort.Get(g);
+                if (ans != null)
+                {
+                    foreach (var v in ans)
+                        results.Add($"{v}");
+                }
+                else
+                {
+                    results.Add($"{message}");
                 }
             }
             return results;
