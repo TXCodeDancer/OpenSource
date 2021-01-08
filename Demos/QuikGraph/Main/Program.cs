@@ -1292,6 +1292,40 @@ namespace Main
             }
             return results;
         }
+
+        public static List<string> UndirectedTopologicalSortHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
+                var (ans, message) = UndirectedTopologicalSort.Get(g);
+                if (ans != null)
+                {
+                    foreach (var v in ans)
+                        results.Add($"{v}");
+                }
+                else
+                {
+                    results.Add($"{message}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateUndirectedGraph(nodes, edges);
+                var (ans, message) = UndirectedTopologicalSort.Get(g);
+                if (ans != null)
+                {
+                    foreach (var v in ans)
+                        results.Add($"{v}");
+                }
+                else
+                {
+                    results.Add($"{message}");
+                }
+            }
+            return results;
+        }
     }
 
     public class Program
