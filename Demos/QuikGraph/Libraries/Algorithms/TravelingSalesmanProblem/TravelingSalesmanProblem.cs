@@ -6,39 +6,134 @@ using System.Text;
 
 namespace Algorithms.TravelingSalesmanProblem
 {
-    public static class TravelingSalesmanProblem
+    internal class tsp
     {
-        public static (double, string) Get(BidirectionalGraph<int, EquatableEdge<int>> graph)
-        {
-            Func<EquatableEdge<int>, double> Weights = e => 1.0;
-            var algorithm = new TSP<int, EquatableEdge<int>, BidirectionalGraph<int, EquatableEdge<int>>>(graph, Weights);
+        public BidirectionalGraph<string, EquatableEdge<string>> Graph { get; } = new BidirectionalGraph<string, EquatableEdge<string>>();
 
-            try
-            {
-                algorithm.Compute();
-                return (algorithm.BestCost, null);
-            }
-            catch (System.Exception ex)
-            {
-                return (double.PositiveInfinity, ex.Message);
-            }
+        private readonly Dictionary<EquatableEdge<string>, double> _weightsDict = new Dictionary<EquatableEdge<string>, double>();
+
+        public tsp AddVertex(string vertex)
+        {
+            Graph.AddVertex(vertex);
+            return this;
         }
 
-        // Note QuickGraph edge type TaggedEquatableEdge is not currently supported by QuikGraph, using weightDict as a parameter is a workaround.
-        public static (double, string) Get(BidirectionalGraph<string, EquatableEdge<string>> graph, Dictionary<EquatableEdge<string>, double> weightDict)
+        public tsp AddVertex(int vertex)
         {
-            Func<EquatableEdge<string>, double> Weights = e => weightDict[e];
-            var algorithm = new TSP<string, EquatableEdge<string>, BidirectionalGraph<string, EquatableEdge<string>>>(graph, Weights);
+            Graph.AddVertex(vertex.ToString());
+            return this;
+        }
 
-            try
+        public tsp AddUndirectedEdge(string source, string target, double weight)
+        {
+            AddDirectedEdge(source, target, weight);
+            AddDirectedEdge(target, source, weight);
+            return this;
+        }
+
+        public tsp AddUndirectedEdge(int source, int target, double weight)
+        {
+            return AddUndirectedEdge(source.ToString(), target.ToString(), weight);
+        }
+
+        public tsp AddDirectedEdge(string source, string target, double weight)
+        {
+            var edge = new EquatableEdge<string>(source, target);
+            if (!_weightsDict.ContainsKey(edge))
             {
-                algorithm.Compute();
-                return (algorithm.BestCost, null);
+                Graph.AddEdge(edge);
+                _weightsDict.Add(edge, weight);
             }
-            catch (System.Exception ex)
+
+            return this;
+        }
+
+        public tsp AddDirectedEdge(int source, int target, double weight)
+        {
+            return AddDirectedEdge(source.ToString(), target.ToString(), weight);
+        }
+
+        public Func<EquatableEdge<string>, double> GetWeightsFunc()
+        {
+            return edge => _weightsDict[edge];
+        }
+    }
+
+    public static class TravelingSalesmanProblem
+    {
+        public static double Get(AdjacencyGraph<int, Edge<int>> graph)
+        {
+            var tsp = new tsp();
+            foreach (var v in graph.Vertices)
             {
-                return (double.PositiveInfinity, ex.Message);
+                tsp.AddVertex(v);
             }
+            foreach (var e in graph.Edges)
+            {
+                tsp.AddDirectedEdge(e.Source, e.Target, 1.0);
+            }
+
+            var algorithm = new TSP<string, EquatableEdge<string>, BidirectionalGraph<string, EquatableEdge<string>>>(tsp.Graph, tsp.GetWeightsFunc());
+
+            algorithm.Compute();
+            return algorithm.BestCost;
+
+            algorithm.Compute();
+            return algorithm.BestCost;
+        }
+
+        public static double Get(AdjacencyGraph<string, TaggedEdge<string, string>> graph)
+        {
+            var tsp = new tsp();
+            foreach (var v in graph.Vertices)
+            {
+                tsp.AddVertex(v);
+            }
+            foreach (var e in graph.Edges)
+            {
+                tsp.AddDirectedEdge(e.Source, e.Target, double.Parse(e.Tag));
+            }
+
+            var algorithm = new TSP<string, EquatableEdge<string>, BidirectionalGraph<string, EquatableEdge<string>>>(tsp.Graph, tsp.GetWeightsFunc());
+
+            algorithm.Compute();
+            return algorithm.BestCost;
+        }
+
+        public static double Get(UndirectedGraph<int, Edge<int>> graph)
+        {
+            var tsp = new tsp();
+            foreach (var v in graph.Vertices)
+            {
+                tsp.AddVertex(v);
+            }
+            foreach (var e in graph.Edges)
+            {
+                tsp.AddUndirectedEdge(e.Source, e.Target, 1.0);
+            }
+
+            var algorithm = new TSP<string, EquatableEdge<string>, BidirectionalGraph<string, EquatableEdge<string>>>(tsp.Graph, tsp.GetWeightsFunc());
+
+            algorithm.Compute();
+            return algorithm.BestCost;
+        }
+
+        public static double Get(UndirectedGraph<string, TaggedEdge<string, string>> graph)
+        {
+            var tsp = new tsp();
+            foreach (var v in graph.Vertices)
+            {
+                tsp.AddVertex(v);
+            }
+            foreach (var e in graph.Edges)
+            {
+                tsp.AddUndirectedEdge(e.Source, e.Target, double.Parse(e.Tag));
+            }
+
+            var algorithm = new TSP<string, EquatableEdge<string>, BidirectionalGraph<string, EquatableEdge<string>>>(tsp.Graph, tsp.GetWeightsFunc());
+
+            algorithm.Compute();
+            return algorithm.BestCost;
         }
     }
 }

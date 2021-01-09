@@ -196,23 +196,6 @@ namespace Main
             return g;
         }
 
-        // Note QuickGraph edge type TaggedEquatableEdge is not currently supported by QuikGraph, using weightDict as a parameter is a workaround.
-        public static (BidirectionalGraph<string, EquatableEdge<string>>, Dictionary<EquatableEdge<string>, double>) CreateBidirectionalTaggedEquatableEdgeGraph(List<string> nodes, List<List<string>> edges)
-        {
-            var g = new BidirectionalGraph<string, EquatableEdge<string>>();
-            var weightDict = new Dictionary<EquatableEdge<string>, double>();
-
-            g.AddVertexRange(nodes);
-            foreach (var e in edges)
-            {
-                var edge = new EquatableEdge<string>(e[0], e[1]);
-                g.AddEdge(edge);
-                weightDict.Add(edge, double.Parse(e[2]));
-            }
-
-            return (g, weightDict);
-        }
-
         public static void Visualizer(List<string> nodes, List<List<string>> edges, string filepath)
         {
             if (Graph.hasTags(edges))
@@ -1366,34 +1349,38 @@ namespace Main
 
     public class TavelingSalesmanHelpers
     {
-        public static List<string> TavelingSalesmanHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> TavelingSalesmanDirectedHelper(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
-                var (g, weightDict) = Graph.CreateBidirectionalTaggedEquatableEdgeGraph(nodes, edges);
-                var (ans, message) = TravelingSalesmanProblem.Get(g, weightDict);
-                if (message == null)
-                {
-                    results.Add($"{ans}");
-                }
-                else
-                {
-                    results.Add($"{message}");
-                }
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
+                var ans = TravelingSalesmanProblem.Get(g);
+                results.Add($"{ans}");
             }
             else
             {
-                var g = Graph.CreateBidirectionalEquatableEdgeGraph(nodes, edges);
-                var (ans, message) = TravelingSalesmanProblem.Get(g);
-                if (message == null)
-                {
-                    results.Add($"{ans}");
-                }
-                else
-                {
-                    results.Add($"{message}");
-                }
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
+                var ans = TravelingSalesmanProblem.Get(g);
+                results.Add($"{ans}");
+            }
+            return results;
+        }
+
+        public static List<string> TavelingSalesmanUndirectedHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
+                var ans = TravelingSalesmanProblem.Get(g);
+                results.Add($"{ans}");
+            }
+            else
+            {
+                var g = Graph.CreateUndirectedGraph(nodes, edges);
+                var ans = TravelingSalesmanProblem.Get(g);
+                results.Add($"{ans}");
             }
             return results;
         }
