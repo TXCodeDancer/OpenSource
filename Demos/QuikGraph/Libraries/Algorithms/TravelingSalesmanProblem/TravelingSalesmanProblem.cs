@@ -77,9 +77,6 @@ namespace Algorithms.TravelingSalesmanProblem
 
             algorithm.Compute();
             return algorithm.BestCost;
-
-            algorithm.Compute();
-            return algorithm.BestCost;
         }
 
         public static double Get(AdjacencyGraph<string, TaggedEdge<string, string>> graph)
