@@ -9,6 +9,7 @@ using Algorithms.Observers;
 using Algorithms.Search;
 using Algorithms.ShortestPath;
 using Algorithms.TopologicalSort;
+using Algorithms.TravelingSalesmanProblem;
 using QuikGraph;
 using QuikGraph.Graphviz.Dot;
 using System;
@@ -175,6 +176,41 @@ namespace Main
             }
 
             return g;
+        }
+
+        public static BidirectionalGraph<int, EquatableEdge<int>> CreateBidirectionalEquatableEdgeGraph(List<string> nodes, List<List<string>> edges)
+        {
+            var g = new BidirectionalGraph<int, EquatableEdge<int>>();
+            List<int> intNodes = new List<int>();
+            foreach (var v in nodes)
+            {
+                intNodes.Add(int.Parse(v));
+            }
+
+            g.AddVertexRange(intNodes);
+            foreach (var e in edges)
+            {
+                g.AddEdge(new EquatableEdge<int>(int.Parse(e[0]), int.Parse(e[1])));
+            }
+
+            return g;
+        }
+
+        // Note QuickGraph edge type TaggedEquatableEdge is not currently supported by QuikGraph, using weightDict as a parameter is a workaround.
+        public static (BidirectionalGraph<string, EquatableEdge<string>>, Dictionary<EquatableEdge<string>, double>) CreateBidirectionalTaggedEquatableEdgeGraph(List<string> nodes, List<List<string>> edges)
+        {
+            var g = new BidirectionalGraph<string, EquatableEdge<string>>();
+            var weightDict = new Dictionary<EquatableEdge<string>, double>();
+
+            g.AddVertexRange(nodes);
+            foreach (var e in edges)
+            {
+                var edge = new EquatableEdge<string>(e[0], e[1]);
+                g.AddEdge(edge);
+                weightDict.Add(edge, double.Parse(e[2]));
+            }
+
+            return (g, weightDict);
         }
 
         public static void Visualizer(List<string> nodes, List<List<string>> edges, string filepath)
@@ -1318,6 +1354,41 @@ namespace Main
                 {
                     foreach (var v in ans)
                         results.Add($"{v}");
+                }
+                else
+                {
+                    results.Add($"{message}");
+                }
+            }
+            return results;
+        }
+    }
+
+    public class TavelingSalesmanHelpers
+    {
+        public static List<string> TavelingSalesmanHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var (g, weightDict) = Graph.CreateBidirectionalTaggedEquatableEdgeGraph(nodes, edges);
+                var (ans, message) = TravelingSalesmanProblem.Get(g, weightDict);
+                if (message == null)
+                {
+                    results.Add($"{ans}");
+                }
+                else
+                {
+                    results.Add($"{message}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateBidirectionalEquatableEdgeGraph(nodes, edges);
+                var (ans, message) = TravelingSalesmanProblem.Get(g);
+                if (message == null)
+                {
+                    results.Add($"{ans}");
                 }
                 else
                 {
