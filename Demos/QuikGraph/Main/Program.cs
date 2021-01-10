@@ -1355,43 +1355,7 @@ namespace Main
 
     public class TavelingSalesmanHelpers
     {
-        public static List<string> DirectedTavelingSalesmanCostHelper(List<string> nodes, List<List<string>> edges)
-        {
-            List<string> results = new List<string>();
-            double ans;
-            if (Graph.hasTags(edges))
-            {
-                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
-                ans = TravelingSalesmanProblem.GetCost(g);
-            }
-            else
-            {
-                var g = Graph.CreateAdjacencyGraph(nodes, edges);
-                ans = TravelingSalesmanProblem.GetCost(g);
-            }
-            results.Add($"{ans}");
-            return results;
-        }
-
-        public static List<string> UndirectedTavelingSalesmanCostHelper(List<string> nodes, List<List<string>> edges)
-        {
-            List<string> results = new List<string>();
-            double ans;
-            if (Graph.hasTags(edges))
-            {
-                var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
-                ans = TravelingSalesmanProblem.GetCost(g);
-            }
-            else
-            {
-                var g = Graph.CreateUndirectedGraph(nodes, edges);
-                ans = TravelingSalesmanProblem.GetCost(g);
-            }
-            results.Add($"{ans}");
-            return results;
-        }
-
-        public static List<string> DirectedTavelingSalesmanPathHelper(List<string> nodes, List<List<string>> edges, string outputFile)
+        public static List<string> DirectedTavelingSalesmanHelper(List<string> nodes, List<List<string>> edges, string outputFile)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
@@ -1422,7 +1386,7 @@ namespace Main
             return results;
         }
 
-        public static List<string> UndirectedTavelingSalesmanPathHelper(List<string> nodes, List<List<string>> edges, string outputFile)
+        public static List<string> UndirectedTavelingSalesmanHelper(List<string> nodes, List<List<string>> edges, string outputFile)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
