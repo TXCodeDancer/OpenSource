@@ -1,0 +1,18 @@
+digraph G {
+0 [shape=box, style=rounded, label="1"];
+1 [shape=box, style=rounded, label="2"];
+2 [shape=box, style=rounded, label="3"];
+3 [shape=box, style=rounded, label="4"];
+4 [shape=box, style=rounded, label="5"];
+5 [shape=box, style=rounded, label="6"];
+0 -> 1 [label="10"];
+0 -> 5 [label="3"];
+1 -> 2 [label="8"];
+1 -> 5 [label="5"];
+2 -> 3 [label="11"];
+2 -> 5 [label="18"];
+2 -> 4 [label="21"];
+3 -> 4 [label="6"];
+4 -> 5 [label="9"];
+5 -> 0 [label="1"];
+}
