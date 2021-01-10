@@ -236,6 +236,12 @@ namespace Main
             image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
         }
 
+        public static void Visualizer(BidirectionalGraph<string, EquatableEdge<string>> g, string filepath)
+        {
+            var image = new Visualize(GraphvizVertexShape.Circle);
+            image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+        }
+
         public static void Visualizer(UndirectedGraph<string, TaggedEdge<string, string>> g, string filepath)
         {
             var image = new Visualize(GraphvizVertexShape.Box, GraphvizVertexStyle.Rounded);
@@ -1349,39 +1355,113 @@ namespace Main
 
     public class TavelingSalesmanHelpers
     {
-        public static List<string> TavelingSalesmanDirectedHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> DirectedTavelingSalesmanCostHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            double ans;
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
+                ans = TravelingSalesmanProblem.GetCost(g);
+            }
+            else
+            {
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
+                ans = TravelingSalesmanProblem.GetCost(g);
+            }
+            results.Add($"{ans}");
+            return results;
+        }
+
+        public static List<string> UndirectedTavelingSalesmanCostHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            double ans;
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
+                ans = TravelingSalesmanProblem.GetCost(g);
+            }
+            else
+            {
+                var g = Graph.CreateUndirectedGraph(nodes, edges);
+                ans = TravelingSalesmanProblem.GetCost(g);
+            }
+            results.Add($"{ans}");
+            return results;
+        }
+
+        public static List<string> DirectedTavelingSalesmanPathHelper(List<string> nodes, List<List<string>> edges, string outputFile)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
-                var ans = TravelingSalesmanProblem.Get(g);
-                results.Add($"{ans}");
+                var ans = TravelingSalesmanProblem.GetPath(g);
+                if (ans != null)
+                {
+                    foreach (var v in ans.Vertices)
+                    {
+                        results.Add($"{v}");
+                    }
+                    Graph.Visualizer(ans, outputFile);
+                }
+                else
+                    results.Add($"No valid TSP path found.");
             }
             else
             {
                 var g = Graph.CreateAdjacencyGraph(nodes, edges);
-                var ans = TravelingSalesmanProblem.Get(g);
-                results.Add($"{ans}");
+                var ans = TravelingSalesmanProblem.GetPath(g);
+                if (ans != null)
+                {
+                    foreach (var v in ans.Vertices)
+                    {
+                        results.Add($"{v}");
+                    }
+                    Graph.Visualizer(ans, outputFile);
+                }
+                else
+                    results.Add($"No valid TSP path found.");
             }
+
             return results;
         }
 
-        public static List<string> TavelingSalesmanUndirectedHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> UndirectedTavelingSalesmanPathHelper(List<string> nodes, List<List<string>> edges, string outputFile)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
-                var ans = TravelingSalesmanProblem.Get(g);
-                results.Add($"{ans}");
+                var ans = TravelingSalesmanProblem.GetPath(g);
+                if (ans != null)
+                {
+                    foreach (var v in ans.Vertices)
+                    {
+                        results.Add($"{v}");
+                    }
+                    Graph.Visualizer(ans, outputFile);
+                }
+                else
+                    results.Add($"No valid TSP path found.");
             }
             else
             {
                 var g = Graph.CreateUndirectedGraph(nodes, edges);
-                var ans = TravelingSalesmanProblem.Get(g);
-                results.Add($"{ans}");
+                var ans = TravelingSalesmanProblem.GetPath(g);
+                if (ans != null)
+                {
+                    foreach (var v in ans.Vertices)
+                    {
+                        results.Add($"{v}");
+                    }
+                    Graph.Visualizer(ans, outputFile);
+                }
+                else
+                    results.Add($"No valid TSP path found.");
             }
+
             return results;
         }
     }

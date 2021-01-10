@@ -208,6 +208,18 @@ namespace Visualizers
             return imageFilepath;
         }
 
+        public string ExportImageFile(BidirectionalGraph<string, EquatableEdge<string>> graph, GraphvizImageType imageType, string imageFilepath, ImageLayout layout)
+        {
+            var graphviz = new GraphvizAlgorithm<string, EquatableEdge<string>>(graph) { ImageType = imageType };
+
+            graphviz.FormatVertex += FormatVertexHandler;
+            graphviz.FormatEdge += EdgeFormatter;
+
+            string fileInfo = $"{imageFilepath} {layout}";
+            graphviz.Generate(new FileDotEngine(), fileInfo);
+            return imageFilepath;
+        }
+
         public string ExportImageFile(UndirectedGraph<string, TaggedEdge<string, string>> graph, GraphvizImageType imageType, string imageFilepath, ImageLayout layout)
         {
             var graphviz = new GraphvizAlgorithm<string, TaggedEdge<string, string>>(graph) { ImageType = imageType };
@@ -246,7 +258,15 @@ namespace Visualizers
                 Value = e.Edge.Tag,
             };
             e.EdgeFormat.Label = label;
-            //            e.EdgeFormat.StrokeColor = GraphvizColor.DarkRed;
+        }
+
+        private void EdgeFormatter(object sender, FormatEdgeEventArgs<string, EquatableEdge<string>> e)
+        {
+            GraphvizEdgeLabel label = new GraphvizEdgeLabel
+            {
+                // Value = e.Edge.,
+            };
+            e.EdgeFormat.Label = label;
         }
     }
 }
