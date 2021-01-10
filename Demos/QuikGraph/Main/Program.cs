@@ -196,62 +196,62 @@ namespace Main
             return g;
         }
 
-        public static void Visualizer(List<string> nodes, List<List<string>> edges, string filepath)
+        public static void Visualizer(List<string> nodes, List<List<string>> edges, string outputFile)
         {
             if (Graph.hasTags(edges))
             {
                 AdjacencyGraph<string, TaggedEdge<string, string>> g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
                 var image = new Visualize(GraphvizVertexShape.Box, GraphvizVertexStyle.Rounded);
-                image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+                image.ExportImageFile(g, GraphvizImageType.Svg, outputFile, ImageLayout.circo);
             }
             else
             {
                 AdjacencyGraph<int, Edge<int>> g = Graph.CreateAdjacencyGraph(nodes, edges);
                 var image = new Visualize(GraphvizVertexShape.Circle);
-                image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+                image.ExportImageFile(g, GraphvizImageType.Svg, outputFile, ImageLayout.circo);
             }
         }
 
-        public static void Visualizer(AdjacencyGraph<string, TaggedEdge<string, string>> g, string filepath)
+        public static void Visualizer(AdjacencyGraph<string, TaggedEdge<string, string>> g, string outputFile)
         {
             var image = new Visualize(GraphvizVertexShape.Box, GraphvizVertexStyle.Rounded);
-            image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+            image.ExportImageFile(g, GraphvizImageType.Svg, outputFile, ImageLayout.circo);
         }
 
-        public static void Visualizer(AdjacencyGraph<int, Edge<int>> g, string filepath)
+        public static void Visualizer(AdjacencyGraph<int, Edge<int>> g, string outputFile)
         {
             var image = new Visualize(GraphvizVertexShape.Circle);
-            image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+            image.ExportImageFile(g, GraphvizImageType.Svg, outputFile, ImageLayout.circo);
         }
 
-        public static void Visualizer(BidirectionalGraph<string, TaggedEdge<string, string>> g, string filepath)
+        public static void Visualizer(BidirectionalGraph<string, TaggedEdge<string, string>> g, string outputFile)
         {
             var image = new Visualize(GraphvizVertexShape.Box, GraphvizVertexStyle.Rounded);
-            image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+            image.ExportImageFile(g, GraphvizImageType.Svg, outputFile, ImageLayout.circo);
         }
 
-        public static void Visualizer(BidirectionalGraph<int, Edge<int>> g, string filepath)
+        public static void Visualizer(BidirectionalGraph<int, Edge<int>> g, string outputFile)
         {
             var image = new Visualize(GraphvizVertexShape.Circle);
-            image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+            image.ExportImageFile(g, GraphvizImageType.Svg, outputFile, ImageLayout.circo);
         }
 
-        public static void Visualizer(BidirectionalGraph<string, EquatableEdge<string>> g, string filepath)
+        public static void Visualizer(BidirectionalGraph<string, EquatableEdge<string>> g, string outputFile)
         {
             var image = new Visualize(GraphvizVertexShape.Circle);
-            image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+            image.ExportImageFile(g, GraphvizImageType.Svg, outputFile, ImageLayout.circo);
         }
 
-        public static void Visualizer(UndirectedGraph<string, TaggedEdge<string, string>> g, string filepath)
+        public static void Visualizer(UndirectedGraph<string, TaggedEdge<string, string>> g, string outputFile)
         {
             var image = new Visualize(GraphvizVertexShape.Box, GraphvizVertexStyle.Rounded);
-            image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+            image.ExportImageFile(g, GraphvizImageType.Svg, outputFile, ImageLayout.circo);
         }
 
-        public static void Visualizer(UndirectedGraph<int, Edge<int>> g, string filepath)
+        public static void Visualizer(UndirectedGraph<int, Edge<int>> g, string outputFile)
         {
             var image = new Visualize(GraphvizVertexShape.Circle);
-            image.ExportImageFile(g, GraphvizImageType.Svg, filepath, ImageLayout.circo);
+            image.ExportImageFile(g, GraphvizImageType.Svg, outputFile, ImageLayout.circo);
         }
     }
 
@@ -1397,14 +1397,11 @@ namespace Main
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateTaggedAdjacencyGraph(nodes, edges);
-                var ans = TravelingSalesmanProblem.GetPath(g);
-                if (ans != null)
+                (var cost, var path) = TravelingSalesmanProblem.Get(g);
+                if (path != null)
                 {
-                    foreach (var v in ans.Vertices)
-                    {
-                        results.Add($"{v}");
-                    }
-                    Graph.Visualizer(ans, outputFile);
+                    results.Add($"{cost}");
+                    Graph.Visualizer(path, outputFile);
                 }
                 else
                     results.Add($"No valid TSP path found.");
@@ -1412,14 +1409,11 @@ namespace Main
             else
             {
                 var g = Graph.CreateAdjacencyGraph(nodes, edges);
-                var ans = TravelingSalesmanProblem.GetPath(g);
-                if (ans != null)
+                (var cost, var path) = TravelingSalesmanProblem.Get(g);
+                if (path != null)
                 {
-                    foreach (var v in ans.Vertices)
-                    {
-                        results.Add($"{v}");
-                    }
-                    Graph.Visualizer(ans, outputFile);
+                    results.Add($"{cost}");
+                    Graph.Visualizer(path, outputFile);
                 }
                 else
                     results.Add($"No valid TSP path found.");
@@ -1434,14 +1428,11 @@ namespace Main
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
-                var ans = TravelingSalesmanProblem.GetPath(g);
-                if (ans != null)
+                (var cost, var path) = TravelingSalesmanProblem.Get(g);
+                if (path != null)
                 {
-                    foreach (var v in ans.Vertices)
-                    {
-                        results.Add($"{v}");
-                    }
-                    Graph.Visualizer(ans, outputFile);
+                    results.Add($"{cost}");
+                    Graph.Visualizer(path, outputFile);
                 }
                 else
                     results.Add($"No valid TSP path found.");
@@ -1449,14 +1440,11 @@ namespace Main
             else
             {
                 var g = Graph.CreateUndirectedGraph(nodes, edges);
-                var ans = TravelingSalesmanProblem.GetPath(g);
-                if (ans != null)
+                (var cost, var path) = TravelingSalesmanProblem.Get(g);
+                if (path != null)
                 {
-                    foreach (var v in ans.Vertices)
-                    {
-                        results.Add($"{v}");
-                    }
-                    Graph.Visualizer(ans, outputFile);
+                    results.Add($"{cost}");
+                    Graph.Visualizer(path, outputFile);
                 }
                 else
                     results.Add($"No valid TSP path found.");

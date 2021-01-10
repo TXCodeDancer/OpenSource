@@ -186,7 +186,7 @@ namespace Algorithms.TravelingSalesmanProblem
             return algorithm.BestCost;
         }
 
-        public static BidirectionalGraph<string, EquatableEdge<string>> GetPath(AdjacencyGraph<int, Edge<int>> graph)
+        public static (double, BidirectionalGraph<string, EquatableEdge<string>>) Get(AdjacencyGraph<int, Edge<int>> graph)
         {
             var tsp = new tsp();
             foreach (var v in graph.Vertices)
@@ -201,10 +201,10 @@ namespace Algorithms.TravelingSalesmanProblem
             var algorithm = new TSP<string, EquatableEdge<string>, BidirectionalGraph<string, EquatableEdge<string>>>(tsp.Graph, tsp.GetWeightsFunc());
 
             algorithm.Compute();
-            return algorithm.ResultPath;
+            return (algorithm.BestCost, algorithm.ResultPath);
         }
 
-        public static BidirectionalGraph<string, TaggedEdge<string, string>> GetPath(AdjacencyGraph<string, TaggedEdge<string, string>> graph)
+        public static (double, BidirectionalGraph<string, TaggedEdge<string, string>>) Get(AdjacencyGraph<string, TaggedEdge<string, string>> graph)
         {
             var tsp = new tsp();
             foreach (var v in graph.Vertices)
@@ -233,13 +233,13 @@ namespace Algorithms.TravelingSalesmanProblem
                 {
                     results.AddDirectedEdge(e.Source, e.Target, weightFunc(e));
                 }
-                return results.Graph;
+                return (algorithm.BestCost, results.Graph);
             }
             else
-                return null;
+                return (algorithm.BestCost, null);
         }
 
-        public static BidirectionalGraph<string, EquatableEdge<string>> GetPath(UndirectedGraph<int, Edge<int>> graph)
+        public static (double, BidirectionalGraph<string, EquatableEdge<string>>) Get(UndirectedGraph<int, Edge<int>> graph)
         {
             var tsp = new tsp();
             foreach (var v in graph.Vertices)
@@ -254,10 +254,10 @@ namespace Algorithms.TravelingSalesmanProblem
             var algorithm = new TSP<string, EquatableEdge<string>, BidirectionalGraph<string, EquatableEdge<string>>>(tsp.Graph, tsp.GetWeightsFunc());
 
             algorithm.Compute();
-            return algorithm.ResultPath;
+            return (algorithm.BestCost, algorithm.ResultPath);
         }
 
-        public static BidirectionalGraph<string, TaggedEdge<string, string>> GetPath(UndirectedGraph<string, TaggedEdge<string, string>> graph)
+        public static (double, BidirectionalGraph<string, TaggedEdge<string, string>>) Get(UndirectedGraph<string, TaggedEdge<string, string>> graph)
         {
             var tsp = new tsp();
             foreach (var v in graph.Vertices)
@@ -286,10 +286,10 @@ namespace Algorithms.TravelingSalesmanProblem
                 {
                     results.AddDirectedEdge(e.Source, e.Target, weightFunc(e));
                 }
-                return results.Graph;
+                return (algorithm.BestCost, results.Graph);
             }
             else
-                return null;
+                return (algorithm.BestCost, null);
         }
     }
 }
