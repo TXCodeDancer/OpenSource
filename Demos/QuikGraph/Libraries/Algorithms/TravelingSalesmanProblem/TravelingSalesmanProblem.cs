@@ -44,6 +44,13 @@ namespace Algorithms.TravelingSalesmanProblem
                 Graph.AddEdge(edge);
                 _weightsDict.Add(edge, weight);
             }
+            else
+            {
+                if (weight < _weightsDict[edge])
+                {
+                    _weightsDict[edge] = weight;
+                }
+            }
 
             return this;
         }
@@ -62,8 +69,6 @@ namespace Algorithms.TravelingSalesmanProblem
     internal class results
     {
         public BidirectionalGraph<string, TaggedEdge<string, string>> Graph { get; } = new BidirectionalGraph<string, TaggedEdge<string, string>>();
-
-        private readonly Dictionary<TaggedEdge<string, string>, double> _weightsDict = new Dictionary<TaggedEdge<string, string>, double>();
 
         public results AddVertex(string vertex)
         {
@@ -92,11 +97,7 @@ namespace Algorithms.TravelingSalesmanProblem
         public results AddDirectedEdge(string source, string target, double weight)
         {
             var edge = new TaggedEdge<string, string>(source, target, weight.ToString());
-            if (!_weightsDict.ContainsKey(edge))
-            {
-                Graph.AddEdge(edge);
-                _weightsDict.Add(edge, weight);
-            }
+            Graph.AddEdge(edge);
 
             return this;
         }
@@ -104,11 +105,6 @@ namespace Algorithms.TravelingSalesmanProblem
         public results AddDirectedEdge(int source, int target, double weight)
         {
             return AddDirectedEdge(source.ToString(), target.ToString(), weight);
-        }
-
-        public Func<TaggedEdge<string, string>, double> GetWeightsFunc()
-        {
-            return edge => _weightsDict[edge];
         }
     }
 
