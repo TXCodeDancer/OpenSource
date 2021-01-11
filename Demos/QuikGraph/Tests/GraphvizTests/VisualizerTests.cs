@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using Xunit;
 
-namespace Tests
+namespace Tests.VisualizerTests
 {
     public class VisualizerTests
     {

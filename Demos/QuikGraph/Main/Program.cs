@@ -10,6 +10,7 @@ using Algorithms.Search;
 using Algorithms.ShortestPath;
 using Algorithms.TopologicalSort;
 using Algorithms.TravelingSalesmanProblem;
+using Algorithms.VertexColoring;
 using QuikGraph;
 using QuikGraph.Graphviz.Dot;
 using System;
@@ -255,7 +256,7 @@ namespace Main
         }
     }
 
-    public class ConnectedComponentsHelper
+    public class ConnectedComponentsHelpers
     {
         public static List<string> WeaklyConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
         {
@@ -395,13 +396,13 @@ namespace Main
             return results;
         }
 
-        public static List<string> GenericConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
+        public static List<string> ConnectedComponentsHelper(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
-                var ans = GenericConnectedComponents.Get(g);
+                var ans = ConnectedComponents.Get(g);
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -410,7 +411,7 @@ namespace Main
             else
             {
                 var g = Graph.CreateUndirectedGraph(nodes, edges);
-                var ans = GenericConnectedComponents.Get(g);
+                var ans = ConnectedComponents.Get(g);
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
@@ -1414,6 +1415,33 @@ namespace Main
                     results.Add($"No valid TSP path found.");
             }
 
+            return results;
+        }
+    }
+
+    public class VertexColoringHelpers
+    {
+        public static List<string> VertexColoringHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
+                var ans = VertexColoring.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateUndirectedGraph(nodes, edges);
+                var ans = VertexColoring.Get(g);
+                foreach (var d in ans)
+                {
+                    results.Add($"{d.Key}: {d.Value}");
+                }
+            }
             return results;
         }
     }
