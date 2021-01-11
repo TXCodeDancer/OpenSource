@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using Xunit;
 
-namespace Tests
+namespace Tests.AlgorithmsTests.Observers
 {
     public class EdgeObsTests
     {

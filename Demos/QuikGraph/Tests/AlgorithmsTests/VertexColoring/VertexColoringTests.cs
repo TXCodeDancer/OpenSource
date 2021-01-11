@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using Xunit;
 
-namespace Tests.AlgorithmsTests.Observers
+namespace Tests.AlgorithmsTests.VertexColoring
 {
-    public class VertexDistanceObsTests
+    public class VertexColoringTests
     {
         [Theory]
         [MemberData(nameof(GetInputFiles))]
@@ -14,7 +14,7 @@ namespace Tests.AlgorithmsTests.Observers
         {
             string directory = Path.GetDirectoryName(inputFile);
             string file = Path.GetFileNameWithoutExtension(inputFile);
-            var outputFile = @$"{directory}\Observers\VertexDistance\{file}";
+            var outputFile = @$"{directory}\VertexColoring\{file}";
             var expectedfile = @$"{outputFile}.a";
             var resultsfile = $"{outputFile}.r";
 
@@ -29,7 +29,7 @@ namespace Tests.AlgorithmsTests.Observers
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            List<string> actual = ObserverHelper.VertexDistance(nodes, edges);
+            List<string> actual = VertexColoringHelpers.VertexColoringHelper(nodes, edges);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
@@ -48,6 +48,14 @@ namespace Tests.AlgorithmsTests.Observers
                 new object[] { new string(@"..\..\..\Cases\02") },
                 new object[] { new string(@"..\..\..\Cases\03") },
                 new object[] { new string(@"..\..\..\Cases\04") },
+                new object[] { new string(@"..\..\..\Cases\05") },
+                new object[] { new string(@"..\..\..\Cases\06") },
+                new object[] { new string(@"..\..\..\Cases\07") },
+                new object[] { new string(@"..\..\..\Cases\08") },
+                new object[] { new string(@"..\..\..\Cases\09") },
+                new object[] { new string(@"..\..\..\Cases\10") },
+                new object[] { new string(@"..\..\..\Cases\11") },
+                new object[] { new string(@"..\..\..\Cases\12") },
             };
     }
 }

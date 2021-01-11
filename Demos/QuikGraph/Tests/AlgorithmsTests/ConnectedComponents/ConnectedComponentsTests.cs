@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using Xunit;
 
-namespace Tests
+namespace Tests.AlgorithmsTests.ConnectedComponents
 {
     public class ConnectedComponentsTests
     {
@@ -29,7 +29,7 @@ namespace Tests
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            List<string> actual = ConnectedComponentsHelper.GenericConnectedComponentsHelper(nodes, edges);
+            List<string> actual = ConnectedComponentsHelpers.ConnectedComponentsHelper(nodes, edges);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results

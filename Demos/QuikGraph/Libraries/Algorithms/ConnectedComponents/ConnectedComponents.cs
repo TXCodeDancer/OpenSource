@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Algorithms.ConnectedComponents
 {
-    public static class GenericConnectedComponents
+    public static class ConnectedComponents
     {
         public static IDictionary<int, int> Get(UndirectedGraph<int, Edge<int>> g)
         {

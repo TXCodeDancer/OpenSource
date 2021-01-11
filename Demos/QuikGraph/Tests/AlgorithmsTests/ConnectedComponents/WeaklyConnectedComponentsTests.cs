@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using Xunit;
 
-namespace Tests
+namespace Tests.AlgorithmsTests.ConnectedComponents
 {
     public class WeaklyConnectedComponentsTests
     {
@@ -29,7 +29,7 @@ namespace Tests
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            List<string> actual = ConnectedComponentsHelper.WeaklyConnectedComponentsHelper(nodes, edges);
+            List<string> actual = ConnectedComponentsHelpers.WeaklyConnectedComponentsHelper(nodes, edges);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
@@ -62,7 +62,7 @@ namespace Tests
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            List<string> actual = ConnectedComponentsHelper.WeaklyConnectedComponentsGraph(nodes, edges, outputFile);
+            List<string> actual = ConnectedComponentsHelpers.WeaklyConnectedComponentsGraph(nodes, edges, outputFile);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
