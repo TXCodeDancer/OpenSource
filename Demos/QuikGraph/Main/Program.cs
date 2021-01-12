@@ -11,6 +11,7 @@ using Algorithms.ShortestPath;
 using Algorithms.TopologicalSort;
 using Algorithms.TravelingSalesmanProblem;
 using Algorithms.VertexColoring;
+using Algorithms.VertexCover;
 using QuikGraph;
 using QuikGraph.Graphviz.Dot;
 using System;
@@ -1440,6 +1441,33 @@ namespace Main
                 foreach (var d in ans)
                 {
                     results.Add($"{d.Key}: {d.Value}");
+                }
+            }
+            return results;
+        }
+    }
+
+    public class VertexCoverHelpers
+    {
+        public static List<string> VertexCoverHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUndirectedTaggedGraph(nodes, edges);
+                var ans = VertexCover.Get(g);
+                foreach (var v in ans)
+                {
+                    results.Add($"{v}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateUndirectedGraph(nodes, edges);
+                var ans = VertexCover.Get(g);
+                foreach (var v in ans)
+                {
+                    results.Add($"{v}");
                 }
             }
             return results;
