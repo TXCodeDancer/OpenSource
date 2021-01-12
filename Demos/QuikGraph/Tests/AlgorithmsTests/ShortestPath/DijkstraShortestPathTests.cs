@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Utilities;
 using Xunit;
 
 namespace Tests.AlgorithmsTests.ShortestPath
@@ -21,6 +22,7 @@ namespace Tests.AlgorithmsTests.ShortestPath
             var resultsfile = $"{outputFile}.r";
 
             List<string> inputs = File.ReadAllLines(inputFile).ToList();
+            inputs = Parser.RemoveComments(inputs);
             var nodes = inputs[0].Split(' ').ToList(); // First line is a space delimited list of node names: "1 2 3" or "a b c"
 
             // Remove line of node name

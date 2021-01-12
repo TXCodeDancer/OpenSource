@@ -6,6 +6,7 @@ using Main;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Utilities;
 using Xunit;
 
 namespace Tests.VisualizerTests
@@ -23,6 +24,7 @@ namespace Tests.VisualizerTests
             var resultsfile = $"{outputFile}.dot";
 
             List<string> inputs = File.ReadAllLines(inputFile).ToList();
+            inputs = Parser.RemoveComments(inputs);
             var nodes = inputs[0].Split(' ').ToList(); // First line is a space delimited list of node names: "1 2 3" or "a b c"
 
             // Remove line of node name
