@@ -1,4 +1,6 @@
+// Vertices: List all in one row
 A B C D E F G
+// Edges: SourceVertex TargetVertex (Optional:  EdgeWeight)
 A D 3
 A B 3
 B C 4

@@ -7,9 +7,9 @@ using System.Text;
 using Utilities;
 using Xunit;
 
-namespace Tests.AlgorithmsTests.ShortestPath
+namespace Tests.AlgorithmsTests.VertexCover
 {
-    public class DijkstraShortestPathTests
+    public class VertexCoverTests
     {
         [Theory]
         [MemberData(nameof(GetInputFiles))]
@@ -17,7 +17,7 @@ namespace Tests.AlgorithmsTests.ShortestPath
         {
             string directory = Path.GetDirectoryName(inputFile);
             string file = Path.GetFileNameWithoutExtension(inputFile);
-            var outputFile = @$"{directory}\ShortestPath\Dijkstra\{file}";
+            var outputFile = @$"{directory}\VertexCover\{file}";
             var expectedfile = @$"{outputFile}.a";
             var resultsfile = $"{outputFile}.r";
 
@@ -33,8 +33,7 @@ namespace Tests.AlgorithmsTests.ShortestPath
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            var root = nodes[0];
-            List<string> actual = ShortestPathHelper.DijkstraShortestPathHelper(nodes, edges, root);
+            List<string> actual = VertexCoverHelpers.VertexCoverHelper(nodes, edges);
             File.WriteAllLines(resultsfile, actual);
 
             // Verify results
@@ -57,6 +56,10 @@ namespace Tests.AlgorithmsTests.ShortestPath
                 new object[] { new string(@"..\..\..\Cases\06") },
                 new object[] { new string(@"..\..\..\Cases\07") },
                 new object[] { new string(@"..\..\..\Cases\08") },
+                new object[] { new string(@"..\..\..\Cases\09") },
+                new object[] { new string(@"..\..\..\Cases\10") },
+                new object[] { new string(@"..\..\..\Cases\11") },
+                new object[] { new string(@"..\..\..\Cases\12") },
             };
     }
 }

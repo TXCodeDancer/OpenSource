@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Visualizers", "Libraries\Vi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithms", "Libraries\Algorithms\Algorithms.csproj", "{144C5B1C-F67D-43DE-B5F4-035442DFA907}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Libraries\Utilities\Utilities.csproj", "{194C388E-B279-4B76-BA59-55A31BA264B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{144C5B1C-F67D-43DE-B5F4-035442DFA907}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{144C5B1C-F67D-43DE-B5F4-035442DFA907}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{144C5B1C-F67D-43DE-B5F4-035442DFA907}.Release|Any CPU.Build.0 = Release|Any CPU
+		{194C388E-B279-4B76-BA59-55A31BA264B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{194C388E-B279-4B76-BA59-55A31BA264B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{194C388E-B279-4B76-BA59-55A31BA264B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{194C388E-B279-4B76-BA59-55A31BA264B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,6 +48,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{1C61AEF0-A77E-4F8C-B677-0DAE8E14F7C8} = {E45004E7-2A7C-4D01-B003-AB6F581030D5}
 		{144C5B1C-F67D-43DE-B5F4-035442DFA907} = {E45004E7-2A7C-4D01-B003-AB6F581030D5}
+		{194C388E-B279-4B76-BA59-55A31BA264B5} = {E45004E7-2A7C-4D01-B003-AB6F581030D5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3D3AA37D-5F4F-4446-B2F9-9D27676055F4}
