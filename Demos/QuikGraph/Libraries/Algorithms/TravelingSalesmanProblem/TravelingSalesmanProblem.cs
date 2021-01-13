@@ -2,7 +2,6 @@
 using QuikGraph.Algorithms.TSP;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Algorithms.TravelingSalesmanProblem
 {

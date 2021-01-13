@@ -62,6 +62,7 @@ namespace Tests.VisualizerTests
                 new object[] { new string(@"..\..\..\Cases\10") },
                 new object[] { new string(@"..\..\..\Cases\11") },
                 new object[] { new string(@"..\..\..\Cases\12") },
+                new object[] { new string(@"..\..\..\Cases\13") },
             };
     }
 }

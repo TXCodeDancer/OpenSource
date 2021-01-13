@@ -14,17 +14,17 @@ namespace Algorithms.Cycles
             return algorithm.IsEulerian();
         }
 
-        public static void Get(IMutableVertexAndEdgeListGraph<int, Edge<int>> g, int root, out ICollection<Edge<int>>[] trails, out Edge<int>[] circuit)
+        public static string Get(IMutableVertexAndEdgeListGraph<int, Edge<int>> g, int root, out ICollection<Edge<int>>[] trails, out Edge<int>[] circuit)
         {
-            ComputeTrails(g, root, (s, t) => new Edge<int>(s, t), out trails, out circuit);
+            return ComputeTrails(g, root, (s, t) => new Edge<int>(s, t), out trails, out circuit);
         }
 
-        public static void Get(IMutableVertexAndEdgeListGraph<string, Edge<string>> g, string root, out ICollection<Edge<string>>[] trails, out Edge<string>[] circuit)
+        public static string Get(IMutableVertexAndEdgeListGraph<string, Edge<string>> g, string root, out ICollection<Edge<string>>[] trails, out Edge<string>[] circuit)
         {
-            ComputeTrails(g, root, (s, t) => new Edge<string>(s, t), out trails, out circuit);
+            return ComputeTrails(g, root, (s, t) => new Edge<string>(s, t), out trails, out circuit);
         }
 
-        private static void ComputeTrails<TVertex, TEdge>(
+        private static string ComputeTrails<TVertex, TEdge>(
                     IMutableVertexAndEdgeListGraph<TVertex, TEdge> g,
                     TVertex root,
                     Func<TVertex, TVertex, TEdge> edgeFactory,
@@ -37,15 +37,24 @@ namespace Algorithms.Cycles
 
             int circuitCount = EulerianTrailAlgorithm<TVertex, TEdge>.ComputeEulerianPathCount(g);
             if (circuitCount == 0)
-                return;
+                return "No Eulerian path found.";
 
             var algorithm = new EulerianTrailAlgorithm<TVertex, TEdge>(g);
-            //     algorithm.AddTemporaryEdges((s, t) => edgeFactory(s, t));
+            algorithm.AddTemporaryEdges((s, t) => edgeFactory(s, t));
 
             algorithm.Compute();
-            trails = algorithm.Trails().ToArray();
-            //   algorithm.RemoveTemporaryEdges();
+            try
+            {
+                trails = algorithm.Trails(root).ToArray();
+            }
+            catch (System.Exception ex)
+            {
+                return ex.Message;
+            }
+
+            algorithm.RemoveTemporaryEdges();
             circuit = algorithm.Circuit;
+            return null;
         }
     }
 }

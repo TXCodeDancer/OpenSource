@@ -1496,35 +1496,49 @@ namespace Main
             if (Graph.hasTags(edges))
             {
                 var g = Graph.CreateUnTaggedAdjacencyGraph(nodes, edges);
-                EulerianCycles.Get(g, root, out ICollection<Edge<string>>[] trails, out Edge<string>[] circuit);
-                results.Add($"Trails:");
-                foreach (var trail in trails)
+                var exception = EulerianCycles.Get(g, root, out ICollection<Edge<string>>[] trails, out Edge<string>[] circuit);
+                if (exception == null)
                 {
-                    results.Add($"Trail[{i++}]:");
-                    foreach (var x in trail)
+                    results.Add($"Trails:");
+                    foreach (var trail in trails)
+                    {
+                        results.Add($"Trail[{i++}]:");
+                        foreach (var x in trail)
+                            results.Add($"{x}");
+                    }
+                    results.Add($"Circuit:");
+                    foreach (var x in circuit)
+                    {
                         results.Add($"{x}");
+                    }
                 }
-                results.Add($"Circuit:");
-                foreach (var x in circuit)
+                else
                 {
-                    results.Add($"{x}");
+                    results.Add($"{exception}");
                 }
             }
             else
             {
                 var g = Graph.CreateAdjacencyGraph(nodes, edges);
-                EulerianCycles.Get(g, int.Parse(root), out ICollection<Edge<int>>[] trails, out Edge<int>[] circuit);
-                results.Add($"Trails:");
-                foreach (var trail in trails)
+                var exception = EulerianCycles.Get(g, int.Parse(root), out ICollection<Edge<int>>[] trails, out Edge<int>[] circuit);
+                if (exception == null)
                 {
-                    results.Add($"Trail[{i++}]:");
-                    foreach (var x in trail)
+                    results.Add($"Trails:");
+                    foreach (var trail in trails)
+                    {
+                        results.Add($"Trail[{i++}]:");
+                        foreach (var x in trail)
+                            results.Add($"{x}");
+                    }
+                    results.Add($"Circuit:");
+                    foreach (var x in circuit)
+                    {
                         results.Add($"{x}");
+                    }
                 }
-                results.Add($"Circuit:");
-                foreach (var x in circuit)
+                else
                 {
-                    results.Add($"{x}");
+                    results.Add($"{exception}");
                 }
             }
             return results;
