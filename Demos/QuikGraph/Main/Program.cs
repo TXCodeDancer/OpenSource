@@ -3,6 +3,7 @@
 //
 
 using Algorithms.ConnectedComponents;
+using Algorithms.Cycles;
 using Algorithms.MaximumFlow;
 using Algorithms.MinimumSpanningTree;
 using Algorithms.Observers;
@@ -56,6 +57,18 @@ namespace Main
             foreach (var e in edges)
             {
                 g.AddEdge(new TaggedEdge<string, string>(e[0], e[1], e[2]));
+            }
+
+            return g;
+        }
+
+        public static AdjacencyGraph<string, Edge<string>> CreateUnTaggedAdjacencyGraph(List<string> nodes, List<List<string>> edges)
+        {
+            var g = new AdjacencyGraph<string, Edge<string>>();
+            g.AddVertexRange(nodes);
+            foreach (var e in edges)
+            {
+                g.AddEdge(new Edge<string>(e[0], e[1]));
             }
 
             return g;
@@ -1468,6 +1481,50 @@ namespace Main
                 foreach (var v in ans)
                 {
                     results.Add($"{v}");
+                }
+            }
+            return results;
+        }
+    }
+
+    public class CycleHelpers
+    {
+        public static List<string> EulerianCycleHelper(List<string> nodes, List<List<string>> edges, string root)
+        {
+            List<string> results = new List<string>();
+            int i = 0;
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUnTaggedAdjacencyGraph(nodes, edges);
+                EulerianCycles.Get(g, root, out ICollection<Edge<string>>[] trails, out Edge<string>[] circuit);
+                results.Add($"Trails:");
+                foreach (var trail in trails)
+                {
+                    results.Add($"Trail[{i++}]:");
+                    foreach (var x in trail)
+                        results.Add($"{x}");
+                }
+                results.Add($"Circuit:");
+                foreach (var x in circuit)
+                {
+                    results.Add($"{x}");
+                }
+            }
+            else
+            {
+                var g = Graph.CreateAdjacencyGraph(nodes, edges);
+                EulerianCycles.Get(g, int.Parse(root), out ICollection<Edge<int>>[] trails, out Edge<int>[] circuit);
+                results.Add($"Trails:");
+                foreach (var trail in trails)
+                {
+                    results.Add($"Trail[{i++}]:");
+                    foreach (var x in trail)
+                        results.Add($"{x}");
+                }
+                results.Add($"Circuit:");
+                foreach (var x in circuit)
+                {
+                    results.Add($"{x}");
                 }
             }
             return results;
