@@ -1529,6 +1529,25 @@ namespace Main
 
     public class CycleHelpers
     {
+        public static List<string> IsHamiltonianHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            int i = 0;
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUndirectedUnTaggedEdgeGraph(nodes, edges);
+                var ans = HamiltonianCycles.IsHamiltonian(g);
+                results.Add($"{ans}");
+            }
+            else
+            {
+                var g = Graph.CreateUndirectedEdgeGraph(nodes, edges);
+                var ans = HamiltonianCycles.IsHamiltonian(g);
+                results.Add($"{ans}");
+            }
+            return results;
+        }
+
         public static List<string> IsEulerianHelper(List<string> nodes, List<List<string>> edges)
         {
             List<string> results = new List<string>();
