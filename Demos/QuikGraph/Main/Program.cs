@@ -135,6 +135,46 @@ namespace Main
             return g;
         }
 
+        public static UndirectedGraph<int, UndirectedEdge<int>> CreateUndirectedEdgeGraph(List<string> nodes, List<List<string>> edges)
+        {
+            var g = new UndirectedGraph<int, UndirectedEdge<int>>();
+            List<int> intNodes = new List<int>();
+            foreach (var v in nodes)
+            {
+                intNodes.Add(int.Parse(v));
+            }
+
+            g.AddVertexRange(intNodes);
+            foreach (var e in edges)
+            {
+                var e0 = int.Parse(e[0]);
+                var e1 = int.Parse(e[1]);
+                if (e0 < e1)
+                    g.AddEdge(new UndirectedEdge<int>(e0, e1));
+                else
+                    g.AddEdge(new UndirectedEdge<int>(e1, e0));
+            }
+
+            return g;
+        }
+
+        public static UndirectedGraph<string, UndirectedEdge<string>> CreateUndirectedUnTaggedEdgeGraph(List<string> nodes, List<List<string>> edges)
+        {
+            var g = new UndirectedGraph<string, UndirectedEdge<string>>();
+            g.AddVertexRange(nodes);
+            foreach (var e in edges)
+            {
+                var e0 = e[0];
+                var e1 = e[1];
+                if (string.Compare(e0, e1) < 0)
+                    g.AddEdge(new UndirectedEdge<string>(e0, e1));
+                else
+                    g.AddEdge(new UndirectedEdge<string>(e1, e0));
+            }
+
+            return g;
+        }
+
         public static UndirectedGraph<string, TaggedEdge<string, string>> CreateUndirectedTaggedGraph(List<string> nodes, IEnumerable<TaggedEdge<string, string>> edges)
         {
             var g = new UndirectedGraph<string, TaggedEdge<string, string>>();
@@ -1489,6 +1529,25 @@ namespace Main
 
     public class CycleHelpers
     {
+        public static List<string> IsEulerianHelper(List<string> nodes, List<List<string>> edges)
+        {
+            List<string> results = new List<string>();
+            int i = 0;
+            if (Graph.hasTags(edges))
+            {
+                var g = Graph.CreateUndirectedUnTaggedEdgeGraph(nodes, edges);
+                var ans = EulerianCycles.IsEulerian(g);
+                results.Add($"{ans}");
+            }
+            else
+            {
+                var g = Graph.CreateUndirectedEdgeGraph(nodes, edges);
+                var ans = EulerianCycles.IsEulerian(g);
+                results.Add($"{ans}");
+            }
+            return results;
+        }
+
         public static List<string> EulerianCycleHelper(List<string> nodes, List<List<string>> edges, string root)
         {
             List<string> results = new List<string>();
