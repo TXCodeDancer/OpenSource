@@ -1,27 +1,25 @@
-//
-// Tests: Test method to demonstrate usage of the Visualize.Visualizer library.
-//
-
-using Main;
+﻿using Main;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Utilities;
 using Xunit;
 
-namespace Tests.VisualizerTests
+namespace Tests.AlgorithmsTests.Cycles
 {
-    public class VisualizerTests
+    public class HamiltonianCycleTests
     {
         [Theory]
         [MemberData(nameof(GetInputFiles))]
-        public void Test0(string inputFile)
+        public void Test1(string inputFile)
         {
             string directory = Path.GetDirectoryName(inputFile);
             string file = Path.GetFileNameWithoutExtension(inputFile);
-            var outputFile = @$"{directory}\Visualizer\{file}";
+            var outputFile = @$"{directory}\Cycles\Hamiltonian\{file}";
             var expectedfile = @$"{outputFile}.a";
-            var resultsfile = $"{outputFile}.dot";
+            var resultsfile = $"{outputFile}.r";
 
             List<string> inputs = File.ReadAllLines(inputFile).ToList();
             inputs = Parser.RemoveComments(inputs);
@@ -35,11 +33,12 @@ namespace Tests.VisualizerTests
                 edges.Add(e.Split(' ').ToList()); // Remaining lines are space delimited list of edges (nodeA nodeB tag(optional)):  "1 2" or "a b 5"
             }
 
-            Graph.Visualizer(nodes, edges, outputFile);
+            var root = nodes[0];
+            List<string> actual = CycleHelpers.IsHamiltonianHelper(nodes, edges);
+            File.WriteAllLines(resultsfile, actual);
 
-            // Verify results of dot file
+            // Verify results
             List<string> expected = File.ReadAllLines(expectedfile).ToList();
-            List<string> actual = File.ReadAllLines(resultsfile).ToList();
             Assert.Equal(expected.Count, actual.Count);
             for (int i = 0; i < expected.Count; i++)
             {

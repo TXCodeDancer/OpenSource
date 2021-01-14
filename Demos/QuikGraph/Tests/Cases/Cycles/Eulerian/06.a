@@ -1,0 +1,13 @@
+Trails:
+Trail[0]:
+A -> D
+D -> E
+E -> B
+B -> C
+C -> A
+Circuit:
+A -> D
+D -> E
+E -> B
+B -> C
+C -> A
