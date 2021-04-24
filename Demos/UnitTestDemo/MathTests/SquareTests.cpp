@@ -5,12 +5,12 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace MathTests
 {
-	TEST_CLASS(MathTests)
-	{
-	public:
-		
-		TEST_METHOD(TestMethod1)
-		{
-		}
-	};
+    TEST_CLASS(SquareTests)
+    {
+    public:
+
+        TEST_METHOD(TestGetSqare)
+        {
+        }
+    };
 }

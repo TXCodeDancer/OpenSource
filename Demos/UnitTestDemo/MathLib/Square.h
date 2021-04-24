@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef MathCppLib
+#ifdef MathLib
 #define DECLSPEC __declspec(dllexport)
 #else
 #define DECLSPEC __declspec(dllimport)

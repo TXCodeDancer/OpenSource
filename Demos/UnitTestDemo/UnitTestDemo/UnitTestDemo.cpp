@@ -6,7 +6,6 @@
 
 int main()
 {
-    std::cout << "Hello World!\n";
     int seed = 3;
     auto sq = Square(seed);
     auto seedSquared = sq.GetSquare();
