@@ -1,0 +1,35 @@
+[alias]
+  ss = status
+  la = !git config --global -l | grep "alias" # List aliases (command shortcuts) in global .gitconfig file
+  ec = config --global -e # Edit global .gitconfig file (this file)
+  sync = !git fetch && git pull
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit # Show commit history in pretty format
+  nb = !git stash -u && git sync && git checkout -b $1 && git push -u origin $1 && git status && : # Removed stash pop
+  delB = branch -d
+  undo = checkout HEAD # Undo File (Move from Repo to Working Area)
+  undoAll = reset HEAD # Unstage all files (Move from Repo to Index)
+  undoAllHard = reset --hard HEAD # Undo all files (Move from Repo to Working Area). Be careful!
+  co = checkout
+  dt = difftool --dir-diff # Use GUI diff tool to show path tree difference <branch1> <branch2>. To limit to a particular path use "pathName". Use dt COMMIT~ COMMIT to see difference before and after COMMIT.
+  cf = diff-tree --no-commit-id --name-only -r # Show files in commit $1
+  commitdiff = !git lg --left-right --graph --cherry-pick --oneline $1...$2 # List commits difference between branch $1 and $2
+  cp = cherry-pick -x # Cherry-pick <commit-hash> keeping original work items, etc
+  cpc = !git add . && git ss && git cherry-pick --continue
+  cps = cherry-pick --skip
+  sa = stash -u # Stash all files
+  sl = stash list # List all stashes
+  sh = stash show # Show files in changed in most recent stash
+  sp = stash pop # Pop most recent stash and apply it
+  sd = dt stash # Add stash@{#} to run diff tool against specific stash
+  stashDrop = stash drop # Delete most recent or specific stash@{n} - see git stash list
+  delStashAll = stash clear # Deletes all stashes, be careful
+  publish = !git add . && git commit && git push # Will bring up commit comment editor
+  cm = !git add . && git commit -m # commit with a comment
+  cmpub = !git cm && git push # commit with a comment and push
+  cmEdit = commit --amend # Edit the message of the previous commit. Only works if not pushed
+  stageAll = add . # Stage all files 
+  unstageAll = reset # Unstages all files in staged area
+  unstage = restore --staged #git restore --staged <file>..." to unstage  
+  bc = branch -r --contains # List all remote branches that contain the given commit
+  delLastCommit = !git lg -5 && git reset --hard HEAD~ && git ss && git lg -5 
+  
