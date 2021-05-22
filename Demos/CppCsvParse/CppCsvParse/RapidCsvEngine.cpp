@@ -1,7 +1,6 @@
 #include "codecvt"
 #define HAS_CODECVT
 #include "RapidCsvEngine.h"
-#include <boost/format.hpp>
 #include <iomanip>
 
 void RapidCsvEngine::Run(string csvInput, string csvOutput)
@@ -16,9 +15,7 @@ void RapidCsvEngine::Run(string csvInput, string csvOutput)
     ss << "Angle" << ',' << "Radians" << '\n';
     for (size_t i = 0; i < count; i++)
     {
-        string csv = str(boost::format("%1$.1f,%2$.9f\n") % angle[i] % radians[i]);
         ss << angle[i] << ',' << setprecision(10) << radians[i] << '\n';
-        string csv3 = ss.str();
     }
 
     std::ofstream outFile(csvOutput);
