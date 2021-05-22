@@ -13,7 +13,7 @@ void RapidCsvEngine::Run(string csvInput, string csvOutput)
 
     auto count = angle.size();
     std::stringstream  ss;
-    ss << "Angle" << "Radians" << '\n';
+    ss << "Angle" << ',' << "Radians" << '\n';
     for (size_t i = 0; i < count; i++)
     {
         string csv = str(boost::format("%1$.1f,%2$.9f\n") % angle[i] % radians[i]);
