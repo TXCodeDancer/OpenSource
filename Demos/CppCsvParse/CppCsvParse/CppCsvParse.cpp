@@ -6,7 +6,8 @@
 
 int main()
 {
+    list<string> columns{ "Angle", "Radians", "X", "Y" };
+
     auto rapidCsvEngine = RapidCsvEngine();
-    list<string> columns{ "Angle", "Radians" };
-    rapidCsvEngine.Run("CSVUnitCircle.csv", "CSVUnitCircleOut.csv", columns);
+    rapidCsvEngine.Run("CSVUnitCircle.csv", "CSVUnitCircleOut_RapidCsv.csv", columns);
 }
