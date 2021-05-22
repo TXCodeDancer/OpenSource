@@ -27,9 +27,9 @@ void RapidCsvEngine::Run(string csvInput, string csvOutput)
         string csv3 = ss.str();
         csvWriter.newRow() << angle[i] << radians[i];
     }
-    csvWriter.writeToFile(csvOutput);
+    //    csvWriter.writeToFile(csvOutput);
 
-    std::ofstream outFile("myFile.csv");
+    std::ofstream outFile(csvOutput);
     outFile << ss.rdbuf();
     outFile.close();
 }
