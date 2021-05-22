@@ -28,13 +28,6 @@ void RapidCsvEngine::Run(string csvIn, string csvOut, list<string> columns)
             ss << separator << setprecision(10) << col[i];
             separator = ",";
         }
-        //auto x = data[i];
-        //for (vector<double> row : data[i])
-        //{
-        //    ss << separator << row[i];
-        //    separator = ",";
-        //    //ss << angle[i] << ',' << setprecision(10) << radians[i] << '\n';
-        //}
         ss << '\n';
         separator = "";
     }
