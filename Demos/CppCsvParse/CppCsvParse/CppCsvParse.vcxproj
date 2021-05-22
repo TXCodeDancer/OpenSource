@@ -144,7 +144,6 @@
     <ClCompile Include="RapidCsvEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CSVWriter.h" />
     <ClInclude Include="fast-cpp-csv-parser.h" />
     <ClInclude Include="rapidcsv.h" />
     <ClInclude Include="RapidCsvEngine.h" />
