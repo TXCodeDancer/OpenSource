@@ -140,10 +140,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CppCsvParse.cpp" />
+    <ClCompile Include="RapidCsvEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="fast-cpp-csv-parser.h" />
     <ClInclude Include="rapidcsv.h" />
+    <ClInclude Include="RapidCsvEngine.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CSVUnitCircle.csv" />
