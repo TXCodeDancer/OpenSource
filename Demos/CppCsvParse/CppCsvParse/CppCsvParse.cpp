@@ -7,5 +7,6 @@
 int main()
 {
     auto rapidCsvEngine = RapidCsvEngine();
-    rapidCsvEngine.Run("d:/HackerSpace/GitHub/Public/Demos/CppCsvParse/CppCsvParse/CSVUnitCircle.csv", "CSVUnitCircleOut.csv");
+    list<string> columns;
+    rapidCsvEngine.Run("d:/HackerSpace/GitHub/Public/Demos/CppCsvParse/CppCsvParse/CSVUnitCircle.csv", "CSVUnitCircleOut.csv", columns);
 }

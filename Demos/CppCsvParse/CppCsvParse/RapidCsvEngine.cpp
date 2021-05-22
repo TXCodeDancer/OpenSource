@@ -1,9 +1,9 @@
 #include "RapidCsvEngine.h"
 #include <iomanip>
 
-void RapidCsvEngine::Run(string csvInput, string csvOutput)
+void RapidCsvEngine::Run(string csvIn, string csvOut, list<string> columns)
 {
-    rapidcsv::Document doc(csvInput);
+    rapidcsv::Document doc(csvIn);
 
     std::vector<double> angle = doc.GetColumn<double>("Angle");
     std::vector<double> radians = doc.GetColumn<double>("Radians");
@@ -16,7 +16,7 @@ void RapidCsvEngine::Run(string csvInput, string csvOutput)
         ss << angle[i] << ',' << setprecision(10) << radians[i] << '\n';
     }
 
-    std::ofstream outFile(csvOutput);
+    std::ofstream outFile(csvOut);
     outFile << ss.rdbuf();
     outFile.close();
 }
