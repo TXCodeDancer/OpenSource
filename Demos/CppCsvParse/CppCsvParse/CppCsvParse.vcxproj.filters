@@ -38,6 +38,9 @@
     <ClInclude Include="RapidCsvEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CSVWriter.h">
+      <Filter>Libraries</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="CSVUnitCircle.csv">
