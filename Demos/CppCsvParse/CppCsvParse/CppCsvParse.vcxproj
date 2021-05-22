@@ -145,6 +145,9 @@
     <ClInclude Include="fast-cpp-csv-parser.h" />
     <ClInclude Include="rapidcsv.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="CSVUnitCircle.csv" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

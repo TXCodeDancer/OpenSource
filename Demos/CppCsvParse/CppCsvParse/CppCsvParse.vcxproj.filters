@@ -16,6 +16,9 @@
     <Filter Include="Libraries">
       <UniqueIdentifier>{9f2899a4-77f8-4afb-81f8-c5f795a9e3c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{fdc433fa-d315-4ad5-999d-9148b90c8780}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CppCsvParse.cpp">
@@ -29,5 +32,10 @@
     <ClInclude Include="rapidcsv.h">
       <Filter>Libraries</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CSVUnitCircle.csv">
+      <Filter>Data</Filter>
+    </None>
   </ItemGroup>
 </Project>
