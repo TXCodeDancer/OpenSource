@@ -48,7 +48,7 @@
       <Filter>Data Models</Filter>
     </ClInclude>
     <ClInclude Include="IModel.h">
-      <Filter>Header Files</Filter>
+      <Filter>Data Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
