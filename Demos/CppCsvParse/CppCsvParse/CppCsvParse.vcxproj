@@ -144,9 +144,9 @@
     <ClCompile Include="RapidCsvEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="fast-cpp-csv-parser.h" />
     <ClInclude Include="rapidcsv.h" />
     <ClInclude Include="RapidCsvEngine.h" />
+    <ClInclude Include="UnitCircleModel.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CSVUnitCircle.csv" />
