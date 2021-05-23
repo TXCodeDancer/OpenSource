@@ -19,18 +19,10 @@ public:
 
     ~UnitCircleModel() { }
 
-    double Angle() const { return _angle; }
-    void Angle(double val) { _angle = val; }
-    double Radians() const { return _radians; }
-    void Radians(double val) { _radians = val; }
-    double X() const { return _x; }
-    void X(double val) { _x = val; }
-    double Y() const { return _y; }
-    void Y(double val) { _y = val; }
-
     void ReadInputs(string csvIn) override;
     void ReadAll(string csvIn) override;
     void WriteAll(string csvOut) override;
+    void Compute() override;
 
 private:
     double _angle;
@@ -40,5 +32,14 @@ private:
     set<string> _inputs{ "Angle" };
     set<string> _outputs{ "Radians", "X", "Y" };
     list<UnitCircleModel> _models;
+
     void UpdateModels(vector<vector<double>>& inputs, set<string> columnSet);
+    double Angle() const { return _angle; }
+    void Angle(double val) { _angle = val; }
+    double Radians() const { return _radians; }
+    void Radians(double val) { _radians = val; }
+    double X() const { return _x; }
+    void X(double val) { _x = val; }
+    double Y() const { return _y; }
+    void Y(double val) { _y = val; }
 };

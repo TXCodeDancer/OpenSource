@@ -41,6 +41,11 @@ void UnitCircleModel::WriteAll(string csvOut)
     outFile.close();
 }
 
+void UnitCircleModel::Compute()
+{
+    throw std::logic_error("The method or operation is not implemented.");
+}
+
 void UnitCircleModel::UpdateModels(vector<vector<double>>& inputs, set<string> columnSet)
 {
     if (inputs.size() != columnSet.size())

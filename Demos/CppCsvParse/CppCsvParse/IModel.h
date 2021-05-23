@@ -9,4 +9,5 @@ public:
     virtual void ReadInputs(string csvIn) = 0;
     virtual void ReadAll(string csvIn) = 0;
     virtual void WriteAll(string csvOut) = 0;
+    virtual void Compute() = 0;
 };
