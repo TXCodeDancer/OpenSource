@@ -19,6 +19,9 @@
     <Filter Include="Data">
       <UniqueIdentifier>{fdc433fa-d315-4ad5-999d-9148b90c8780}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data Models">
+      <UniqueIdentifier>{27a71ab7-89ec-4a5c-86fb-9a4a4c9959aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CppCsvParse.cpp">
@@ -29,14 +32,14 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="fast-cpp-csv-parser.h">
-      <Filter>Libraries</Filter>
-    </ClInclude>
     <ClInclude Include="rapidcsv.h">
       <Filter>Libraries</Filter>
     </ClInclude>
     <ClInclude Include="RapidCsvEngine.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitCircleModel.h">
+      <Filter>Data Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

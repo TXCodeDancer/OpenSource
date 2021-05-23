@@ -17,7 +17,7 @@ public:
     ~RapidCsvEngine()
     {
     }
-    void Run(string csvIn, string csvOut, list<string> columns);
+    void Run(string csvIn, string csvOut, vector<string> columns);
 
 private:
 };
