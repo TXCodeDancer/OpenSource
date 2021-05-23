@@ -141,9 +141,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CppCsvParse.cpp" />
+    <ClCompile Include="IModel.cpp" />
     <ClCompile Include="RapidCsvEngine.cpp" />
+    <ClCompile Include="UnitCircleModel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="IModel.h" />
     <ClInclude Include="rapidcsv.h" />
     <ClInclude Include="RapidCsvEngine.h" />
     <ClInclude Include="UnitCircleModel.h" />

@@ -2,6 +2,20 @@
 #include <iomanip>
 #include "UnitCircleModel.h"
 
+vector<vector<double>> RapidCsvEngine::Run(string csvIn, set<string> columns)
+{
+    rapidcsv::Document doc(csvIn);
+
+    set <string> ::iterator column;
+    vector<vector<double>> data;
+    for (column = columns.begin(); column != columns.end(); column++)
+    {
+        data.push_back(doc.GetColumn<double>(*column));
+    }
+
+    return data;
+}
+
 void RapidCsvEngine::Run(string csvIn, string csvOut, vector<string> columns)
 {
     rapidcsv::Document doc(csvIn);
@@ -31,19 +45,19 @@ void RapidCsvEngine::Run(string csvIn, string csvOut, vector<string> columns)
             auto value = data[j][i];
             if (col == "Angle")
             {
-                model.SetAngle(value);
+                model.Angle(value);
             }
             else if (col == "Radians")
             {
-                model.SetRadians(value);
+                model.Radians(value);
             }
             else if (col == "X")
             {
-                model.SetX(value);
+                model.X(value);
             }
             else if (col == "Y")
             {
-                model.SetY(value);
+                model.Y(value);
             }
             else
             {
@@ -58,10 +72,10 @@ void RapidCsvEngine::Run(string csvIn, string csvOut, vector<string> columns)
     for (model = models.begin(); model != models.end(); model++)
     {
         UnitCircleModel row = *model;
-        ss << setprecision(10) << row.GetAngle();
-        ss << separator << setprecision(10) << row.GetRadians();
-        ss << separator << setprecision(10) << row.GetX();
-        ss << separator << setprecision(10) << row.GetY();
+        ss << setprecision(10) << row.Angle();
+        ss << separator << setprecision(10) << row.Radians();
+        ss << separator << setprecision(10) << row.X();
+        ss << separator << setprecision(10) << row.Y();
         ss << '\n';
     }
 

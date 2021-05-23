@@ -1,33 +1,44 @@
 #pragma once
 #include <corecrt_math.h>
+#include "IModel.h"
+#include <vector>
+#include <list>
+#include <set>
 
-class UnitCircleModel
+class UnitCircleModel : public IModel
 {
 public:
 
     UnitCircleModel()
     {
-        Angle = NAN;
-        Radians = NAN;
-        X = NAN;
-        Y = NAN;
+        _angle = NAN;
+        _radians = NAN;
+        _x = NAN;
+        _y = NAN;
     }
 
-    ~UnitCircleModel()
-    {
-    }
+    ~UnitCircleModel() { }
 
-    double GetAngle() const { return Angle; }
-    void SetAngle(double val) { Angle = val; }
-    double GetRadians() const { return Radians; }
-    void SetRadians(double val) { Radians = val; }
-    double GetX() const { return X; }
-    void SetX(double val) { X = val; }
-    double GetY() const { return Y; }
-    void SetY(double val) { Y = val; }
+    double Angle() const { return _angle; }
+    void Angle(double val) { _angle = val; }
+    double Radians() const { return _radians; }
+    void Radians(double val) { _radians = val; }
+    double X() const { return _x; }
+    void X(double val) { _x = val; }
+    double Y() const { return _y; }
+    void Y(double val) { _y = val; }
+
+    void ReadInputs(string csvIn) override;
+    void ReadAll(string csvIn) override;
+    void WriteAll(string csvOut) override;
+
 private:
-    double Angle;
-    double Radians;
-    double X;
-    double Y;
+    double _angle;
+    double _radians;
+    double _x;
+    double _y;
+    set<string> _inputs{ "Angle" };
+    set<string> _outputs{ "Radians", "X", "Y" };
+    list<UnitCircleModel> _models;
+    void UpdateModels(vector<vector<double>>& inputs, set<string> columnSet);
 };
