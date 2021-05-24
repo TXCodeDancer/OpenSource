@@ -64,27 +64,25 @@ void UnitCircleModel::UpdateModels(vector<vector<double>>& inputs, set<string> c
         auto model = UnitCircleModel();
         for (size_t j = 0; j < cols; j++)
         {
-            string col = columns[j];
             auto value = inputs[j][i];
-            if (col == "Angle")
+            switch (j)
             {
+            case (angle):
                 model.Angle(value);
-            }
-            else if (col == "Radians")
-            {
+                break;
+            case (radians):
                 model.Radians(value);
-            }
-            else if (col == "X")
-            {
+                break;
+            case (x):
                 model.X(value);
-            }
-            else if (col == "Y")
-            {
+                break;
+            case (y):
                 model.Y(value);
-            }
-            else
-            {
+                break;
+
+            default:
                 throw std::invalid_argument("Unknown column value");
+                break;
             }
         }
         models.push_back(model);

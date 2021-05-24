@@ -5,6 +5,8 @@
 #include <list>
 #include <set>
 
+enum _outputCol { angle, radians, x, y };
+
 class UnitCircleModel : public IModel
 {
 public:
@@ -30,7 +32,7 @@ private:
     double _x;
     double _y;
     set<string> _inputs{ "Angle" };
-    set<string> _outputs{ "Radians", "X", "Y" };
+    set<string> _outputs{ "Angle","Radians", "X", "Y" };
     list<UnitCircleModel> _models;
 
     void UpdateModels(vector<vector<double>>& inputs, set<string> columnSet);
