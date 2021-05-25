@@ -80,16 +80,16 @@ void UnitCircleModel::UpdateModels(vector<vector<double>>& inputs, set<string> c
             auto value = inputs[j][i];
             switch (j)
             {
-            case (angle):
+            case (Columns::angle):
                 model.Angle(value);
                 break;
-            case (radians):
+            case (Columns::radians):
                 model.Radians(value);
                 break;
-            case (x):
+            case (Columns::x):
                 model.X(value);
                 break;
-            case (y):
+            case (Columns::y):
                 model.Y(value);
                 break;
 

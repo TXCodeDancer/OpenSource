@@ -5,7 +5,6 @@
 #include <list>
 #include <set>
 
-enum _outputCol { angle, radians, x, y };
 const double PI = 3.141592653589793238462643;
 
 class UnitCircleModel : public IModel
@@ -26,6 +25,7 @@ public:
     void ReadAll(string csvIn) override;
     void Write(string csvOut) override;
     void Compute() override;
+    enum Columns { angle, radians, x, y };
 
 private:
     double _angle;
