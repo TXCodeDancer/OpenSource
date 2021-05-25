@@ -2,7 +2,7 @@
 #include "RapidCsvEngine.h"
 #include <iomanip>
 
-void UnitCircleModel::ReadInputs(string csvIn)
+void UnitCircleModel::Read(string csvIn)
 {
     auto rapidCsvEngine = RapidCsvEngine();
     auto inputs = rapidCsvEngine.Run("CSVUnitCircle.csv", _inputs);
@@ -20,7 +20,7 @@ void UnitCircleModel::ReadAll(string csvIn)
     UpdateModels(inputs, all);
 }
 
-void UnitCircleModel::WriteAll(string csvOut)
+void UnitCircleModel::Write(string csvOut)
 {
     std::stringstream  ss;
     ss << "Angle,Radians,X,Y\n";

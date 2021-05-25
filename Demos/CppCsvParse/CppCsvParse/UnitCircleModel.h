@@ -22,9 +22,9 @@ public:
 
     ~UnitCircleModel() { }
 
-    void ReadInputs(string csvIn) override;
+    void Read(string csvIn) override;
     void ReadAll(string csvIn) override;
-    void WriteAll(string csvOut) override;
+    void Write(string csvOut) override;
     void Compute() override;
 
 private:

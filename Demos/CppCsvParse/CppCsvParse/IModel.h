@@ -8,16 +8,16 @@ using namespace std;
 class IModel
 {
 public:
-    virtual void ReadInputs(string csvIn) = 0;
+    virtual void Read(string csvIn) = 0;
     virtual void ReadAll(string csvIn) = 0;
-    virtual void WriteAll(string csvOut) = 0;
+    virtual void Write(string csvOut) = 0;
     virtual void Compute(void) = 0;
 
     void Run(string csvIn, string csvOut)
     {
-        ReadInputs(csvIn);
+        Read(csvIn);
         Compute();
-        WriteAll(csvOut);
+        Write(csvOut);
     };
 
 protected:
