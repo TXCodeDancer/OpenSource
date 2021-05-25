@@ -2,7 +2,7 @@
 #include "RapidCsvEngine.h"
 #include <iomanip>
 
-void UnitCircleModel::ReadInputs(string csvIn)
+void UnitCircleModel::Read(string csvIn)
 {
     auto rapidCsvEngine = RapidCsvEngine();
     auto inputs = rapidCsvEngine.Run("CSVUnitCircle.csv", _inputs);
@@ -20,7 +20,7 @@ void UnitCircleModel::ReadAll(string csvIn)
     UpdateModels(inputs, all);
 }
 
-void UnitCircleModel::WriteAll(string csvOut)
+void UnitCircleModel::Write(string csvOut)
 {
     std::stringstream  ss;
     ss << "Angle,Radians,X,Y\n";
@@ -43,7 +43,20 @@ void UnitCircleModel::WriteAll(string csvOut)
 
 void UnitCircleModel::Compute()
 {
-    throw std::logic_error("The method or operation is not implemented.");
+    auto models = list<UnitCircleModel>();
+    list <UnitCircleModel> ::iterator itr;
+    for (itr = _models.begin(); itr != _models.end(); itr++)
+    {
+        UnitCircleModel row = *itr;
+        auto rads = (row.Angle() * PI) / 180;
+        row.Radians(rads);
+        row.X(cos(rads));
+        row.Y(sin(rads));
+        models.push_back(row);
+    }
+
+    _models.clear();
+    _models = models;
 }
 
 void UnitCircleModel::UpdateModels(vector<vector<double>>& inputs, set<string> columnSet)
@@ -64,27 +77,25 @@ void UnitCircleModel::UpdateModels(vector<vector<double>>& inputs, set<string> c
         auto model = UnitCircleModel();
         for (size_t j = 0; j < cols; j++)
         {
-            string col = columns[j];
             auto value = inputs[j][i];
-            if (col == "Angle")
+            switch (j)
             {
+            case (Columns::angle):
                 model.Angle(value);
-            }
-            else if (col == "Radians")
-            {
+                break;
+            case (Columns::radians):
                 model.Radians(value);
-            }
-            else if (col == "X")
-            {
+                break;
+            case (Columns::x):
                 model.X(value);
-            }
-            else if (col == "Y")
-            {
+                break;
+            case (Columns::y):
                 model.Y(value);
-            }
-            else
-            {
+                break;
+
+            default:
                 throw std::invalid_argument("Unknown column value");
+                break;
             }
         }
         models.push_back(model);

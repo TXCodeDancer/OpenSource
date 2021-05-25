@@ -1,13 +1,25 @@
 #pragma once
 #include <string>
+#include <vector>
+#include <set>
 
 using namespace std;
 
 class IModel
 {
 public:
-    virtual void ReadInputs(string csvIn) = 0;
+    virtual void Read(string csvIn) = 0;
     virtual void ReadAll(string csvIn) = 0;
-    virtual void WriteAll(string csvOut) = 0;
-    virtual void Compute() = 0;
+    virtual void Write(string csvOut) = 0;
+    virtual void Compute(void) = 0;
+
+    void Run(string csvIn, string csvOut)
+    {
+        Read(csvIn);
+        Compute();
+        Write(csvOut);
+    };
+
+protected:
+    virtual void UpdateModels(vector<vector<double>>& inputs, set<string> columnSet) = 0;
 };
