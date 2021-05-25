@@ -8,6 +8,7 @@
 int main()
 {
     auto model = UnitCircleModel();
+    model.Run("CSVUnitCircle.csv", "CSVUnitCircleOut_UnitCircleRun.csv");
     model.ReadAll("CSVUnitCircle.csv");
     model.WriteAll("CSVUnitCircleOut_UnitCircle.csv");
 }

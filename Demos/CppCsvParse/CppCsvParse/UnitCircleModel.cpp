@@ -43,7 +43,20 @@ void UnitCircleModel::WriteAll(string csvOut)
 
 void UnitCircleModel::Compute()
 {
-    throw std::logic_error("The method or operation is not implemented.");
+    auto models = list<UnitCircleModel>();
+    list <UnitCircleModel> ::iterator itr;
+    for (itr = _models.begin(); itr != _models.end(); itr++)
+    {
+        UnitCircleModel row = *itr;
+        auto rads = (row.Angle() * PI) / 180;
+        row.Radians(rads);
+        row.X(cos(rads));
+        row.Y(sin(rads));
+        models.push_back(row);
+    }
+
+    _models.clear();
+    _models = models;
 }
 
 void UnitCircleModel::UpdateModels(vector<vector<double>>& inputs, set<string> columnSet)
