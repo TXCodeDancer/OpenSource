@@ -13,39 +13,33 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Libraries">
-      <UniqueIdentifier>{9f2899a4-77f8-4afb-81f8-c5f795a9e3c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data">
-      <UniqueIdentifier>{fdc433fa-d315-4ad5-999d-9148b90c8780}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Models">
-      <UniqueIdentifier>{27a71ab7-89ec-4a5c-86fb-9a4a4c9959aa}</UniqueIdentifier>
+    <Filter Include="Third Party Libraries">
+      <UniqueIdentifier>{4f22ddf6-496e-44aa-a5d2-72e1462c7ff6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CppCsvParse.cpp">
+    <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdPartyLibraries\rapidcsv.h">
+      <Filter>Third Party Libraries</Filter>
+    </ClInclude>
+    <ClInclude Include="RapidCsvEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CsvParseLibrary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RapidCsvEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UnitCircleModel.cpp">
-      <Filter>Data Models</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="rapidcsv.h">
-      <Filter>Libraries</Filter>
-    </ClInclude>
-    <ClInclude Include="RapidCsvEngine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UnitCircleModel.h">
-      <Filter>Data Models</Filter>
-    </ClInclude>
-    <ClInclude Include="IModel.h">
-      <Filter>Data Models</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

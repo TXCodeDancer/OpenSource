@@ -20,6 +20,12 @@ public:
         Write(csvOut);
     };
 
+    void WriteInputs(string csvIn, string csvOut)
+    {
+        ReadAll(csvIn);
+        Write(csvOut);
+    };
+
 protected:
     virtual void UpdateModels(vector<vector<double>>& inputs, set<string> columnSet) = 0;
 };
