@@ -33,4 +33,4 @@ jobs:
 
     - name: Test
       working-directory: $\x64\Release
-      run: DataValidationRunner.exe /Platform:x64
+      run: .\DataValidationRunner.exe /Platform:x64
