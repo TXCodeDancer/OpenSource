@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppCsvParse", "CppCsvParse\CppCsvParse.vcxproj", "{DD5C7BA1-1F77-4EC6-BA28-33BF20F5C21B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DataValidationRunner", "DataValidationRunner\DataValidationRunner.vcxproj", "{D4E962A5-B232-41BF-ACA6-CFA9F373A001}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{DD5C7BA1-1F77-4EC6-BA28-33BF20F5C21B}.Release|x64.Build.0 = Release|x64
 		{DD5C7BA1-1F77-4EC6-BA28-33BF20F5C21B}.Release|x86.ActiveCfg = Release|Win32
 		{DD5C7BA1-1F77-4EC6-BA28-33BF20F5C21B}.Release|x86.Build.0 = Release|Win32
+		{D4E962A5-B232-41BF-ACA6-CFA9F373A001}.Debug|x64.ActiveCfg = Debug|x64
+		{D4E962A5-B232-41BF-ACA6-CFA9F373A001}.Debug|x64.Build.0 = Debug|x64
+		{D4E962A5-B232-41BF-ACA6-CFA9F373A001}.Debug|x86.ActiveCfg = Debug|Win32
+		{D4E962A5-B232-41BF-ACA6-CFA9F373A001}.Debug|x86.Build.0 = Debug|Win32
+		{D4E962A5-B232-41BF-ACA6-CFA9F373A001}.Release|x64.ActiveCfg = Release|x64
+		{D4E962A5-B232-41BF-ACA6-CFA9F373A001}.Release|x64.Build.0 = Release|x64
+		{D4E962A5-B232-41BF-ACA6-CFA9F373A001}.Release|x86.ActiveCfg = Release|Win32
+		{D4E962A5-B232-41BF-ACA6-CFA9F373A001}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
