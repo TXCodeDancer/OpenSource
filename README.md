@@ -1,3 +1,5 @@
+[![Build CsvParse](https://github.com/TXCodeDancer/Public/actions/workflows/msbuild.yml/badge.svg)](https://github.com/TXCodeDancer/Public/actions/workflows/msbuild.yml)
+
 # Public
 Tools and sample code that's available to anyone.
 
