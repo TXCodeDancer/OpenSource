@@ -13,39 +13,26 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Third Party Libraries">
-      <UniqueIdentifier>{4f22ddf6-496e-44aa-a5d2-72e1462c7ff6}</UniqueIdentifier>
+    <Filter Include="TestCases">
+      <UniqueIdentifier>{228886a9-d96c-4217-9252-add1a090aed9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClCompile Include="UnitCircleTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="pch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdPartyLibraries\rapidcsv.h">
-      <Filter>Third Party Libraries</Filter>
-    </ClInclude>
-    <ClInclude Include="RapidCsvEngine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UnitCircleModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RapidCsvEngine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UnitCircleModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <None Include="..\TestCases\CSVUnitCircle.csv">
+      <Filter>TestCases</Filter>
+    </None>
   </ItemGroup>
 </Project>

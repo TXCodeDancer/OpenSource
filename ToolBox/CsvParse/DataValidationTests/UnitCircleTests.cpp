@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "..\CppCsvParse\UnitCircleModel.h"
+#include "UnitCircleModel.h"
 
 TEST(UnitCircle, UnitCircleTest0) {
     auto model = UnitCircleModel();

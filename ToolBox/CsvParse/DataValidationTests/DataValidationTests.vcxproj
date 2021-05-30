@@ -45,12 +45,12 @@
     <ClCompile Include="UnitCircleTests.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\CsvParseLibrary\CsvParseLibrary.vcxproj">
       <Project>{36d0bfc6-592f-4d55-ba52-88573c51552f}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

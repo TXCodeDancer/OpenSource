@@ -4,8 +4,11 @@
 #include <vector>
 #include <list>
 #include <set>
+#include <xutility>
 
 const double PI = 3.141592653589793238462643;
+
+enum class Columns { angle, radians, x, y };
 
 class UnitCircleModel : public IModel
 {
@@ -25,7 +28,7 @@ public:
     void ReadAll(string csvIn) override;
     void Write(string csvOut) override;
     void Compute() override;
-    enum Columns { angle, radians, x, y };
+    vector<vector<double>> GetAllData(string csvFile);
 
 private:
     double _angle;
