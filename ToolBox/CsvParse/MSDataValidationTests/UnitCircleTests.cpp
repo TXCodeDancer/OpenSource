@@ -4,7 +4,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-const string InputCvs = "D:\\HackerSpace\\GitHub\\Public\\ToolBox\\CsvParse\\TestCases\\CSVUnitCircle.csv";
+const string InputCvs = "../../TestCases/CSVUnitCircle.csv";
 const double tolerance = 0.00000001;
 
 namespace MSDataValidationTests
