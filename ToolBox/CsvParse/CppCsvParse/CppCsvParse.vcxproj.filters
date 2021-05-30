@@ -30,11 +30,8 @@
     <ClCompile Include="RapidCsvEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="UnitCircleModel.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Data Models</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,10 +47,5 @@
     <ClInclude Include="IModel.h">
       <Filter>Data Models</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="CSVUnitCircle.csv">
-      <Filter>Data</Filter>
-    </None>
   </ItemGroup>
 </Project>

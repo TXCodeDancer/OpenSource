@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "UnitCircleModel.h"
 #include "RapidCsvEngine.h"
 #include <iomanip>
@@ -5,7 +6,7 @@
 void UnitCircleModel::Read(string csvIn)
 {
     auto rapidCsvEngine = RapidCsvEngine();
-    auto inputs = rapidCsvEngine.Run("CSVUnitCircle.csv", _inputs);
+    auto inputs = rapidCsvEngine.Run(csvIn, _inputs);
 
     UpdateModels(inputs, _inputs);
 }
@@ -15,7 +16,7 @@ void UnitCircleModel::ReadAll(string csvIn)
     auto rapidCsvEngine = RapidCsvEngine();
     set<string> all(_inputs);
     all.insert(_outputs.begin(), _outputs.end());
-    auto inputs = rapidCsvEngine.Run("CSVUnitCircle.csv", all);
+    auto inputs = rapidCsvEngine.Run(csvIn, all);
 
     UpdateModels(inputs, all);
 }
@@ -59,6 +60,15 @@ void UnitCircleModel::Compute()
     _models = models;
 }
 
+vector<vector<double>> UnitCircleModel::GetAllData(string csvFile)
+{
+    auto rapidCsvEngine = RapidCsvEngine();
+    set<string> all(_inputs);
+    all.insert(_outputs.begin(), _outputs.end());
+    auto data = rapidCsvEngine.Run(csvFile, all);
+    return data;
+}
+
 void UnitCircleModel::UpdateModels(vector<vector<double>>& inputs, set<string> columnSet)
 {
     if (inputs.size() != columnSet.size())
@@ -71,7 +81,6 @@ void UnitCircleModel::UpdateModels(vector<vector<double>>& inputs, set<string> c
 
     auto models = list<UnitCircleModel>();
     vector<string> columns{ columnSet.begin(), columnSet.end() };
-    vector<vector<double>> ::iterator vvItr;
     for (size_t i = 0; i < rows; i++)
     {
         auto model = UnitCircleModel();
@@ -80,16 +89,16 @@ void UnitCircleModel::UpdateModels(vector<vector<double>>& inputs, set<string> c
             auto value = inputs[j][i];
             switch (j)
             {
-            case (Columns::angle):
+            case ((size_t)Columns::angle):
                 model.Angle(value);
                 break;
-            case (Columns::radians):
+            case ((size_t)Columns::radians):
                 model.Radians(value);
                 break;
-            case (Columns::x):
+            case ((size_t)Columns::x):
                 model.X(value);
                 break;
-            case (Columns::y):
+            case ((size_t)Columns::y):
                 model.Y(value);
                 break;
 
