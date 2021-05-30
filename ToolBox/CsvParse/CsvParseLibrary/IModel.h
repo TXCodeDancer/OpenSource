@@ -12,6 +12,7 @@ public:
     virtual void ReadAll(string csvIn) = 0;
     virtual void Write(string csvOut) = 0;
     virtual void Compute(void) = 0;
+    virtual vector<vector<double>> GetAllData(string csvFile) = 0;
 
     void Run(string csvIn, string csvOut)
     {
