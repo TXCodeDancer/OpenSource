@@ -17,9 +17,9 @@ namespace MSDataValidationTests
         TEST_METHOD(OriginalVsResultsTest)
         {
             auto model = UnitCircleModel();
-            auto originalData = model.GetAllData(OriginalCvs);
+            auto originalData = model.GetIOData(OriginalCvs);
             model.Run(OriginalCvs, ResultsCvs);
-            auto resultsData = model.GetAllData(ResultsCvs);
+            auto resultsData = model.GetIOData(ResultsCvs);
 
             auto rows = originalData[0].size();
             auto cols = originalData.size();
