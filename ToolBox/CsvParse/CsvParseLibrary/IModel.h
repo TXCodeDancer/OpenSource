@@ -8,11 +8,7 @@ using namespace std;
 class IModel
 {
 public:
-    virtual void Read(string csvIn) = 0;
-    virtual void ReadAll(string csvIn) = 0;
-    virtual void Write(string csvOut) = 0;
-    virtual void Compute(void) = 0;
-    virtual vector<vector<double>> GetIOData(string csvFile) = 0;
+    virtual vector<vector<double>> GetIOData(string csvIn) = 0;
 
     void Run(string csvIn, string csvOut)
     {
@@ -21,12 +17,9 @@ public:
         Write(csvOut);
     };
 
-    void WriteInputs(string csvIn, string csvOut)
-    {
-        ReadAll(csvIn);
-        Write(csvOut);
-    };
-
 protected:
+    virtual void Read(string csvIn) = 0;
+    virtual void Write(string csvOut) = 0;
+    virtual void Compute(void) = 0;
     virtual void UpdateModels(vector<vector<double>>& inputs, set<string> columnSet) = 0;
 };
