@@ -11,14 +11,13 @@ void UnitCircleModel::Read(string csvIn)
     UpdateModels(inputs, _inputs);
 }
 
-void UnitCircleModel::ReadAll(string csvIn)
+vector<vector<double>> UnitCircleModel::GetIOData(string csvIn)
 {
     auto rapidCsvEngine = RapidCsvEngine();
-    set<string> all(_inputs);
-    all.insert(_outputs.begin(), _outputs.end());
-    auto inputs = rapidCsvEngine.Run(csvIn, all);
-
-    UpdateModels(inputs, all);
+    set<string> ioDataColumns(_inputs);
+    ioDataColumns.insert(_outputs.begin(), _outputs.end());
+    auto ioData = rapidCsvEngine.Run(csvIn, ioDataColumns);
+    return ioData;
 }
 
 void UnitCircleModel::Write(string csvOut)
@@ -58,15 +57,6 @@ void UnitCircleModel::Compute()
 
     _models.clear();
     _models = models;
-}
-
-vector<vector<double>> UnitCircleModel::GetIOData(string csvFile)
-{
-    auto rapidCsvEngine = RapidCsvEngine();
-    set<string> all(_inputs);
-    all.insert(_outputs.begin(), _outputs.end());
-    auto data = rapidCsvEngine.Run(csvFile, all);
-    return data;
 }
 
 void UnitCircleModel::UpdateModels(vector<vector<double>>& inputs, set<string> columnSet)

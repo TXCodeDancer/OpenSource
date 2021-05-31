@@ -24,11 +24,7 @@ public:
 
     ~UnitCircleModel() { }
 
-    void Read(string csvIn) override;
-    void ReadAll(string csvIn) override;
-    void Write(string csvOut) override;
-    void Compute() override;
-    vector<vector<double>> GetIOData(string csvFile) override;
+    vector<vector<double>> GetIOData(string csvIn) override;
 
 private:
     double _angle;
@@ -39,7 +35,11 @@ private:
     set<string> _outputs{ "Angle","Radians", "X", "Y" };
     list<UnitCircleModel> _models;
 
+    void Read(string csvIn) override;
+    void Write(string csvOut) override;
+    void Compute() override;
     void UpdateModels(vector<vector<double>>& inputs, set<string> columnSet) override;
+
     double Angle() const { return _angle; }
     void Angle(double val) { _angle = val; }
     double Radians() const { return _radians; }
