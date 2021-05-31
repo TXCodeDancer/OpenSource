@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CsvParseLibrary", "CsvParseLibrary\CsvParseLibrary.vcxproj", "{36D0BFC6-592F-4D55-BA52-88573C51552F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DataValidationTests", "DataValidationTests\DataValidationTests.vcxproj", "{C1CC9A1D-1DA0-43F2-B75E-4F446B4A67DC}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MSDataValidationTests", "MSDataValidationTests\MSDataValidationTests.vcxproj", "{AFF286D9-CC06-4094-8EF9-1BA0A9B6148F}"
 EndProject
 Global
@@ -25,12 +23,6 @@ Global
 		{36D0BFC6-592F-4D55-BA52-88573C51552F}.Release|x64.Build.0 = Release|x64
 		{36D0BFC6-592F-4D55-BA52-88573C51552F}.Release|x86.ActiveCfg = Release|Win32
 		{36D0BFC6-592F-4D55-BA52-88573C51552F}.Release|x86.Build.0 = Release|Win32
-		{C1CC9A1D-1DA0-43F2-B75E-4F446B4A67DC}.Debug|x64.ActiveCfg = Debug|x64
-		{C1CC9A1D-1DA0-43F2-B75E-4F446B4A67DC}.Debug|x86.ActiveCfg = Debug|Win32
-		{C1CC9A1D-1DA0-43F2-B75E-4F446B4A67DC}.Debug|x86.Build.0 = Debug|Win32
-		{C1CC9A1D-1DA0-43F2-B75E-4F446B4A67DC}.Release|x64.ActiveCfg = Release|x64
-		{C1CC9A1D-1DA0-43F2-B75E-4F446B4A67DC}.Release|x86.ActiveCfg = Release|Win32
-		{C1CC9A1D-1DA0-43F2-B75E-4F446B4A67DC}.Release|x86.Build.0 = Release|Win32
 		{AFF286D9-CC06-4094-8EF9-1BA0A9B6148F}.Debug|x64.ActiveCfg = Debug|x64
 		{AFF286D9-CC06-4094-8EF9-1BA0A9B6148F}.Debug|x64.Build.0 = Debug|x64
 		{AFF286D9-CC06-4094-8EF9-1BA0A9B6148F}.Debug|x86.ActiveCfg = Debug|Win32
