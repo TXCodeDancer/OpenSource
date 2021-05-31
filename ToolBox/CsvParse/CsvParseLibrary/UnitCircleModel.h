@@ -28,7 +28,7 @@ public:
     void ReadAll(string csvIn) override;
     void Write(string csvOut) override;
     void Compute() override;
-    vector<vector<double>> GetAllData(string csvFile) override;
+    vector<vector<double>> GetIOData(string csvFile) override;
 
 private:
     double _angle;

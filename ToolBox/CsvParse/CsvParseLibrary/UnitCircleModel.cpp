@@ -60,7 +60,7 @@ void UnitCircleModel::Compute()
     _models = models;
 }
 
-vector<vector<double>> UnitCircleModel::GetAllData(string csvFile)
+vector<vector<double>> UnitCircleModel::GetIOData(string csvFile)
 {
     auto rapidCsvEngine = RapidCsvEngine();
     set<string> all(_inputs);

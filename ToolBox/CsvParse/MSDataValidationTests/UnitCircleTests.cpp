@@ -4,7 +4,8 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-const string InputCvs = "../../TestCases/CSVUnitCircle.csv";
+const string OriginalCvs = "../../TestCases/CSVUnitCircle.csv";
+const string ResultsCvs = "CSVUnitCircleResults.csv";
 const double tolerance = 0.00000001;
 
 namespace MSDataValidationTests
@@ -13,22 +14,21 @@ namespace MSDataValidationTests
     {
     public:
 
-        TEST_METHOD(Test0)
+        TEST_METHOD(OriginalVsResultsTest)
         {
             auto model = UnitCircleModel();
-            model.WriteInputs(InputCvs, "CSVUnitCircleOut_Inputs_0.csv");
-            model.Run(InputCvs, "CSVUnitCircleOut_0.csv");
-            auto data1 = model.GetAllData("CSVUnitCircleOut_Inputs_0.csv");
-            auto data2 = model.GetAllData("CSVUnitCircleOut_0.csv");
+            auto originalData = model.GetIOData(OriginalCvs);
+            model.Run(OriginalCvs, ResultsCvs);
+            auto resultsData = model.GetIOData(ResultsCvs);
 
-            auto rows = data1[0].size();
-            auto cols = data1.size();
+            auto rows = originalData[0].size();
+            auto cols = originalData.size();
             for (size_t i = 0; i < rows; i++)
             {
                 for (size_t j = 0; j < cols; j++)
                 {
-                    auto expected = data1[j][i];
-                    auto actual = data2[j][i];
+                    auto expected = originalData[j][i];
+                    auto actual = resultsData[j][i];
                     Assert::AreEqual(expected, actual, tolerance);
                 }
             }
