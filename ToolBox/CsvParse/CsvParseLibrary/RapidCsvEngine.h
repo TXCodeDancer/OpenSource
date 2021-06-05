@@ -3,13 +3,11 @@
 #include <set>
 #include "ThirdPartyLibraries/rapidcsv.h"
 
-using namespace std;
-
 class RapidCsvEngine
 {
 public:
     RapidCsvEngine() { }
     ~RapidCsvEngine() { }
 
-    vector<vector<double>> Run(string csvIn, set<string> columns);
+    std::vector<std::vector<double>> Run(std::string csvIn, std::set<std::string> columns);
 };

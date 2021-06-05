@@ -3,7 +3,7 @@
 #include "RapidCsvEngine.h"
 #include <iomanip>
 
-void UnitCircleModel::Read(string csvIn)
+void UnitCircleModel::Read(std::string csvIn)
 {
     auto rapidCsvEngine = RapidCsvEngine();
     auto inputs = rapidCsvEngine.Run(csvIn, _inputs);
@@ -11,28 +11,28 @@ void UnitCircleModel::Read(string csvIn)
     UpdateModels(inputs, _inputs);
 }
 
-vector<vector<double>> UnitCircleModel::GetIOData(string csvIn)
+std::vector<std::vector<double>> UnitCircleModel::GetIOData(std::string csvIn)
 {
     auto rapidCsvEngine = RapidCsvEngine();
-    set<string> ioDataColumns(_inputs);
+    std::set<std::string> ioDataColumns(_inputs);
     ioDataColumns.insert(_outputs.begin(), _outputs.end());
     auto ioData = rapidCsvEngine.Run(csvIn, ioDataColumns);
     return ioData;
 }
 
-void UnitCircleModel::Write(string csvOut)
+void UnitCircleModel::Write(std::string csvOut)
 {
     std::stringstream  ss;
     ss << "Angle,Radians,X,Y\n";
-    string separator = ",";
-    list <UnitCircleModel> ::iterator model;
+    std::string separator = ",";
+    std::list<UnitCircleModel> ::iterator model;
     for (model = _models.begin(); model != _models.end(); model++)
     {
         UnitCircleModel row = *model;
-        ss << setprecision(10) << row.Angle();
-        ss << separator << setprecision(10) << row.Radians();
-        ss << separator << setprecision(10) << row.X();
-        ss << separator << setprecision(10) << row.Y();
+        ss << std::setprecision(10) << row.Angle();
+        ss << separator << std::setprecision(10) << row.Radians();
+        ss << separator << std::setprecision(10) << row.X();
+        ss << separator << std::setprecision(10) << row.Y();
         ss << '\n';
     }
 
@@ -43,8 +43,8 @@ void UnitCircleModel::Write(string csvOut)
 
 void UnitCircleModel::Compute()
 {
-    auto models = list<UnitCircleModel>();
-    list <UnitCircleModel> ::iterator itr;
+    auto models = std::list<UnitCircleModel>();
+    std::list<UnitCircleModel> ::iterator itr;
     for (itr = _models.begin(); itr != _models.end(); itr++)
     {
         UnitCircleModel row = *itr;
@@ -59,7 +59,7 @@ void UnitCircleModel::Compute()
     _models = models;
 }
 
-void UnitCircleModel::UpdateModels(vector<vector<double>>& inputs, set<string> columnSet)
+void UnitCircleModel::UpdateModels(std::vector<std::vector<double>>& inputs, std::set<std::string> columnSet)
 {
     if (inputs.size() != columnSet.size())
     {
@@ -69,8 +69,8 @@ void UnitCircleModel::UpdateModels(vector<vector<double>>& inputs, set<string> c
     const auto rows = inputs[0].size();
     const auto cols = inputs.size();
 
-    auto models = list<UnitCircleModel>();
-    vector<string> columns{ columnSet.begin(), columnSet.end() };
+    auto models = std::list<UnitCircleModel>();
+    std::vector<std::string> columns{ columnSet.begin(), columnSet.end() };
     for (size_t i = 0; i < rows; i++)
     {
         auto model = UnitCircleModel();

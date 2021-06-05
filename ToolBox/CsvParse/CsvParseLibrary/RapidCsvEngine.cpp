@@ -1,13 +1,12 @@
 #include "pch.h"
 #include "RapidCsvEngine.h"
-#include <iomanip>
 
-vector<vector<double>> RapidCsvEngine::Run(string csvIn, set<string> columns)
+std::vector<std::vector<double>> RapidCsvEngine::Run(std::string csvIn, std::set<std::string> columns)
 {
     rapidcsv::Document doc(csvIn);
 
-    set <string> ::iterator column;
-    vector<vector<double>> data;
+    std::set<std::string> ::iterator column;
+    std::vector<std::vector<double>> data;
     for (column = columns.begin(); column != columns.end(); column++)
     {
         data.push_back(doc.GetColumn<double>(*column));
