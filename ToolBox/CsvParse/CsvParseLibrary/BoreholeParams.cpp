@@ -6,7 +6,8 @@
 std::vector<float> BoreholeParams::GetData(std::string csvIn)
 {
     auto rapidCsvEngine = RapidCsvEngine();
-    auto inputs = rapidCsvEngine.GetCells(csvIn, _inputs, "VALUE", 0, 0, ' ', true);
+    auto colRow = (int)rapidCsvEngine.GetRowIdx(csvIn, "~PARAMETER", ' ') + 2;
+    auto inputs = rapidCsvEngine.GetCells(csvIn, _inputs, "VALUE", colRow, 0, ' ', true);
     return inputs;
 }
 

@@ -9,7 +9,8 @@ public:
     RapidCsvEngine() { }
     ~RapidCsvEngine() { }
 
-    std::vector<std::vector<double>> Run(std::string csvIn, std::set<std::string> columns);
-    std::vector<float> GetCells(std::string csvIn, std::set<std::string> rows, std::string column,
-        int colIdx = 0, int rowIdx = -1, char delimiter = ',', bool ignoreConsecutiveDelimiters = false);
+    std::vector<std::vector<double>> Run(const std::string csvIn, const std::set<std::string> columns);
+    std::vector<float> GetCells(const std::string csvIn, const std::set<std::string> rows, const std::string column,
+        int colRow = 0, int rowCol = -1, char delimiter = ',', bool ignoreConsecutiveDelimiters = false);
+    ssize_t GetRowIdx(const std::string csvIn, const std::string& pRowName, const char delimiter = ',') const;
 };

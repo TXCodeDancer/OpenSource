@@ -15,9 +15,9 @@ std::vector<std::vector<double>> RapidCsvEngine::Run(std::string csvIn, std::set
     return data;
 }
 
-std::vector<float> RapidCsvEngine::GetCells(std::string csvIn, std::set<std::string> rows, std::string column, int colIdx, int rowIdx, char delimiter, bool ignoreConsecutiveDelimiters)
+std::vector<float> RapidCsvEngine::GetCells(std::string csvIn, std::set<std::string> rows, std::string column, int colRow, int rowCol, char delimiter, bool ignoreConsecutiveDelimiters)
 {
-    rapidcsv::Document doc(csvIn, rapidcsv::LabelParams(colIdx, rowIdx), rapidcsv::SeparatorParams(delimiter, true, true, false, true, ignoreConsecutiveDelimiters));
+    rapidcsv::Document doc(csvIn, rapidcsv::LabelParams(colRow, rowCol), rapidcsv::SeparatorParams(delimiter, true, true, false, true, ignoreConsecutiveDelimiters));
 
     std::set<std::string> ::iterator row;
     std::vector<float> data;
@@ -27,4 +27,11 @@ std::vector<float> RapidCsvEngine::GetCells(std::string csvIn, std::set<std::str
     }
 
     return data;
+}
+
+ssize_t RapidCsvEngine::GetRowIdx(std::string csvIn, const std::string& pRowName, char delimiter) const
+{
+    rapidcsv::Document doc(csvIn, rapidcsv::LabelParams(0, 0), rapidcsv::SeparatorParams(delimiter));
+    auto idx = doc.GetRowIdx(pRowName);
+    return idx;
 }

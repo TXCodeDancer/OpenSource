@@ -4,7 +4,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-const std::string OriginalCvs = "../../TestCases/ParametersOnly.las";
+const std::string OriginalCvs = "../../TestCases/AllValueSpaces.las";
 const std::string ResultsCvs = "ParametersOnlyResults.las";
 const double tolerance = 0.00000001;
 
