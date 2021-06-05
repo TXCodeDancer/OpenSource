@@ -14,3 +14,8 @@ std::vector<std::vector<double>> RapidCsvEngine::Run(std::string csvIn, std::set
 
     return data;
 }
+
+std::vector<float> RapidCsvEngine::ParamsRun(std::string csvIn, std::set<std::string> _inputs)
+{
+    throw std::logic_error("The method or operation is not implemented.");
+}
