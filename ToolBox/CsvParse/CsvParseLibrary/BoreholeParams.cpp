@@ -2,6 +2,7 @@
 #include "BoreholeParams.h"
 #include <stdexcept>
 #include "RapidCsvEngine.h"
+#include <iomanip>
 
 std::vector<float> BoreholeParams::GetData(std::string csvIn)
 {
@@ -17,10 +18,30 @@ void BoreholeParams::Read(std::string csvIn)
     UpdateModels(inputs, _inputs);
 }
 
-//void BoreholeParams::Write(std::string csvOut)
-//{
-//    throw std::logic_error("The method or operation is not implemented.");
-//}
+void BoreholeParams::Write(std::string csvOut)
+{
+    std::stringstream  ss;
+
+    std::string separator = "";
+    std::set<std::string> ::iterator itr;
+    for (itr = _inputs.begin(); itr != _inputs.end(); itr++)
+    {
+        ss << separator << *itr;
+        separator = ",";
+    }
+    ss << "\n";
+
+    ss << std::setprecision(10) << _BHK;
+    ss << separator << std::setprecision(10) << _BRTA;
+    ss << separator << std::setprecision(10) << _BS;
+    ss << separator << std::setprecision(10) << _DFD;
+    ss << separator << std::setprecision(10) << _GR_MULTIPLIER;
+    ss << '\n';
+
+    std::ofstream outFile(csvOut);
+    outFile << ss.rdbuf();
+    outFile.close();
+}
 
 void BoreholeParams::UpdateModels(std::vector<float>& inputs, std::set<std::string> rowSet)
 {

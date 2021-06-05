@@ -10,18 +10,15 @@ const double tolerance = 0.00000001;
 
 namespace MSDataValidationTests
 {
-    TEST_CLASS(UnitCircleTests)
+    TEST_CLASS(BoreholeParamsTests)
     {
     public:
 
-        TEST_METHOD(OriginalVsResultsTest)
+        TEST_METHOD(LoadParametersTest)
         {
             auto model = BoreholeParams();
-            //auto originalData = model.GetIOData(OriginalCvs);
             model.Run(OriginalCvs, ResultsCvs);
-            //auto resultsData = model.GetIOData(ResultsCvs);
 
-            //auto rows = originalData[0].size();
             //auto cols = originalData.size();
             //for (size_t i = 0; i < rows; i++)
             //{
@@ -33,6 +30,7 @@ namespace MSDataValidationTests
             //    }
             //}
 
+            //        Assert::AreEqual(expected, actual, tolerance);
             Assert::IsTrue(false);
         }
     };

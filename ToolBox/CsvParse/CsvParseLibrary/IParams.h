@@ -11,11 +11,11 @@ public:
     void Run(std::string csvIn, std::string csvOut)
     {
         Read(csvIn);
-        //Write(csvOut);
+        Write(csvOut);
     };
 
 protected:
     virtual void Read(std::string csvIn) = 0;
-    //virtual void Write(std::string csvOut) = 0;
+    virtual void Write(std::string csvOut) = 0;
     virtual void UpdateModels(std::vector<float>& inputs, std::set<std::string> columnSet) = 0;
 };
