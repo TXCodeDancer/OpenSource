@@ -3,7 +3,7 @@
 #include <vector>
 #include <set>
 
-class IModel
+class IParams
 {
 public:
     virtual std::vector<std::vector<double>> GetIOData(std::string csvIn) = 0;

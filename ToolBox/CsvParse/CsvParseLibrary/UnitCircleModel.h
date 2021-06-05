@@ -24,21 +24,21 @@ public:
 
     ~UnitCircleModel() { }
 
-    vector<vector<double>> GetIOData(string csvIn) override;
+    std::vector<std::vector<double>> GetIOData(std::string csvIn) override;
 
 private:
     double _angle;
     double _radians;
     double _x;
     double _y;
-    set<string> _inputs{ "Angle" };
-    set<string> _outputs{ "Angle","Radians", "X", "Y" };
-    list<UnitCircleModel> _models;
+    std::set<std::string> _inputs{ "Angle" };
+    std::set<std::string> _outputs{ "Angle","Radians", "X", "Y" };
+    std::list<UnitCircleModel> _models;
 
-    void Read(string csvIn) override;
-    void Write(string csvOut) override;
+    void Read(std::string csvIn) override;
+    void Write(std::string csvOut) override;
     void Compute() override;
-    void UpdateModels(vector<vector<double>>& inputs, set<string> columnSet) override;
+    void UpdateModels(std::vector<std::vector<double>>& inputs, std::set<std::string> columnSet) override;
 
     double Angle() const { return _angle; }
     void Angle(double val) { _angle = val; }
