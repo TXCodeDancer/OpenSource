@@ -4,6 +4,8 @@
 #include <set>
 #include "IParams.h"
 
+enum class BoreholeParam { Bhk, Brta, Bs, Dfd, GRMultiplier };
+
 class BoreholeParams : public IParams
 {
 public:
@@ -17,7 +19,7 @@ public:
     }
     ~BoreholeParams() { }
 
-    //std::vector<double> GetData(std::string csvIn) override;
+    std::vector<float> GetData(std::string csvIn) override;
 
 private:
     float _BHK;
@@ -29,5 +31,5 @@ private:
 
     void Read(std::string csvIn) override;
     //void Write(std::string csvOut) override;
-    //void UpdateModels(std::vector<double>& inputs, std::set<std::string> columnSet) override;
+    void UpdateModels(std::vector<float>& inputs, std::set<std::string> rowSet) override;
 };
