@@ -8,11 +8,11 @@ class IParams
 public:
     //virtual std::vector<double> GetData(std::string csvIn) = 0;
 
-    //void Run(std::string csvIn, std::string csvOut)
-    //{
-    //    Read(csvIn);
-    //    Write(csvOut);
-    //};
+    void Run(std::string csvIn, std::string csvOut)
+    {
+        Read(csvIn);
+        //Write(csvOut);
+    };
 
 protected:
     virtual void Read(std::string csvIn) = 0;

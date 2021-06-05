@@ -25,7 +25,7 @@ private:
     float _BS;
     float _DFD;
     float _GR_MULTIPLIER;
-    std::set<std::string> _inputs{ "BHK", "BRTA", "BS", "DFD", "GR_MULTIPLIER" };
+    std::set<std::string> _inputs{ "BHK", "BRTA", "BS[1]", "DFD", "GR_MULTIPLIER" };
 
     void Read(std::string csvIn) override;
     //void Write(std::string csvOut) override;

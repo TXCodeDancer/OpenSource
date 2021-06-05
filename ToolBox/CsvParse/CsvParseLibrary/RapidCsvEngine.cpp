@@ -15,7 +15,16 @@ std::vector<std::vector<double>> RapidCsvEngine::Run(std::string csvIn, std::set
     return data;
 }
 
-std::vector<float> RapidCsvEngine::ParamsRun(std::string csvIn, std::set<std::string> _inputs)
+std::vector<float> RapidCsvEngine::GetCells(std::string csvIn, std::set<std::string> rows, std::string column, int colIdx, int rowIdx, char delimiter, bool ignoreConsecutiveDelimiters)
 {
-    throw std::logic_error("The method or operation is not implemented.");
+    rapidcsv::Document doc(csvIn, rapidcsv::LabelParams(colIdx, rowIdx), rapidcsv::SeparatorParams(delimiter, true, true, false, true, ignoreConsecutiveDelimiters));
+
+    std::set<std::string> ::iterator row;
+    std::vector<float> data;
+    for (row = rows.begin(); row != rows.end(); row++)
+    {
+        data.push_back(doc.GetCell<float>(column, *row));
+    }
+
+    return data;
 }

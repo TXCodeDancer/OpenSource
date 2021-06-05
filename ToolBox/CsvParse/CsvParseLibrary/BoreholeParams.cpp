@@ -11,7 +11,7 @@
 void BoreholeParams::Read(std::string csvIn)
 {
     auto rapidCsvEngine = RapidCsvEngine();
-    auto inputs = rapidCsvEngine.ParamsRun(csvIn, _inputs);
+    auto inputs = rapidCsvEngine.GetCells(csvIn, _inputs, "VALUE", 0, 0, ' ', true);
 }
 
 //void BoreholeParams::Write(std::string csvOut)
