@@ -39,6 +39,9 @@
     <ClInclude Include="IParams.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BoreholeParams.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -48,6 +51,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UnitCircleModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BoreholeParams.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
