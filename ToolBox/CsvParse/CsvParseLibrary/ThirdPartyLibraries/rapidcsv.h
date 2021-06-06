@@ -346,17 +346,17 @@ namespace rapidcsv
          * @param   pQuotedLinebreaks     specifies whether to allow line breaks in quoted text (default false)
          * @param   pAutoQuote            specifies whether to automatically dequote data during read, and add
          *                                quotes during write (default true).
-         * @param   pIgnoreConsecutives   specifies whether to ignore consecutive separators data during read (default false).
+         * @param   pIgnoreConsecutive    specifies whether to ignore consecutive separators data during read (default false).
          */
         explicit SeparatorParams(const char pSeparator = ',', const bool pTrim = false,
             const bool pHasCR = sPlatformHasCR, const bool pQuotedLinebreaks = false,
-            const bool pAutoQuote = true, const bool pIgnoreConsecutives = false)
+            const bool pAutoQuote = true, const bool pIgnoreConsecutive = false)
             : mSeparator(pSeparator)
             , mTrim(pTrim)
             , mHasCR(pHasCR)
             , mQuotedLinebreaks(pQuotedLinebreaks)
             , mAutoQuote(pAutoQuote)
-            , mIgnoreConsecutives(pIgnoreConsecutives)
+            , mIgnoreConsecutive(pIgnoreConsecutive)
         {
         }
 
@@ -388,7 +388,7 @@ namespace rapidcsv
         /**
          * @brief   specifies whether to ignore consecutive separators.
          */
-        bool mIgnoreConsecutives;
+        bool mIgnoreConsecutive;
     };
 
     /**
@@ -1481,7 +1481,7 @@ namespace rapidcsv
                     {
                         if (!quoted)
                         {
-                            if (!cell.empty() || !mSeparatorParams.mIgnoreConsecutives)
+                            if (!cell.empty() || !mSeparatorParams.mIgnoreConsecutive)
                             {
                                 row.push_back(Unquote(Trim(cell)));
                             }
