@@ -12,7 +12,7 @@ std::vector<float> BoreholeParams::GetData(std::string csvIn)
     return inputs;
 }
 
-void BoreholeParams::Read(std::string csvIn)
+void BoreholeParams::Load(std::string csvIn)
 {
     auto inputs = GetData(csvIn);
     UpdateModels(inputs, _inputs);

@@ -21,6 +21,10 @@ public:
         _x = NAN;
         _y = NAN;
     }
+    UnitCircleModel(std::string csvIn)
+    {
+        Load(csvIn);
+    }
 
     ~UnitCircleModel() { }
 
@@ -35,7 +39,7 @@ private:
     std::set<std::string> _outputs{ "Angle","Radians", "X", "Y" };
     std::list<UnitCircleModel> _models;
 
-    void Read(std::string csvIn) override;
+    void Load(std::string csvIn) override;
     void Write(std::string csvOut) override;
     void Compute() override;
     void UpdateModels(std::vector<std::vector<double>>& inputs, std::set<std::string> columnSet) override;
