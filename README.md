@@ -1,4 +1,4 @@
-[![Build CsvParse](https://github.com/TXCodeDancer/Public/actions/workflows/msbuildCsvParse.yml/badge.svg)](https://github.com/TXCodeDancer/Public/actions/workflows/msbuildCsvParse.yml)
+[![CsvParse](https://github.com/TXCodeDancer/Public/actions/workflows/msbuildCsvParse.yml/badge.svg)](https://github.com/TXCodeDancer/Public/actions/workflows/msbuildCsvParse.yml)
 
 # Public
 Tools and sample code that's available to anyone.

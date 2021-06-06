@@ -1,11 +1,11 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "..\CsvParseLibrary\UnitCircleModel.h"
+#include "CsvParseLibrary\UnitCircleModel.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-const string OriginalCvs = "../../TestCases/CSVUnitCircle.csv";
-const string ResultsCvs = "CSVUnitCircleResults.csv";
+const std::string OriginalCvs = "../../TestCases/CSVUnitCircle.csv";
+const std::string ResultsCvs = "CSVUnitCircleResults.csv";
 const double tolerance = 0.00000001;
 
 namespace MSDataValidationTests

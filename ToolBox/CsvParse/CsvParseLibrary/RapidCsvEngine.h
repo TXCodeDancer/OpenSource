@@ -3,13 +3,14 @@
 #include <set>
 #include "ThirdPartyLibraries/rapidcsv.h"
 
-using namespace std;
-
 class RapidCsvEngine
 {
 public:
     RapidCsvEngine() { }
     ~RapidCsvEngine() { }
 
-    vector<vector<double>> Run(string csvIn, set<string> columns);
+    std::vector<std::vector<double>> Run(const std::string csvIn, const std::set<std::string> columns);
+    std::vector<float> GetCells(const std::string csvIn, const std::set<std::string> rows, const std::string column,
+        int colRow = 0, int rowCol = -1, char delimiter = ',', bool ignoreConsecutiveDelimiters = false);
+    ssize_t GetRowIdx(const std::string csvIn, const std::string& pRowName, const char delimiter = ',') const;
 };
