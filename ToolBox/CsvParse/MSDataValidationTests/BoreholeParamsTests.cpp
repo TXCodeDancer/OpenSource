@@ -17,11 +17,10 @@ namespace MSDataValidationTests
 
         TEST_METHOD(LoadParametersTest)
         {
-            auto model = BoreholeParams();
-
             try
             {
-                model.Run(OriginalCvs, ResultsCvs);
+                auto params = BoreholeParams(OriginalCvs);
+                params.Run(OriginalCvs, ResultsCvs);
                 Assert::IsTrue(true);
             }
             catch (std::invalid_argument& e)

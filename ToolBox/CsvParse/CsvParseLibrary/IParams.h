@@ -10,7 +10,7 @@ public:
 
     void Run(std::string csvIn, std::string csvOut)
     {
-        Read(csvIn);
+        //Read(csvIn);
         Write(csvOut);
     };
 

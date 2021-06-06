@@ -17,6 +17,11 @@ public:
         _DFD = NAN;
         _GR_MULTIPLIER = NAN;
     }
+    BoreholeParams(std::string csvIn)
+    {
+        auto data = GetData(csvIn);
+        UpdateModels(data, _inputs);
+    }
     ~BoreholeParams() { }
 
     std::vector<float> GetData(std::string csvIn) override;
