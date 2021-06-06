@@ -34,7 +34,7 @@ private:
     float _GR_MULTIPLIER;
     std::set<std::string> _inputs{ "BHK", "BRTA", "BS[1]", "DFD", "GR_MULTIPLIER" };
 
-    void Read(std::string csvIn) override;
+    void Load(std::string csvIn) override;
     void Write(std::string csvOut) override;
     void UpdateModels(std::vector<float>& inputs, std::set<std::string> rowSet) override;
 };

@@ -3,7 +3,7 @@
 #include "RapidCsvEngine.h"
 #include <iomanip>
 
-void UnitCircleModel::Read(std::string csvIn)
+void UnitCircleModel::Load(std::string csvIn)
 {
     auto rapidCsvEngine = RapidCsvEngine();
     auto inputs = rapidCsvEngine.Run(csvIn, _inputs);
