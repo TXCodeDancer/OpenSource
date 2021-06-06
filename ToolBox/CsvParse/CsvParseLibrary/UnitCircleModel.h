@@ -21,6 +21,10 @@ public:
         _x = NAN;
         _y = NAN;
     }
+    UnitCircleModel(std::string csvIn)
+    {
+        Load(csvIn);
+    }
 
     ~UnitCircleModel() { }
 

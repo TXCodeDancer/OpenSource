@@ -19,8 +19,7 @@ public:
     }
     BoreholeParams(std::string csvIn)
     {
-        auto data = GetData(csvIn);
-        UpdateModels(data, _inputs);
+        Load(csvIn);
     }
     ~BoreholeParams() { }
 
