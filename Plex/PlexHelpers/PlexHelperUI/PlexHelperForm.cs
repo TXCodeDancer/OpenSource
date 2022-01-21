@@ -9,12 +9,17 @@ namespace PlexHelperUI
             InitializeComponent();
         }
 
-        private void BrowseFolderButton_Click(object sender, EventArgs e)
+        private void BrowseSourceFolderButton_Click(object sender, EventArgs e)
         {
             string initialPath = @"V:\";
-            if (defaultBrowserDialog1.InitialDirectory.Any())
+            try
             {
-                initialPath = defaultBrowserDialog1.InitialDirectory;
+                DirectoryInfo d = new(defaultBrowserDialog1.InitialDirectory);
+                initialPath = d.FullName;
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
             FolderBrowserDialog folderBrowserDialog1 = new()
@@ -31,7 +36,7 @@ namespace PlexHelperUI
             {
                 var path = folderBrowserDialog1.SelectedPath;
                 defaultBrowserDialog1.InitialDirectory = path;
-                directoryTextBox.Text = path;
+                SourcePathTextBox.Text = path;
 
                 DirectoryInfo d = new(path);
                 FileInfo[] infos = d.GetFiles();
@@ -48,9 +53,37 @@ namespace PlexHelperUI
             }
         }
 
+        private void DestinationButton_Click(object sender, EventArgs e)
+        {
+            string initialPath = @"V:\";
+            try
+            {
+                DirectoryInfo d = new(defaultBrowserDialog1.InitialDirectory);
+                initialPath = d.FullName;
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            FolderBrowserDialog folderBrowserDialog1 = new()
+            {
+                InitialDirectory = initialPath,
+                Description = "Select Destination Folder",
+                UseDescriptionForTitle = true,
+                ShowNewFolderButton = false,
+            };
+
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var path = folderBrowserDialog1.SelectedPath;
+                DestinationPathTextBox.Text = path;
+            }
+        }
+
         private void RenameButton_Click(object sender, EventArgs e)
         {
-            var path = directoryTextBox.Text;
+            var path = SourcePathTextBox.Text;
 
             if (path == null)
                 return;
