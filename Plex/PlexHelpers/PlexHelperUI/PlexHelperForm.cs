@@ -11,6 +11,8 @@ namespace PlexHelperUI
 
         private void BrowseSourceFolderButton_Click(object sender, EventArgs e)
         {
+            DestinationPathTextBox.Text = "";
+
             string initialPath = @"V:\";
             try
             {
@@ -55,20 +57,9 @@ namespace PlexHelperUI
 
         private void DestinationButton_Click(object sender, EventArgs e)
         {
-            string initialPath = @"V:\";
-            try
-            {
-                DirectoryInfo d = new(defaultBrowserDialog1.InitialDirectory);
-                initialPath = d.FullName;
-            }
-            catch (DirectoryNotFoundException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
             FolderBrowserDialog folderBrowserDialog1 = new()
             {
-                InitialDirectory = initialPath,
+                InitialDirectory = @"V:\",
                 Description = "Select Destination Folder",
                 UseDescriptionForTitle = true,
                 ShowNewFolderButton = false,
@@ -84,6 +75,12 @@ namespace PlexHelperUI
         private void RenameButton_Click(object sender, EventArgs e)
         {
             var path = SourcePathTextBox.Text;
+            var destinationPath = path;
+
+            if (DestinationPathTextBox.Text != "")
+            {
+                destinationPath = DestinationPathTextBox.Text;
+            }
 
             if (path == null)
                 return;
@@ -94,7 +91,7 @@ namespace PlexHelperUI
             foreach (FileInfo f in infos)
             {
                 var newName = NameChange.ConvertSpace(f.Name);
-                var newFullName = f.Directory + "\\" + newName;
+                var newFullName = destinationPath + "\\" + newName;
                 File.Move(f.FullName, newFullName);
                 videoFiles.Add(newName);
             }
