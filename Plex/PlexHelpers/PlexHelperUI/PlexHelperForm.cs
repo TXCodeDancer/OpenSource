@@ -52,14 +52,16 @@ namespace PlexHelperUI
             FileInfo[] infos = d.GetFiles();
             foreach (FileInfo f in infos)
             {
-                videoFiles.Add(f.Name);
+                var newName = NameChange.ConvertSpace(f.Name);
+                var newFullName = f.Directory + "\\" + newName;
+                File.Move(f.FullName, newFullName);
+                videoFiles.Add(newName);
             }
 
             RenamedFileListBox.Items.Clear();
             foreach (var file in videoFiles)
             {
-                var renamed = NameChange.ConvertSpace(file); ;
-                RenamedFileListBox.Items.Add(renamed.ToString());
+                RenamedFileListBox.Items.Add(file.ToString());
             }
         }
     }
