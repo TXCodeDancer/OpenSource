@@ -1,3 +1,4 @@
+using HelperLibrary;
 using System.Collections.Generic;
 using Xunit;
 
@@ -14,7 +15,8 @@ namespace HelperLibraryTest
         [MemberData(nameof(GetNames))]
         public void ConvertSpacesToDots(string input, string expected)
         {
-            Assert.Equal(expected, input);
+            var actual = NameChange.ConvertSpaceToDots(input);
+            Assert.Equal(expected, actual);
         }
     }
 }
