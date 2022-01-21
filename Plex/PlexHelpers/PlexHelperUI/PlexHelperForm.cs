@@ -1,4 +1,6 @@
-﻿namespace PlexHelperUI
+﻿using HelperLibrary;
+
+namespace PlexHelperUI
 {
     public partial class PlexHelperForm : Form
     {
@@ -7,28 +9,57 @@
             InitializeComponent();
         }
 
-        private void BrowseButton_Click(object sender, EventArgs e)
+        private void BrowseFolderButton_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog
             {
                 InitialDirectory = @"V:\",
-                Title = "Browse Video Files",
-
-                CheckFileExists = true,
-                CheckPathExists = true,
-
-                DefaultExt = "mp4",
-                Filter = "video files (*.mp4)|*.mp4",
-                FilterIndex = 1,
-                RestoreDirectory = true,
-
-                ReadOnlyChecked = true,
-                ShowReadOnly = true
+                Description = "Select Video Folder",
+                UseDescriptionForTitle = true,
             };
 
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            List<string> videoFiles = new List<string>();
+
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
-                directoryTextBox.Text = openFileDialog1.FileName;
+                var path = folderBrowserDialog1.SelectedPath;
+                directoryTextBox.Text = path;
+
+                DirectoryInfo d = new DirectoryInfo(path);
+                FileInfo[] infos = d.GetFiles();
+                foreach (FileInfo f in infos)
+                {
+                    videoFiles.Add(f.Name);
+                }
+            }
+
+            OriginalFileListBox.Items.Clear();
+            foreach (var file in videoFiles)
+            {
+                OriginalFileListBox.Items.Add(file.ToString());
+            }
+        }
+
+        private void RenameButton_Click(object sender, EventArgs e)
+        {
+            var path = directoryTextBox.Text;
+
+            if (path == null)
+                return;
+
+            List<string> videoFiles = new List<string>();
+            DirectoryInfo d = new DirectoryInfo(path);
+            FileInfo[] infos = d.GetFiles();
+            foreach (FileInfo f in infos)
+            {
+                videoFiles.Add(f.Name);
+            }
+
+            RenamedFileListBox.Items.Clear();
+            foreach (var file in videoFiles)
+            {
+                var renamed = NameChange.ConvertSpace(file); ;
+                RenamedFileListBox.Items.Add(renamed.ToString());
             }
         }
     }
