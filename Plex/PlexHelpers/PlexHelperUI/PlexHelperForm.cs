@@ -17,7 +17,7 @@ namespace PlexHelperUI
                 initialPath = defaultBrowserDialog1.InitialDirectory;
             }
 
-            FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog
+            FolderBrowserDialog folderBrowserDialog1 = new()
             {
                 InitialDirectory = initialPath,
                 Description = "Select Video Folder",
@@ -25,7 +25,7 @@ namespace PlexHelperUI
                 ShowNewFolderButton = false,
             };
 
-            List<string> videoFiles = new List<string>();
+            List<string> videoFiles = new();
 
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -33,7 +33,7 @@ namespace PlexHelperUI
                 defaultBrowserDialog1.InitialDirectory = path;
                 directoryTextBox.Text = path;
 
-                DirectoryInfo d = new DirectoryInfo(path);
+                DirectoryInfo d = new(path);
                 FileInfo[] infos = d.GetFiles();
                 foreach (FileInfo f in infos)
                 {
@@ -55,8 +55,8 @@ namespace PlexHelperUI
             if (path == null)
                 return;
 
-            List<string> videoFiles = new List<string>();
-            DirectoryInfo d = new DirectoryInfo(path);
+            List<string> videoFiles = new();
+            DirectoryInfo d = new(path);
             FileInfo[] infos = d.GetFiles();
             foreach (FileInfo f in infos)
             {
