@@ -30,7 +30,7 @@
         {
             this.BrowseFolderButton = new System.Windows.Forms.Button();
             this.directoryTextBox = new System.Windows.Forms.TextBox();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.defaultBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.RenameButton = new System.Windows.Forms.Button();
             this.OriginalFileListBox = new System.Windows.Forms.ListBox();
             this.RenamedFileListBox = new System.Windows.Forms.ListBox();
@@ -55,6 +55,13 @@
             this.directoryTextBox.Name = "directoryTextBox";
             this.directoryTextBox.Size = new System.Drawing.Size(615, 23);
             this.directoryTextBox.TabIndex = 1;
+            // 
+            // defaultBrowserDialog1
+            // 
+            this.defaultBrowserDialog1.Description = "Select Video File Folder";
+            this.defaultBrowserDialog1.InitialDirectory = "@\"V:\\\"";
+            this.defaultBrowserDialog1.ShowNewFolderButton = false;
+            this.defaultBrowserDialog1.UseDescriptionForTitle = true;
             // 
             // RenameButton
             // 
@@ -125,7 +132,7 @@
         #endregion
         private Button BrowseFolderButton;
         private TextBox directoryTextBox;
-        private FolderBrowserDialog folderBrowserDialog1;
+        private FolderBrowserDialog defaultBrowserDialog1;
         private Button RenameButton;
         private ListBox OriginalFileListBox;
         private ListBox RenamedFileListBox;

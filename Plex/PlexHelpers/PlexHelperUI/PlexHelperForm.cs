@@ -11,11 +11,18 @@ namespace PlexHelperUI
 
         private void BrowseFolderButton_Click(object sender, EventArgs e)
         {
+            string initialPath = @"V:\";
+            if (defaultBrowserDialog1.InitialDirectory.Any())
+            {
+                initialPath = defaultBrowserDialog1.InitialDirectory;
+            }
+
             FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog
             {
-                InitialDirectory = @"V:\",
+                InitialDirectory = initialPath,
                 Description = "Select Video Folder",
                 UseDescriptionForTitle = true,
+                ShowNewFolderButton = false,
             };
 
             List<string> videoFiles = new List<string>();
@@ -23,6 +30,7 @@ namespace PlexHelperUI
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 var path = folderBrowserDialog1.SelectedPath;
+                defaultBrowserDialog1.InitialDirectory = path;
                 directoryTextBox.Text = path;
 
                 DirectoryInfo d = new DirectoryInfo(path);
