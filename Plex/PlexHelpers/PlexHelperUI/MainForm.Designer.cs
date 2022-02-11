@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.controlPanel = new System.Windows.Forms.Panel();
+            this.controlPanelLabel = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.editChapterButton = new System.Windows.Forms.Button();
             this.renameWithDotsButton = new System.Windows.Forms.Button();
@@ -42,6 +43,7 @@
             // controlPanel
             // 
             this.controlPanel.BackColor = System.Drawing.Color.DimGray;
+            this.controlPanel.Controls.Add(this.controlPanelLabel);
             this.controlPanel.Controls.Add(this.button3);
             this.controlPanel.Controls.Add(this.editChapterButton);
             this.controlPanel.Controls.Add(this.renameWithDotsButton);
@@ -51,6 +53,19 @@
             this.controlPanel.Size = new System.Drawing.Size(200, 450);
             this.controlPanel.TabIndex = 0;
             // 
+            // controlPanelLabel
+            // 
+            this.controlPanelLabel.BackColor = System.Drawing.Color.DimGray;
+            this.controlPanelLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.controlPanelLabel.ForeColor = System.Drawing.Color.White;
+            this.controlPanelLabel.Location = new System.Drawing.Point(-3, 0);
+            this.controlPanelLabel.Name = "controlPanelLabel";
+            this.controlPanelLabel.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.controlPanelLabel.Size = new System.Drawing.Size(200, 40);
+            this.controlPanelLabel.TabIndex = 0;
+            this.controlPanelLabel.Text = "Video File Helpers:";
+            this.controlPanelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.DimGray;
@@ -58,11 +73,12 @@
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(0, 144);
+            this.button3.Location = new System.Drawing.Point(-3, 144);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(200, 40);
             this.button3.TabIndex = 2;
             this.button3.Text = "Unused";
+            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Visible = false;
             // 
@@ -78,6 +94,7 @@
             this.editChapterButton.Size = new System.Drawing.Size(200, 40);
             this.editChapterButton.TabIndex = 1;
             this.editChapterButton.Text = "Edit Chapters";
+            this.editChapterButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.editChapterButton.UseVisualStyleBackColor = false;
             // 
             // renameWithDotsButton
@@ -92,6 +109,7 @@
             this.renameWithDotsButton.Size = new System.Drawing.Size(200, 40);
             this.renameWithDotsButton.TabIndex = 0;
             this.renameWithDotsButton.Text = "Rename With Dots";
+            this.renameWithDotsButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.renameWithDotsButton.UseVisualStyleBackColor = false;
             this.renameWithDotsButton.Click += new System.EventHandler(this.renameWithDotsButton_Click);
             // 
@@ -156,5 +174,6 @@
         private Button button3;
         private Button editChapterButton;
         private Button closeButton;
+        private Label controlPanelLabel;
     }
 }
