@@ -104,6 +104,7 @@
             this.headerPanel.Name = "headerPanel";
             this.headerPanel.Size = new System.Drawing.Size(1000, 30);
             this.headerPanel.TabIndex = 1;
+            this.headerPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.headerPanel_MouseDown);
             // 
             // closeButton
             // 
