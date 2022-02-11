@@ -2,9 +2,9 @@
 
 namespace PlexHelperUI
 {
-    public partial class PlexHelperForm : Form
+    public partial class RenameFilesSpaceToDotsForm : Form
     {
-        public PlexHelperForm()
+        public RenameFilesSpaceToDotsForm()
         {
             InitializeComponent();
         }

@@ -1,6 +1,6 @@
 ﻿namespace PlexHelperUI
 {
-    partial class PlexHelperForm
+    partial class RenameFilesSpaceToDotsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -130,7 +130,7 @@
             this.DestinationPathTextBox.Size = new System.Drawing.Size(615, 23);
             this.DestinationPathTextBox.TabIndex = 8;
             // 
-            // PlexHelperForm
+            // RenameFilesSpaceToDotsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -144,8 +144,8 @@
             this.Controls.Add(this.RenameButton);
             this.Controls.Add(this.SourcePathTextBox);
             this.Controls.Add(this.BrowseSourceFolderButton);
-            this.Name = "PlexHelperForm";
-            this.Text = "Plex Helper";
+            this.Name = "RenameFilesSpaceToDotsForm";
+            this.Text = "Rename Spaces to Dots";
             this.ResumeLayout(false);
             this.PerformLayout();
 
