@@ -48,7 +48,7 @@
             this.controlPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.controlPanel.Location = new System.Drawing.Point(0, 30);
             this.controlPanel.Name = "controlPanel";
-            this.controlPanel.Size = new System.Drawing.Size(200, 420);
+            this.controlPanel.Size = new System.Drawing.Size(200, 450);
             this.controlPanel.TabIndex = 0;
             // 
             // button3
@@ -102,7 +102,7 @@
             this.headerPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.headerPanel.Location = new System.Drawing.Point(0, 0);
             this.headerPanel.Name = "headerPanel";
-            this.headerPanel.Size = new System.Drawing.Size(800, 30);
+            this.headerPanel.Size = new System.Drawing.Size(1000, 30);
             this.headerPanel.TabIndex = 1;
             // 
             // closeButton
@@ -112,7 +112,7 @@
             this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.closeButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.closeButton.ForeColor = System.Drawing.Color.White;
-            this.closeButton.Location = new System.Drawing.Point(770, 0);
+            this.closeButton.Location = new System.Drawing.Point(970, 0);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(30, 30);
             this.closeButton.TabIndex = 3;
@@ -125,7 +125,7 @@
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(200, 30);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(600, 420);
+            this.mainPanel.Size = new System.Drawing.Size(800, 450);
             this.mainPanel.TabIndex = 2;
             // 
             // MainForm
@@ -133,7 +133,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1000, 480);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.controlPanel);
             this.Controls.Add(this.headerPanel);

@@ -144,6 +144,7 @@
             this.Controls.Add(this.RenameButton);
             this.Controls.Add(this.SourcePathTextBox);
             this.Controls.Add(this.BrowseSourceFolderButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "RenameFilesSpaceToDotsForm";
             this.Text = "Rename Spaces to Dots";
             this.ResumeLayout(false);
