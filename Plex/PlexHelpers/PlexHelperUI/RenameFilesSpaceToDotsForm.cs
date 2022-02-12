@@ -4,6 +4,9 @@ namespace PlexHelperUI
 {
     public partial class RenameFilesSpaceToDotsForm : Form
     {
+        private static string? CurrentSourcePath = @"V:\";
+        private static string? CurrentDestinationPath = @"V:\";
+
         public RenameFilesSpaceToDotsForm()
         {
             InitializeComponent();
@@ -11,22 +14,9 @@ namespace PlexHelperUI
 
         private void BrowseSourceFolderButton_Click(object sender, EventArgs e)
         {
-            DestinationPathTextBox.Text = "";
-
-            string initialPath = @"V:\";
-            try
+            FolderBrowserDialog folderBrowserDialog = new()
             {
-                DirectoryInfo d = new(defaultBrowserDialog1.InitialDirectory);
-                initialPath = d.FullName;
-            }
-            catch (DirectoryNotFoundException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            FolderBrowserDialog folderBrowserDialog1 = new()
-            {
-                InitialDirectory = initialPath,
+                InitialDirectory = CurrentSourcePath,
                 Description = "Select Video Folder",
                 UseDescriptionForTitle = true,
                 ShowNewFolderButton = false,
@@ -34,10 +24,10 @@ namespace PlexHelperUI
 
             List<string> videoFiles = new();
 
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                var path = folderBrowserDialog1.SelectedPath;
-                defaultBrowserDialog1.InitialDirectory = path;
+                var path = folderBrowserDialog.SelectedPath;
+                CurrentSourcePath = path;
                 SourcePathTextBox.Text = path;
 
                 DirectoryInfo d = new(path);
@@ -59,15 +49,16 @@ namespace PlexHelperUI
         {
             FolderBrowserDialog folderBrowserDialog1 = new()
             {
-                InitialDirectory = @"V:\",
+                InitialDirectory = CurrentDestinationPath,
                 Description = "Select Destination Folder",
                 UseDescriptionForTitle = true,
-                ShowNewFolderButton = false,
+                ShowNewFolderButton = true,
             };
 
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 var path = folderBrowserDialog1.SelectedPath;
+                CurrentDestinationPath = path;
                 DestinationPathTextBox.Text = path;
             }
         }
