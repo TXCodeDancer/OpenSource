@@ -4,7 +4,7 @@ namespace HelperLibrary;
 
 public class CommandRunner
 {
-    public string RunExternalExe(string filename, string? arguments = null)
+    public string RunCommand(string filename, string? arguments = null)
     {
         var process = new System.Diagnostics.Process();
 
