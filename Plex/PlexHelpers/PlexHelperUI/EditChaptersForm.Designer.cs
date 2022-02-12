@@ -29,34 +29,54 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.saveButton = new System.Windows.Forms.Button();
+            this.SaveButton = new System.Windows.Forms.Button();
+            this.DestinationButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.selectButton = new System.Windows.Forms.Button();
-            this.videoFileTextBox = new System.Windows.Forms.TextBox();
+            this.SourceButton = new System.Windows.Forms.Button();
+            this.sourceFileTextBox = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.DestinationPathTextBox = new System.Windows.Forms.TextBox();
+            this.newNameTextBox = new System.Windows.Forms.TextBox();
+            this.sourceFileLabel = new System.Windows.Forms.Label();
+            this.destinationFolderLabel = new System.Windows.Forms.Label();
+            this.newFilenameLabel = new System.Windows.Forms.Label();
+            this.chapterDataTextBox = new System.Windows.Forms.TextBox();
+            this.chapterDataLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.saveButton);
+            this.panel1.Controls.Add(this.SaveButton);
+            this.panel1.Controls.Add(this.DestinationButton);
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.selectButton);
+            this.panel1.Controls.Add(this.SourceButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(640, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(160, 450);
             this.panel1.TabIndex = 0;
             // 
-            // saveButton
+            // SaveButton
             // 
-            this.saveButton.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.saveButton.Location = new System.Drawing.Point(3, 78);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(141, 51);
-            this.saveButton.TabIndex = 2;
-            this.saveButton.Text = "Save";
-            this.saveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.SaveButton.Location = new System.Drawing.Point(3, 135);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(141, 51);
+            this.SaveButton.TabIndex = 3;
+            this.SaveButton.Text = "Save";
+            this.SaveButton.UseVisualStyleBackColor = true;
+            // 
+            // DestinationButton
+            // 
+            this.DestinationButton.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.DestinationButton.Location = new System.Drawing.Point(3, 78);
+            this.DestinationButton.Name = "DestinationButton";
+            this.DestinationButton.Size = new System.Drawing.Size(141, 51);
+            this.DestinationButton.TabIndex = 2;
+            this.DestinationButton.Text = "Destination";
+            this.DestinationButton.UseVisualStyleBackColor = true;
+            this.DestinationButton.Click += new System.EventHandler(this.destinationButton_Click);
             // 
             // button1
             // 
@@ -68,23 +88,23 @@
             this.button1.Text = "Source";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // selectButton
+            // SourceButton
             // 
-            this.selectButton.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.selectButton.Location = new System.Drawing.Point(3, 12);
-            this.selectButton.Name = "selectButton";
-            this.selectButton.Size = new System.Drawing.Size(141, 51);
-            this.selectButton.TabIndex = 1;
-            this.selectButton.Text = "Select";
-            this.selectButton.UseVisualStyleBackColor = true;
-            this.selectButton.Click += new System.EventHandler(this.selectButton_Click);
+            this.SourceButton.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.SourceButton.Location = new System.Drawing.Point(3, 12);
+            this.SourceButton.Name = "SourceButton";
+            this.SourceButton.Size = new System.Drawing.Size(141, 51);
+            this.SourceButton.TabIndex = 1;
+            this.SourceButton.Text = "Source";
+            this.SourceButton.UseVisualStyleBackColor = true;
+            this.SourceButton.Click += new System.EventHandler(this.selectButton_Click);
             // 
-            // videoFileTextBox
+            // sourceFileTextBox
             // 
-            this.videoFileTextBox.Location = new System.Drawing.Point(12, 30);
-            this.videoFileTextBox.Name = "videoFileTextBox";
-            this.videoFileTextBox.Size = new System.Drawing.Size(622, 23);
-            this.videoFileTextBox.TabIndex = 1;
+            this.sourceFileTextBox.Location = new System.Drawing.Point(12, 40);
+            this.sourceFileTextBox.Name = "sourceFileTextBox";
+            this.sourceFileTextBox.Size = new System.Drawing.Size(622, 23);
+            this.sourceFileTextBox.TabIndex = 1;
             // 
             // openFileDialog1
             // 
@@ -95,12 +115,85 @@
             this.openFileDialog1.InitialDirectory = "V:\\";
             this.openFileDialog1.Title = "Select Video File";
             // 
+            // DestinationPathTextBox
+            // 
+            this.DestinationPathTextBox.Location = new System.Drawing.Point(12, 106);
+            this.DestinationPathTextBox.Name = "DestinationPathTextBox";
+            this.DestinationPathTextBox.Size = new System.Drawing.Size(318, 23);
+            this.DestinationPathTextBox.TabIndex = 2;
+            // 
+            // newNameTextBox
+            // 
+            this.newNameTextBox.Location = new System.Drawing.Point(336, 106);
+            this.newNameTextBox.Name = "newNameTextBox";
+            this.newNameTextBox.Size = new System.Drawing.Size(298, 23);
+            this.newNameTextBox.TabIndex = 3;
+            // 
+            // sourceFileLabel
+            // 
+            this.sourceFileLabel.AutoSize = true;
+            this.sourceFileLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.sourceFileLabel.Location = new System.Drawing.Point(12, 12);
+            this.sourceFileLabel.Name = "sourceFileLabel";
+            this.sourceFileLabel.Size = new System.Drawing.Size(131, 27);
+            this.sourceFileLabel.TabIndex = 4;
+            this.sourceFileLabel.Text = "Source Video File";
+            this.sourceFileLabel.UseCompatibleTextRendering = true;
+            // 
+            // destinationFolderLabel
+            // 
+            this.destinationFolderLabel.AutoSize = true;
+            this.destinationFolderLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.destinationFolderLabel.Location = new System.Drawing.Point(12, 78);
+            this.destinationFolderLabel.Name = "destinationFolderLabel";
+            this.destinationFolderLabel.Size = new System.Drawing.Size(139, 27);
+            this.destinationFolderLabel.TabIndex = 5;
+            this.destinationFolderLabel.Text = "Destination Folder";
+            this.destinationFolderLabel.UseCompatibleTextRendering = true;
+            // 
+            // newFilenameLabel
+            // 
+            this.newFilenameLabel.AutoSize = true;
+            this.newFilenameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.newFilenameLabel.Location = new System.Drawing.Point(336, 78);
+            this.newFilenameLabel.Name = "newFilenameLabel";
+            this.newFilenameLabel.Size = new System.Drawing.Size(116, 27);
+            this.newFilenameLabel.TabIndex = 6;
+            this.newFilenameLabel.Text = "New File Name";
+            this.newFilenameLabel.UseCompatibleTextRendering = true;
+            // 
+            // chapterDataTextBox
+            // 
+            this.chapterDataTextBox.Location = new System.Drawing.Point(12, 163);
+            this.chapterDataTextBox.Multiline = true;
+            this.chapterDataTextBox.Name = "chapterDataTextBox";
+            this.chapterDataTextBox.Size = new System.Drawing.Size(622, 275);
+            this.chapterDataTextBox.TabIndex = 7;
+            // 
+            // chapterDataLabel
+            // 
+            this.chapterDataLabel.AutoSize = true;
+            this.chapterDataLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.chapterDataLabel.Location = new System.Drawing.Point(12, 135);
+            this.chapterDataLabel.Name = "chapterDataLabel";
+            this.chapterDataLabel.Size = new System.Drawing.Size(293, 27);
+            this.chapterDataLabel.TabIndex = 8;
+            this.chapterDataLabel.Text = "Chapter Data (hh:mm:ss.mmm Chapter)";
+            this.chapterDataLabel.UseCompatibleTextRendering = true;
+            // 
             // EditChaptersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.videoFileTextBox);
+            this.Controls.Add(this.chapterDataLabel);
+            this.Controls.Add(this.chapterDataTextBox);
+            this.Controls.Add(this.newFilenameLabel);
+            this.Controls.Add(this.destinationFolderLabel);
+            this.Controls.Add(this.sourceFileLabel);
+            this.Controls.Add(this.newNameTextBox);
+            this.Controls.Add(this.DestinationPathTextBox);
+            this.Controls.Add(this.sourceFileTextBox);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "EditChaptersForm";
@@ -114,10 +207,18 @@
         #endregion
 
         private Panel panel1;
-        private Button saveButton;
+        private Button DestinationButton;
         private Button button1;
-        private Button selectButton;
-        private TextBox videoFileTextBox;
+        private Button SourceButton;
+        private TextBox sourceFileTextBox;
         private OpenFileDialog openFileDialog1;
+        private Button SaveButton;
+        private TextBox DestinationPathTextBox;
+        private TextBox newNameTextBox;
+        private Label sourceFileLabel;
+        private Label destinationFolderLabel;
+        private Label newFilenameLabel;
+        private TextBox chapterDataTextBox;
+        private Label chapterDataLabel;
     }
 }

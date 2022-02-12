@@ -28,7 +28,24 @@
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                videoFileTextBox.Text = openFileDialog1.FileName;
+                sourceFileTextBox.Text = openFileDialog1.FileName;
+            }
+        }
+
+        private void destinationButton_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowserDialog1 = new()
+            {
+                InitialDirectory = @"V:\",
+                Description = "Select Destination Folder",
+                UseDescriptionForTitle = true,
+                ShowNewFolderButton = false,
+            };
+
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var path = folderBrowserDialog1.SelectedPath;
+                DestinationPathTextBox.Text = path;
             }
         }
     }
