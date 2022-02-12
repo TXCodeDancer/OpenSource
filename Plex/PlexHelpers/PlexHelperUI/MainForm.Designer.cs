@@ -96,6 +96,7 @@
             this.editChapterButton.Text = "Edit Chapters";
             this.editChapterButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.editChapterButton.UseVisualStyleBackColor = false;
+            this.editChapterButton.Click += new System.EventHandler(this.editChapterButton_Click);
             // 
             // renameWithDotsButton
             // 

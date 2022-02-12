@@ -85,16 +85,7 @@ namespace PlexHelperUI
             if (path == null)
                 return;
 
-            List<string> videoFiles = new();
-            DirectoryInfo d = new(path);
-            FileInfo[] infos = d.GetFiles();
-            foreach (FileInfo f in infos)
-            {
-                var newName = NameChange.ConvertSpace(f.Name);
-                var newFullName = destinationPath + "\\" + newName;
-                File.Move(f.FullName, newFullName);
-                videoFiles.Add(newName);
-            }
+            List<string> videoFiles = NameChange.RenameFilesSpacesToDots(path, destinationPath);
 
             RenamedFileListBox.Items.Clear();
             foreach (var file in videoFiles)
