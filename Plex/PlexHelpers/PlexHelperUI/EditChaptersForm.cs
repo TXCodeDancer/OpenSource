@@ -106,6 +106,9 @@ public partial class EditChaptersForm : Form
         try
         {
             FileIO.Move(sourcePath, destinationPath);
+            sourceFileTextBox.Text = String.Empty;
+            newNameTextBox.Text = String.Empty;
+            chapterDataTextBox.Text = String.Empty;
         }
         catch (IOException ex)
         {
