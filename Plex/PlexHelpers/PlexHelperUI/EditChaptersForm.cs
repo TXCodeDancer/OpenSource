@@ -4,6 +4,9 @@ namespace PlexHelperUI;
 
 public partial class EditChaptersForm : Form
 {
+    private static readonly string InitialDestinationPath = @"V:\";
+    private static string? CurrentDestinationPath = InitialDestinationPath;
+
     public EditChaptersForm()
     {
         InitializeComponent();
@@ -12,7 +15,6 @@ public partial class EditChaptersForm : Form
     private void sourceButton_Click(object sender, EventArgs e)
     {
         chapterDataTextBox.Text = "00:00:00.000 Title";
-        destinationFolderTextBox.Text = "";
         newNameTextBox.Text = "";
 
         OpenFileDialog openFileDialog1 = new OpenFileDialog
@@ -39,7 +41,12 @@ public partial class EditChaptersForm : Form
 
             var folder = Path.GetDirectoryName(filepath);
             var filename = Path.GetFileName(filepath);
-            destinationFolderTextBox.Text = folder;
+
+            if (CurrentDestinationPath == InitialDestinationPath)
+            {
+                CurrentDestinationPath = folder;
+                destinationFolderTextBox.Text = folder;
+            }
             newNameTextBox.Text = filename;
 
             var chapterData = DraxHelpers.GetChapterData(filepath);
@@ -50,17 +57,18 @@ public partial class EditChaptersForm : Form
 
     private void destinationButton_Click(object sender, EventArgs e)
     {
-        FolderBrowserDialog folderBrowserDialog1 = new()
+        FolderBrowserDialog folderBrowserDialog = new()
         {
-            InitialDirectory = @"V:\",
+            InitialDirectory = CurrentDestinationPath,
             Description = "Select Destination Folder",
             UseDescriptionForTitle = true,
             ShowNewFolderButton = false,
         };
 
-        if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+        if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
         {
-            var path = folderBrowserDialog1.SelectedPath;
+            var path = folderBrowserDialog.SelectedPath;
+            CurrentDestinationPath = path;
             destinationFolderTextBox.Text = path;
         }
     }

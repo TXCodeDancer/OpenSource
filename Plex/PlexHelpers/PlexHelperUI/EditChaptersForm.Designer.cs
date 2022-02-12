@@ -116,10 +116,10 @@
             this.openFileDialog1.InitialDirectory = "V:\\";
             this.openFileDialog1.Title = "Select Video File";
             // 
-            // DestinationPathTextBox
+            // destinationFolderTextBox
             // 
             this.destinationFolderTextBox.Location = new System.Drawing.Point(12, 106);
-            this.destinationFolderTextBox.Name = "DestinationPathTextBox";
+            this.destinationFolderTextBox.Name = "destinationFolderTextBox";
             this.destinationFolderTextBox.Size = new System.Drawing.Size(318, 23);
             this.destinationFolderTextBox.TabIndex = 2;
             // 
