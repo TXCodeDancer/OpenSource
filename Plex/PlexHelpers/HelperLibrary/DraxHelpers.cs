@@ -8,7 +8,7 @@
             string chapterFile = $"{directory}\\tempChapters.txt";
 
             string command = "drax.exe";
-            string arguments = $"export:\"{chapterFile}\" /file:\"{filepath}\"";
+            string arguments = $"/export:\"{chapterFile}\" /file:\"{filepath}\"";
 
             var exitCode = CommandRunner.RunCommand(command, arguments);
 

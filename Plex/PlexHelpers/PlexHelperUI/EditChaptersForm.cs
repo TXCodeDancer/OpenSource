@@ -11,6 +11,8 @@ namespace PlexHelperUI
 
         private void selectButton_Click(object sender, EventArgs e)
         {
+            chapterDataTextBox.Text = "";
+
             OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
                 InitialDirectory = @"V:\",
