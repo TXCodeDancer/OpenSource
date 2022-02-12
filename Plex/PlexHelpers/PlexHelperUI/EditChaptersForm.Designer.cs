@@ -35,7 +35,7 @@
             this.SourceButton = new System.Windows.Forms.Button();
             this.sourceFileTextBox = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.DestinationPathTextBox = new System.Windows.Forms.TextBox();
+            this.destinationFolderTextBox = new System.Windows.Forms.TextBox();
             this.newNameTextBox = new System.Windows.Forms.TextBox();
             this.sourceFileLabel = new System.Windows.Forms.Label();
             this.destinationFolderLabel = new System.Windows.Forms.Label();
@@ -60,12 +60,13 @@
             // SaveButton
             // 
             this.SaveButton.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.SaveButton.Location = new System.Drawing.Point(3, 135);
+            this.SaveButton.Location = new System.Drawing.Point(3, 145);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(141, 51);
             this.SaveButton.TabIndex = 3;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // DestinationButton
             // 
@@ -97,7 +98,7 @@
             this.SourceButton.TabIndex = 1;
             this.SourceButton.Text = "Source";
             this.SourceButton.UseVisualStyleBackColor = true;
-            this.SourceButton.Click += new System.EventHandler(this.selectButton_Click);
+            this.SourceButton.Click += new System.EventHandler(this.sourceButton_Click);
             // 
             // sourceFileTextBox
             // 
@@ -117,10 +118,10 @@
             // 
             // DestinationPathTextBox
             // 
-            this.DestinationPathTextBox.Location = new System.Drawing.Point(12, 106);
-            this.DestinationPathTextBox.Name = "DestinationPathTextBox";
-            this.DestinationPathTextBox.Size = new System.Drawing.Size(318, 23);
-            this.DestinationPathTextBox.TabIndex = 2;
+            this.destinationFolderTextBox.Location = new System.Drawing.Point(12, 106);
+            this.destinationFolderTextBox.Name = "DestinationPathTextBox";
+            this.destinationFolderTextBox.Size = new System.Drawing.Size(318, 23);
+            this.destinationFolderTextBox.TabIndex = 2;
             // 
             // newNameTextBox
             // 
@@ -192,7 +193,7 @@
             this.Controls.Add(this.destinationFolderLabel);
             this.Controls.Add(this.sourceFileLabel);
             this.Controls.Add(this.newNameTextBox);
-            this.Controls.Add(this.DestinationPathTextBox);
+            this.Controls.Add(this.destinationFolderTextBox);
             this.Controls.Add(this.sourceFileTextBox);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -213,7 +214,7 @@
         private TextBox sourceFileTextBox;
         private OpenFileDialog openFileDialog1;
         private Button SaveButton;
-        private TextBox DestinationPathTextBox;
+        private TextBox destinationFolderTextBox;
         private TextBox newNameTextBox;
         private Label sourceFileLabel;
         private Label destinationFolderLabel;
