@@ -94,7 +94,11 @@ public partial class EditChaptersForm : Form
         {
             MessageBox.Show(ex.Message);
         }
+    }
 
+    private void MoveButton_Click(object sender, EventArgs e)
+    {
+        var sourcePath = sourceFileTextBox.Text;
         var folder = destinationFolderTextBox.Text;
         var name = newNameTextBox.Text;
         var destinationPath = folder + "/" + name + "." + VideoFileExtention;

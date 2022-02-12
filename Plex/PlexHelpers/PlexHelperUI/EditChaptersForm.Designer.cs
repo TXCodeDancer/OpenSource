@@ -41,11 +41,13 @@
             this.newFilenameLabel = new System.Windows.Forms.Label();
             this.chapterDataTextBox = new System.Windows.Forms.TextBox();
             this.chapterDataLabel = new System.Windows.Forms.Label();
+            this.MoveButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.MoveButton);
             this.panel1.Controls.Add(this.SaveButton);
             this.panel1.Controls.Add(this.DestinationButton);
             this.panel1.Controls.Add(this.button1);
@@ -172,6 +174,17 @@
             this.chapterDataLabel.Text = "Chapter Data (hh:mm:ss.mmm Chapter)";
             this.chapterDataLabel.UseCompatibleTextRendering = true;
             // 
+            // MoveButton
+            // 
+            this.MoveButton.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.MoveButton.Location = new System.Drawing.Point(3, 217);
+            this.MoveButton.Name = "MoveButton";
+            this.MoveButton.Size = new System.Drawing.Size(141, 51);
+            this.MoveButton.TabIndex = 4;
+            this.MoveButton.Text = "Move";
+            this.MoveButton.UseVisualStyleBackColor = true;
+            this.MoveButton.Click += new System.EventHandler(this.MoveButton_Click);
+            // 
             // EditChaptersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -210,5 +223,6 @@
         private Label newFilenameLabel;
         private TextBox chapterDataTextBox;
         private Label chapterDataLabel;
+        private Button MoveButton;
     }
 }
