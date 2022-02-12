@@ -50,9 +50,16 @@ public partial class EditChaptersForm : Form
             }
             newNameTextBox.Text = filename;
 
-            var chapterData = DraxHelpers.GetChapterData(filepath);
-            if (chapterData.Any())
-                chapterDataTextBox.Text = chapterData;
+            try
+            {
+                var chapterData = DraxHelpers.GetChapterData(filepath);
+                if (chapterData.Any())
+                    chapterDataTextBox.Text = chapterData;
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 
@@ -78,12 +85,27 @@ public partial class EditChaptersForm : Form
     {
         var sourcePath = sourceFileTextBox.Text;
         var chapterData = chapterDataTextBox.Text;
-        DraxHelpers.SetChapterData(sourcePath, chapterData);
+
+        try
+        {
+            DraxHelpers.SetChapterData(sourcePath, chapterData);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
 
         var folder = destinationFolderTextBox.Text;
         var name = newNameTextBox.Text;
         var destinationPath = folder + "/" + name + "." + VideoFileExtention;
 
-        FileIO.Move(sourcePath, destinationPath);
+        try
+        {
+            FileIO.Move(sourcePath, destinationPath);
+        }
+        catch (IOException ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
     }
 }
