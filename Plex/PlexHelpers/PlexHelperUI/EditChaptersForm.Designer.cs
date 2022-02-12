@@ -34,7 +34,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.SourceButton = new System.Windows.Forms.Button();
             this.sourceFileTextBox = new System.Windows.Forms.TextBox();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.destinationFolderTextBox = new System.Windows.Forms.TextBox();
             this.newNameTextBox = new System.Windows.Forms.TextBox();
             this.sourceFileLabel = new System.Windows.Forms.Label();
@@ -106,15 +105,6 @@
             this.sourceFileTextBox.Name = "sourceFileTextBox";
             this.sourceFileTextBox.Size = new System.Drawing.Size(622, 23);
             this.sourceFileTextBox.TabIndex = 1;
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.DefaultExt = "mp4";
-            this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.Filter = "video files (*.mp4)|*.mp4|All files (*.*)|*.*";
-            this.openFileDialog1.FilterIndex = 2;
-            this.openFileDialog1.InitialDirectory = "V:\\";
-            this.openFileDialog1.Title = "Select Video File";
             // 
             // destinationFolderTextBox
             // 
@@ -212,7 +202,6 @@
         private Button button1;
         private Button SourceButton;
         private TextBox sourceFileTextBox;
-        private OpenFileDialog openFileDialog1;
         private Button SaveButton;
         private TextBox destinationFolderTextBox;
         private TextBox newNameTextBox;

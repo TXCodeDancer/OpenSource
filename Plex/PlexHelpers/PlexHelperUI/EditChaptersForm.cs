@@ -17,7 +17,7 @@ public partial class EditChaptersForm : Form
         chapterDataTextBox.Text = "00:00:00.000 Title";
         newNameTextBox.Text = "";
 
-        OpenFileDialog openFileDialog1 = new OpenFileDialog
+        OpenFileDialog openFileDialog1 = new()
         {
             InitialDirectory = @"V:\",
             Title = "Browse Video Files",
