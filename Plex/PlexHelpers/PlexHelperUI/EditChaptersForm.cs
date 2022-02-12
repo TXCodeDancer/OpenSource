@@ -6,13 +6,14 @@ public partial class EditChaptersForm : Form
 {
     private static readonly string InitialDestinationPath = @"V:\";
     private static string? CurrentDestinationPath = InitialDestinationPath;
+    private static readonly string VideoFileExtention = "mp4";
 
     public EditChaptersForm()
     {
         InitializeComponent();
     }
 
-    private void sourceButton_Click(object sender, EventArgs e)
+    private void SourceButton_Click(object sender, EventArgs e)
     {
         chapterDataTextBox.Text = "00:00:00.000 Title";
         newNameTextBox.Text = "";
@@ -40,7 +41,7 @@ public partial class EditChaptersForm : Form
             sourceFileTextBox.Text = filepath;
 
             var folder = Path.GetDirectoryName(filepath);
-            var filename = Path.GetFileName(filepath);
+            var filename = Path.GetFileNameWithoutExtension(filepath);
 
             if (CurrentDestinationPath == InitialDestinationPath)
             {
@@ -55,7 +56,7 @@ public partial class EditChaptersForm : Form
         }
     }
 
-    private void destinationButton_Click(object sender, EventArgs e)
+    private void DestinationButton_Click(object sender, EventArgs e)
     {
         FolderBrowserDialog folderBrowserDialog = new()
         {
@@ -81,7 +82,7 @@ public partial class EditChaptersForm : Form
 
         var folder = destinationFolderTextBox.Text;
         var name = newNameTextBox.Text;
-        var destinationPath = folder + "/" + name;
+        var destinationPath = folder + "/" + name + "." + VideoFileExtention;
 
         FileIO.Move(sourcePath, destinationPath);
     }

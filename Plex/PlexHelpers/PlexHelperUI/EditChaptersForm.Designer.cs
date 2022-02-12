@@ -76,7 +76,7 @@
             this.DestinationButton.TabIndex = 2;
             this.DestinationButton.Text = "Destination";
             this.DestinationButton.UseVisualStyleBackColor = true;
-            this.DestinationButton.Click += new System.EventHandler(this.destinationButton_Click);
+            this.DestinationButton.Click += new System.EventHandler(this.DestinationButton_Click);
             // 
             // button1
             // 
@@ -97,7 +97,7 @@
             this.SourceButton.TabIndex = 1;
             this.SourceButton.Text = "Source";
             this.SourceButton.UseVisualStyleBackColor = true;
-            this.SourceButton.Click += new System.EventHandler(this.sourceButton_Click);
+            this.SourceButton.Click += new System.EventHandler(this.SourceButton_Click);
             // 
             // sourceFileTextBox
             // 
