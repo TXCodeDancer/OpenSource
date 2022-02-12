@@ -1,4 +1,6 @@
-﻿namespace PlexHelperUI
+﻿using HelperLibrary;
+
+namespace PlexHelperUI
 {
     public partial class EditChaptersForm : Form
     {
@@ -28,7 +30,10 @@
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                sourceFileTextBox.Text = openFileDialog1.FileName;
+                var filename = openFileDialog1.FileName;
+                sourceFileTextBox.Text = filename;
+                var chapterData = DraxHelpers.GetChapterData(filename);
+                chapterDataTextBox.Text = chapterData;
             }
         }
 

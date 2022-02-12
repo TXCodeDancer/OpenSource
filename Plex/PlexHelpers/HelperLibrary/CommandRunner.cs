@@ -4,7 +4,7 @@ namespace HelperLibrary;
 
 public class CommandRunner
 {
-    public string RunCommand(string filename, string? arguments = null)
+    public static string RunCommand(string filename, string? arguments = null)
     {
         var process = new System.Diagnostics.Process();
 
@@ -59,7 +59,7 @@ public class CommandRunner
         }
     }
 
-    private string Format(string filename, string? arguments)
+    private static string Format(string filename, string? arguments)
     {
         return "'" + filename +
             ((string.IsNullOrEmpty(arguments)) ? string.Empty : " " + arguments) +
