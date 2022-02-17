@@ -8,10 +8,12 @@ public partial class EditChaptersForm : Form
     private static string? CurrentDestinationPath = InitialDestinationPath;
     private static readonly string VideoFileExtention = "mp4";
     private static readonly Queue<Task> SetChapterDataTasks = new Queue<Task>();
+    private static bool SourceAvailable = false;
 
     public EditChaptersForm()
     {
         InitializeComponent();
+        SourceAvailable = false;
         var timer = new System.Windows.Forms.Timer
         {
             Interval = 200,
@@ -32,7 +34,10 @@ public partial class EditChaptersForm : Form
             }
         }
         else
-            SaveButton.Enabled = true;
+        {
+            if (SourceAvailable)
+                SaveButton.Enabled = true;
+        }
     }
 
     private async void SourceButton_Click(object sender, EventArgs e)
@@ -74,12 +79,14 @@ public partial class EditChaptersForm : Form
 
             try
             {
-                SourceButton.Enabled = false;
+                SourceAvailable = false;
+                DisableButtons();
                 var chapterDataTask = DraxHelpers.GetChapterData(filepath);
                 var chapterData = await chapterDataTask;
                 if (chapterData != null)
                     chapterDataTextBox.Text = chapterData;
-                SourceButton.Enabled = true;
+                EnableButtons();
+                SourceAvailable = true;
             }
             catch (System.Exception ex)
             {
@@ -141,5 +148,21 @@ public partial class EditChaptersForm : Form
         {
             MessageBox.Show(ex.Message);
         }
+    }
+
+    private void DisableButtons()
+    {
+        SourceButton.Enabled = false;
+        DestinationButton.Enabled = false;
+        SaveButton.Enabled = false;
+        MoveButton.Enabled = false;
+    }
+
+    private void EnableButtons()
+    {
+        SourceButton.Enabled = true;
+        DestinationButton.Enabled = true;
+        SaveButton.Enabled = true;
+        MoveButton.Enabled = true;
     }
 }
