@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.MoveButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.DestinationButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -41,7 +43,7 @@
             this.newFilenameLabel = new System.Windows.Forms.Label();
             this.chapterDataTextBox = new System.Windows.Forms.TextBox();
             this.chapterDataLabel = new System.Windows.Forms.Label();
-            this.MoveButton = new System.Windows.Forms.Button();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,6 +59,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(160, 450);
             this.panel1.TabIndex = 0;
+            // 
+            // MoveButton
+            // 
+            this.MoveButton.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.MoveButton.Location = new System.Drawing.Point(3, 217);
+            this.MoveButton.Name = "MoveButton";
+            this.MoveButton.Size = new System.Drawing.Size(141, 51);
+            this.MoveButton.TabIndex = 4;
+            this.MoveButton.Text = "Move";
+            this.MoveButton.UseVisualStyleBackColor = true;
+            this.MoveButton.Click += new System.EventHandler(this.MoveButton_Click);
             // 
             // SaveButton
             // 
@@ -174,17 +187,6 @@
             this.chapterDataLabel.Text = "Chapter Data (hh:mm:ss.mmm Chapter)";
             this.chapterDataLabel.UseCompatibleTextRendering = true;
             // 
-            // MoveButton
-            // 
-            this.MoveButton.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.MoveButton.Location = new System.Drawing.Point(3, 217);
-            this.MoveButton.Name = "MoveButton";
-            this.MoveButton.Size = new System.Drawing.Size(141, 51);
-            this.MoveButton.TabIndex = 4;
-            this.MoveButton.Text = "Move";
-            this.MoveButton.UseVisualStyleBackColor = true;
-            this.MoveButton.Click += new System.EventHandler(this.MoveButton_Click);
-            // 
             // EditChaptersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -224,5 +226,6 @@
         private TextBox chapterDataTextBox;
         private Label chapterDataLabel;
         private Button MoveButton;
+        private System.Windows.Forms.Timer timer;
     }
 }

@@ -7,13 +7,20 @@ public partial class EditChaptersForm : Form
     private static readonly string InitialDestinationPath = @"V:\";
     private static string? CurrentDestinationPath = InitialDestinationPath;
     private static readonly string VideoFileExtention = "mp4";
+    private static List<Task> SetChapterDataTasks = new List<Task>();
+    private static int timeLeft = 60;
 
     public EditChaptersForm()
     {
         InitializeComponent();
+        timer.Interval = 1000;
+        timer.Start();
+
+        timeLeft = 60;
+        timer.Tick += Timer_Tick;
     }
 
-    private void SourceButton_Click(object sender, EventArgs e)
+    private async void SourceButton_Click(object sender, EventArgs e)
     {
         chapterDataTextBox.Text = "00:00:00.000 Title";
         newNameTextBox.Text = "";
@@ -52,9 +59,12 @@ public partial class EditChaptersForm : Form
 
             try
             {
-                var chapterData = DraxHelpers.GetChapterData(filepath);
-                if (chapterData.Any())
+                SourceButton.Enabled = false;
+                var chapterDataTask = DraxHelpers.GetChapterData(filepath);
+                var chapterData = await chapterDataTask;
+                if (chapterData != null)
                     chapterDataTextBox.Text = chapterData;
+                SourceButton.Enabled = true;
             }
             catch (System.Exception ex)
             {
@@ -88,8 +98,11 @@ public partial class EditChaptersForm : Form
 
         try
         {
-            var SetChapterDataTask = DraxHelpers.SetChapterData(sourcePath, chapterData);
-            var result = await SetChapterDataTask;
+            //SaveButton.Enabled = false;
+            var task = DraxHelpers.SetChapterData(sourcePath, chapterData);
+            SetChapterDataTasks.Add(task);
+            var result = await task;
+            //SaveButton.Enabled = true;
         }
         catch (Exception ex)
         {
@@ -115,5 +128,20 @@ public partial class EditChaptersForm : Form
         {
             MessageBox.Show(ex.Message);
         }
+    }
+
+    private void Timer_Tick(object sender, EventArgs e)
+    {
+        //timeLeft--;
+
+        //if (timeLeft <= 0)
+        //{
+        //    timer.Stop();
+        //}
+
+        if (SetChapterDataTasks.Any())
+            SaveButton.Enabled = false;
+        else
+            SaveButton.Enabled = true;
     }
 }

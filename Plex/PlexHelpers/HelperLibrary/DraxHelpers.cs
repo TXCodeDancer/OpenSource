@@ -2,7 +2,7 @@
 {
     public class DraxHelpers
     {
-        public static string GetChapterData(string filepath)
+        public static async Task<string?> GetChapterData(string filepath)
         {
             try
             {
@@ -11,7 +11,8 @@
 
                 string command = "drax.exe";
                 string arguments = $"/export:\"{chapterFile}\" /file:\"{filepath}\"";
-                var exitCode = CommandRunner.RunCommandAsync(command, arguments);
+                var commandTask = CommandRunner.RunCommandAsync(command, arguments);
+                var exitCodes = await commandTask;
                 var results = FileIO.ReadText(chapterFile);
                 return results;
             }
