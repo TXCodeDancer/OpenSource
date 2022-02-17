@@ -11,7 +11,7 @@
 
                 string command = "drax.exe";
                 string arguments = $"/export:\"{chapterFile}\" /file:\"{filepath}\"";
-                var exitCode = CommandRunner.RunCommandSync(command, arguments);
+                var exitCode = CommandRunner.RunCommandAsync(command, arguments);
                 var results = FileIO.ReadText(chapterFile);
                 return results;
             }
