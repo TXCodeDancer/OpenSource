@@ -81,14 +81,15 @@ public partial class EditChaptersForm : Form
         }
     }
 
-    private void SaveButton_Click(object sender, EventArgs e)
+    private async void SaveButton_Click(object sender, EventArgs e)
     {
         var sourcePath = sourceFileTextBox.Text;
         var chapterData = chapterDataTextBox.Text;
 
         try
         {
-            DraxHelpers.SetChapterData(sourcePath, chapterData);
+            var SetChapterDataTask = DraxHelpers.SetChapterData(sourcePath, chapterData);
+            var result = await SetChapterDataTask;
         }
         catch (Exception ex)
         {
