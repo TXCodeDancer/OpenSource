@@ -7,17 +7,32 @@ public partial class EditChaptersForm : Form
     private static readonly string InitialDestinationPath = @"V:\";
     private static string? CurrentDestinationPath = InitialDestinationPath;
     private static readonly string VideoFileExtention = "mp4";
-    private static List<Task> SetChapterDataTasks = new List<Task>();
-    private static int timeLeft = 60;
+    private static readonly Queue<Task> SetChapterDataTasks = new Queue<Task>();
 
     public EditChaptersForm()
     {
         InitializeComponent();
-        timer.Interval = 1000;
-        timer.Start();
+        var timer = new System.Windows.Forms.Timer
+        {
+            Interval = 200,
+            Enabled = true,
+        };
+        timer.Tick += new System.EventHandler(OnTimerEvent);
+    }
 
-        timeLeft = 60;
-        timer.Tick += Timer_Tick;
+    private void OnTimerEvent(object? sender, EventArgs e)
+    {
+        if (SetChapterDataTasks.Any())
+        {
+            SaveButton.Enabled = false;
+            var task = SetChapterDataTasks.Peek();
+            if (task.IsCompleted)
+            {
+                SetChapterDataTasks.Dequeue();
+            }
+        }
+        else
+            SaveButton.Enabled = true;
     }
 
     private async void SourceButton_Click(object sender, EventArgs e)
@@ -98,11 +113,9 @@ public partial class EditChaptersForm : Form
 
         try
         {
-            //SaveButton.Enabled = false;
             var task = DraxHelpers.SetChapterData(sourcePath, chapterData);
-            SetChapterDataTasks.Add(task);
+            SetChapterDataTasks.Enqueue(task);
             var result = await task;
-            //SaveButton.Enabled = true;
         }
         catch (Exception ex)
         {
@@ -128,20 +141,5 @@ public partial class EditChaptersForm : Form
         {
             MessageBox.Show(ex.Message);
         }
-    }
-
-    private void Timer_Tick(object sender, EventArgs e)
-    {
-        //timeLeft--;
-
-        //if (timeLeft <= 0)
-        //{
-        //    timer.Stop();
-        //}
-
-        if (SetChapterDataTasks.Any())
-            SaveButton.Enabled = false;
-        else
-            SaveButton.Enabled = true;
     }
 }

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.MoveButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
@@ -43,7 +42,6 @@
             this.newFilenameLabel = new System.Windows.Forms.Label();
             this.chapterDataTextBox = new System.Windows.Forms.TextBox();
             this.chapterDataLabel = new System.Windows.Forms.Label();
-            this.timer = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -226,6 +224,5 @@
         private TextBox chapterDataTextBox;
         private Label chapterDataLabel;
         private Button MoveButton;
-        private System.Windows.Forms.Timer timer;
     }
 }
