@@ -86,7 +86,7 @@ public partial class EditChaptersForm : Form
                 DisableButtons();
                 var chapterDataTask = DraxHelpers.GetChapterData(filepath);
                 var chapterData = await chapterDataTask;
-                if (chapterData != null)
+                if (!string.IsNullOrWhiteSpace(chapterData))
                     chapterDataTextBox.Text = chapterData;
                 EnableButtons();
                 SourceAvailable = true;
