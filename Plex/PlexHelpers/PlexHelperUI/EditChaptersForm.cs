@@ -14,6 +14,9 @@ public partial class EditChaptersForm : Form
     {
         InitializeComponent();
         SourceAvailable = false;
+        DisableButtons();
+        SourceButton.Enabled = true;
+
         var timer = new System.Windows.Forms.Timer
         {
             Interval = 200,

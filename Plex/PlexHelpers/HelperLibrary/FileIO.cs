@@ -2,12 +2,12 @@
 
 public class FileIO
 {
-    public static void WriteText(string[] text, string filepath)
+    public static void WriteText(string filepath, string[] text)
     {
         File.WriteAllLines(filepath, text);
     }
 
-    public static void WriteText(string text, string filepath)
+    public static void WriteText(string filepath, string text)
     {
         File.WriteAllText(filepath, text);
     }

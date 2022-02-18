@@ -8,6 +8,7 @@
             {
                 var directory = Path.GetDirectoryName(filepath);
                 string chapterFile = $"{directory}\\tempChapters.txt";
+                FileIO.WriteText(chapterFile, "");
 
                 string command = "drax.exe";
                 string arguments = $"/export:\"{chapterFile}\" /file:\"{filepath}\"";
@@ -29,7 +30,7 @@
             {
                 var directory = Path.GetDirectoryName(filepath);
                 string chapterFile = $"{directory}\\tempChapters.txt";
-                FileIO.WriteText(chapterData, chapterFile);
+                FileIO.WriteText(chapterFile, chapterData);
 
                 string command = "drax.exe";
                 string arguments = $"/import:\"{chapterFile}\" /file:\"{filepath}\"";
