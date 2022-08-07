@@ -7,7 +7,7 @@ public partial class EditChaptersForm : Form
     private static readonly string InitialDestinationPath = @"V:\";
     private static string? CurrentDestinationPath = InitialDestinationPath;
     private static readonly string VideoFileExtention = "mp4";
-    private static readonly Queue<Task> SetChapterDataTasks = new Queue<Task>();
+    private static readonly Queue<Task> SetChapterDataTasks = new();
     private static bool SourceAvailable = false;
 
     public EditChaptersForm()

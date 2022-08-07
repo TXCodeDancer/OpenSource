@@ -7,14 +7,15 @@
             try
             {
                 var directory = Path.GetDirectoryName(filepath);
-                string chapterFile = $"{directory}\\tempChapters.txt";
-                FileIO.WriteText(chapterFile, "");
+                string chapterFile = Path.GetFileNameWithoutExtension(filepath);
+                string chapterPath = $"{directory}\\{chapterFile}.txt";
+                FileIO.WriteText(chapterPath, "");
 
                 string command = "drax.exe";
-                string arguments = $"/export:\"{chapterFile}\" /file:\"{filepath}\"";
+                string arguments = $"/export:\"{chapterPath}\" /file:\"{filepath}\"";
                 var commandTask = CommandRunner.RunCommandAsync(command, arguments);
                 var exitCodes = await commandTask;
-                var results = FileIO.ReadText(chapterFile);
+                var results = FileIO.ReadText(chapterPath);
                 return results;
             }
             catch (Exception ex)
