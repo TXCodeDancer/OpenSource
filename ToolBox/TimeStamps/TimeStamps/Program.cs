@@ -6,6 +6,7 @@ if (input == null) { throw new ArgumentNullException(input); }
 
 var arguments = input.Trim().Split(' ').Where(x => x != "").ToArray();
 
+var doubles = new List<double>();
 var longs = new List<long>();
 var ints = new List<int>();
 foreach (var argument in arguments)
@@ -14,7 +15,14 @@ foreach (var argument in arguments)
     {
         if (arguments.Length == 1)
         {
-            longs.Add(Convert.ToInt64(argument));
+            try
+            {
+                longs.Add(Convert.ToInt64(argument));
+            }
+            catch (Exception)
+            {
+                doubles.Add(Convert.ToDouble(argument));
+            }
         }
         else
         {
@@ -30,41 +38,53 @@ foreach (var argument in arguments)
 
 try
 {
-	var datetime = new DateTime();
-	switch (arguments.Length)
-	{
-	    case 1:
-	        datetime = new DateTime(longs[0]);
-	        break;
-	
-	    case 3:
-	        datetime = new DateTime(ints[0], ints[1], ints[2]);
-	        break;
-	
-	    case 6:
-	        datetime = new DateTime(ints[0], ints[1], ints[2], ints[3], ints[4], ints[5]);
-	        break;
-	
-	    case 7:
-	        datetime = new DateTime(ints[0], ints[1], ints[2], ints[3], ints[4], ints[5], ints[6]);
-	        break;
-	
-	    case 8:
-	        datetime = new DateTime(ints[0], ints[1], ints[2], ints[3], ints[4], ints[5], ints[6], ints[7]);
-	        break;
-	
-	    default:
-	        Console.WriteLine($"Invalid number of arguments: {arguments.Length}. Requires 1, 3, 6, 7, or 8 arguments.");
-	        Environment.Exit(2);
-	        break;
-	}
-    Console.WriteLine($"{datetime:yyyy.MM.dd HH:mm:ss.fff}");
-    Console.WriteLine($"Ticks: {datetime.Ticks}");
+    var datetime = new DateTime();
+    switch (arguments.Length)
+    {
+        case 1:
+            if (longs.Any())
+            {
+                datetime = new DateTime(longs[0]);
+            }
+            else
+            {
+                datetime = DateTime.FromOADate(doubles[0]);
+            }
+            break;
+
+        case 3:
+            datetime = new DateTime(ints[0], ints[1], ints[2]);
+            break;
+
+        case 6:
+            datetime = new DateTime(ints[0], ints[1], ints[2], ints[3], ints[4], ints[5]);
+            break;
+
+        case 7:
+            datetime = new DateTime(ints[0], ints[1], ints[2], ints[3], ints[4], ints[5], ints[6]);
+            break;
+
+        case 8:
+            datetime = new DateTime(ints[0], ints[1], ints[2], ints[3], ints[4], ints[5], ints[6], ints[7]);
+            break;
+
+        default:
+            Console.WriteLine($"Invalid number of arguments: {arguments.Length}. Requires 1, 3, 6, 7, or 8 arguments.");
+            Environment.Exit(2);
+            break;
+    }
+    Console.WriteLine($"Date Time: {datetime:yyyy.MM.dd HH:mm:ss.fff}");
+    Console.WriteLine($"    Ticks: {datetime.Ticks}");
+    Console.WriteLine($"1900 Time: {datetime.ToOADate()}");
+    Console.WriteLine();
 }
 catch (ArgumentOutOfRangeException e)
 {
     Console.WriteLine(e.Message);
+    Environment.Exit(3);
 }
-
-
-
+catch (ArgumentException e)
+{
+    Console.WriteLine(e.Message);
+    Environment.Exit(4);
+}
