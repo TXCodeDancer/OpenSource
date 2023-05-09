@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TimeStamps": {
+      "commandName": "Project",
+      "commandLineArgs": "This is an input string"
+    }
+  }
+}
