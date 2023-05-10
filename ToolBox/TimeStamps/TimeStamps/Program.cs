@@ -44,7 +44,7 @@ try
         case 1:
             if (longs.Any())
             {
-                datetime = new DateTime(longs[0]);
+                datetime = new DateTime(longs[0], DateTimeKind.Utc);
             }
             else
             {
@@ -73,9 +73,13 @@ try
             Environment.Exit(2);
             break;
     }
-    Console.WriteLine($"Date Time: {datetime:yyyy.MM.dd HH:mm:ss.fff}");
-    Console.WriteLine($"    Ticks: {datetime.Ticks}");
-    Console.WriteLine($"1900 Time: {datetime.ToOADate()}");
+    Console.WriteLine($"Date Time: {datetime.ToLocalTime():yyyy.MM.dd HH:mm:ss.fff}");
+    Console.WriteLine($"    Ticks: {datetime.ToLocalTime().Ticks}");
+    Console.WriteLine($"1900 Time: {datetime.ToLocalTime().ToOADate()}");
+    Console.WriteLine();
+    Console.WriteLine($"Date Time UTC: {datetime.ToUniversalTime():yyyy.MM.dd HH:mm:ss.fff}");
+    Console.WriteLine($"    Ticks UTC: {datetime.ToUniversalTime().Ticks}");
+    Console.WriteLine($"1900 Time UTC: {datetime.ToUniversalTime().ToOADate()}");
     Console.WriteLine();
 }
 catch (ArgumentOutOfRangeException e)
