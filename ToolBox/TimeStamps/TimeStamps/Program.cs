@@ -81,6 +81,10 @@ try
     Console.WriteLine($"    Ticks UTC: {datetime.ToUniversalTime().Ticks}");
     Console.WriteLine($"1900 Time UTC: {datetime.ToUniversalTime().ToOADate()}");
     Console.WriteLine();
+    Console.WriteLine($"Date Time UTC -1: {datetime.ToUniversalTime().AddHours(-1):yyyy.MM.dd HH:mm:ss.fff}");
+    Console.WriteLine($"    Ticks UTC -1: {datetime.ToUniversalTime().AddHours(-1).Ticks}");
+    Console.WriteLine($"1900 Time UTC -1: {datetime.ToUniversalTime().AddHours(-1).ToOADate()}");
+    Console.WriteLine();
 }
 catch (ArgumentOutOfRangeException e)
 {
