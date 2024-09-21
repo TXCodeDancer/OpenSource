@@ -8,6 +8,17 @@ class Program
     
     static void Main(string[] args)
     {
+        bool isWsl = false;
+
+        if (args.Length == 1)
+        {
+            isWsl = IsWsl(args[0]);
+            if (isWsl)
+            {
+                args[0] = string.Empty; // Empty input to ready for user input
+            }
+        }
+
         while (args.Length == 0 || string.IsNullOrEmpty(args[0]))
         {
             Console.WriteLine("Enter the path of the file or directory. Enter <path> <-wsl> to convert to WSL style path:");
@@ -15,18 +26,21 @@ class Program
             if (!string.IsNullOrEmpty(input))
             {
                 args = input.Split();
+                if (args.Length == 2)
+                {
+                    isWsl = IsWsl(args[1]);
+                }
             }
         }
 
         try
         {
             var inputPath = Path.GetFullPath(args[0].Trim('\"'));
-            if(args[0] != ".")
+            if (args[0] != ".")
             {
                 inputPath = inputPath.Replace($"{Path.GetFullPath(".")}/", ""); // This is only needed when running from linux (WSL) as that system add the current directory to the full file path.
             }
 
-            var isWsl = (args.Length > 1) && args[1].Equals(wslFlag);
             var outputPath = isWsl ? ConvertToWslPath(inputPath) : ConvertPath(inputPath);
 
             Console.WriteLine("Original Path: " + inputPath);
@@ -36,6 +50,11 @@ class Program
         {
             throw new ArgumentException(ex.Message);
         }    
+    }
+
+    private static bool IsWsl(string flag)
+    {
+        return flag.Equals(wslFlag);
     }
 
     private static string ConvertPath(string windowsPath)
