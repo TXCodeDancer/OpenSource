@@ -8,25 +8,29 @@ class Program
     
     static void Main(string[] args)
     {
-        var inputPath = args.Length != 0 ? Path.GetFullPath(args[0]) : null;
-
-        while (string.IsNullOrEmpty(inputPath))
+        while (args.Length == 0 || string.IsNullOrEmpty(args[0]))
         {
             Console.WriteLine("Enter the path of the file or directory. Enter <path> <-wsl> to convert to WSL style path:");
-            inputPath = Console.ReadLine();
-            if (string.IsNullOrEmpty(inputPath))
+            var input = Console.ReadLine();
+            if (!string.IsNullOrEmpty(input))
             {
-                Console.WriteLine("Invalid input. Please enter a valid path.");
-                continue;
+                args = input.Split();
             }
-            args = inputPath.Split(' ');
-            inputPath = Path.GetFullPath(args[0]);
         }
-        var isWsl = (args.Length > 1) && args[1].Equals(wslFlag);
 
-        var outputPath = isWsl ? ConvertToWslPath(inputPath) : ConvertPath(inputPath);
-        Console.WriteLine("Original Path: " + inputPath);
-        Console.WriteLine("Converted Path: " + outputPath);
+        try
+        {
+            var inputPath = Path.GetFullPath(args[0]);
+            var isWsl = (args.Length > 1) && args[1].Equals(wslFlag);
+            var outputPath = isWsl ? ConvertToWslPath(inputPath) : ConvertPath(inputPath);
+
+            Console.WriteLine("Original Path: " + inputPath);
+            Console.WriteLine("Converted Path: " + outputPath);
+        }
+        catch (Exception ex)
+        {
+            throw new ArgumentException(ex.Message);
+        }    
     }
 
     private static string ConvertPath(string windowsPath)
