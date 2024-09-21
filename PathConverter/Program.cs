@@ -20,7 +20,12 @@ class Program
 
         try
         {
-            var inputPath = Path.GetFullPath(args[0]);
+            var inputPath = Path.GetFullPath(args[0].Trim('\"'));
+            if(args[0] != ".")
+            {
+                inputPath = inputPath.Replace($"{Path.GetFullPath(".")}/", ""); // This is only needed when running from linux (WSL) as that system add the current directory to the full file path.
+            }
+
             var isWsl = (args.Length > 1) && args[1].Equals(wslFlag);
             var outputPath = isWsl ? ConvertToWslPath(inputPath) : ConvertPath(inputPath);
 
