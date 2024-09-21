@@ -5,13 +5,15 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Enter the path of the file or directory:");
-        string? inputPath = Console.ReadLine();
-
-        if (string.IsNullOrEmpty(inputPath))
+        var inputPath = args.Length != 0 ? args[0] : null;
+        while (string.IsNullOrEmpty(inputPath))
         {
-            Console.WriteLine("Invalid input. Please enter a valid path.");
-            return;
+            Console.WriteLine("Enter the path of the file or directory:");
+            inputPath = Console.ReadLine();
+            if (string.IsNullOrEmpty(inputPath))
+            {
+                Console.WriteLine("Invalid input. Please enter a valid path.");
+            }
         }
 
         string fullPath = Path.GetFullPath(inputPath);
