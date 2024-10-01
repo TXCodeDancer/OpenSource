@@ -21,7 +21,11 @@ class Program
 
         while (args.Length == 0 || string.IsNullOrEmpty(args[0]))
         {
-            Console.WriteLine("Enter the path of the file or directory. Enter <path> <-wsl> to convert to WSL style path:");
+            if(isWsl)
+                Console.WriteLine("Enter the path of the file or directory:");
+            else
+                Console.WriteLine("Enter the path of the file or directory. Use <path> <-wsl> to convert to WSL style path:");
+
             var input = Console.ReadLine();
             if (!string.IsNullOrEmpty(input))
             {
